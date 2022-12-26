@@ -1,15 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface Props{
-  photo?: string;
+interface UserBarProps{
+  photoSrc: string;
+
 }
 
-export const IconPhoto:React.FC <Props> = ( {photo} ) => (
-  <PhotoContanier>
-    <img src= '../../../utils/images/avatar-icon.png' />
-  </PhotoContanier>
-);
+export function IconPhoto ( {photoSrc}: UserBarProps ){ 
+  return(
+    <PhotoContanier>
+      <Photo src={photoSrc} />
+    </PhotoContanier>
+  
+)};
 
 const Photo = styled.img`
   width: 44px;
@@ -22,6 +25,6 @@ const PhotoContanier = styled.div`
   height: 44px;
   overflow: hidden;
   object-fit: cover;
-  margin: auto;
+  margin: 15px;
   border-radius: 50%;
 `;
