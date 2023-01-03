@@ -988,9 +988,9 @@
   "resolved" "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-0.9.3.tgz"
   "version" "0.9.3"
 
-"esbuild-windows-64@0.15.16":
-  "integrity" "sha512-HjW1hHRLSncnM3MBCP7iquatHVJq9l0S2xxsHHj4yzf4nm9TU4Z7k4NkeMlD/dHQ4jPlQQhwcMvwbJiOefSuZw=="
-  "resolved" "https://registry.npmjs.org/esbuild-windows-64/-/esbuild-windows-64-0.15.16.tgz"
+"esbuild-darwin-64@0.15.16":
+  "integrity" "sha512-wo2VWk/n/9V2TmqUZ/KpzRjCEcr00n7yahEdmtzlrfQ3lfMCf3Wa+0sqHAbjk3C6CKkR3WKK/whkMq5Gj4Da9g=="
+  "resolved" "https://registry.npmjs.org/esbuild-darwin-64/-/esbuild-darwin-64-0.15.16.tgz"
   "version" "0.15.16"
 
 "esbuild@^0.15.9":
@@ -1093,6 +1093,11 @@
   "integrity" "sha512-NKfW6bec6GfKc0SGx1e07QZY9PE99u0Bft/0rzSD5k3sO/vwkVUpDUKVm5Gpp5Ue3YfShPFTX2070tDs5kB9Ng=="
   "resolved" "https://registry.npmjs.org/find-root/-/find-root-1.1.0.tgz"
   "version" "1.1.0"
+
+"fsevents@~2.3.2":
+  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  "version" "2.3.2"
 
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
@@ -1360,6 +1365,11 @@
     "loose-envify" "^1.1.0"
     "scheduler" "^0.23.0"
 
+"react-icons@^4.7.1":
+  "integrity" "sha512-yHd3oKGMgm7zxo3EA7H2n7vxSoiGmHk5t6Ou4bXsfcgWyhfDKMpyKfhHR6Bjnn63c+YXBLBPUql9H4wPJM6sXw=="
+  "resolved" "https://registry.npmjs.org/react-icons/-/react-icons-4.7.1.tgz"
+  "version" "4.7.1"
+
 "react-is@^16.13.1":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -1397,7 +1407,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", "react@^18.2.0", "react@>= 16.8.0", "react@>=16.6.0", "react@>=16.8.0":
+"react@*", "react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", "react@^18.2.0", "react@>= 16.8.0", "react@>=16.6.0", "react@>=16.8.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
