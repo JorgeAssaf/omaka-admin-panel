@@ -13,7 +13,7 @@
     "@emotion/styled": "^11.10.5",
     "@font/nunito": "^1.0.3",
     "@mui/icons-material": "^5.11.0",
-    "@mui/material": "^5.10.17",
+    "@mui/material": "^5.11.3",
     "@mui/styled-engine-sc": "^5.10.16",
     "preact": "^10.11.2",
     "react-circular-progressbar": "^2.1.0",
