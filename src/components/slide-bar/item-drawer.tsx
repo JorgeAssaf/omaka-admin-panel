@@ -13,7 +13,7 @@ type Item = {
 
 const GeneralItemDrawer = ({ text, imgIcon, activeIteam, onClick }: Item) =>(
   <DrawerItem onClick={onClick} type={activeIteam}>
-    <SvgIconStyle component={imgIcon} fontSize={'large'} type={activeIteam} htmlColor='#FBF7EF' inheritViewBox />
+    <SvgIconStyle component={imgIcon} fontSize={'xlarge'} type={activeIteam} htmlColor='#FBF7EF' inheritViewBox />
     <ContentText text={!!text}>{text}</ContentText>
   </DrawerItem>
 );
@@ -21,6 +21,7 @@ const GeneralItemDrawer = ({ text, imgIcon, activeIteam, onClick }: Item) =>(
 const SvgIconStyle = styled(SvgIcon)`
   color: ${({type }) => type ? '#FBF7EF' : '#3D3D3D'};
   margin: auto;
+  font-size: 50px;
 
 `;
 

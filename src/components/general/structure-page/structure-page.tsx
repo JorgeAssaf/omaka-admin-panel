@@ -1,4 +1,3 @@
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import React from 'react';
 import styled, {css} from 'styled-components';
 
@@ -10,6 +9,7 @@ type GeneralStructureInterface = {
 }
 
 export const GeneralStructure = ({contentLeft, contentRight, isMobile}: GeneralStructureInterface) =>{
+    return(
 <Content isMobile={isMobile} >
 <ContentSide>
     {contentLeft}
@@ -17,19 +17,21 @@ export const GeneralStructure = ({contentLeft, contentRight, isMobile}: GeneralS
 <ContentSide>
     {contentRight}
 </ContentSide>
-</Content>
+</Content>)
 }
 
-const ContentLeft = styled.div`
+const Content = styled.div`
 display: flex;
+flex-direction: colum;
+width: 100%;
 ${({isMobile}) => isMobile && css `
-    border: 2px solid #3D3D3D;
     flex-direction: row;
+    width: 100%;
   `}
-
-  flex-direction: column;
 `;
 
 const ContentSide = styled.div`
     width: 50;
+    margin: auto;
+    padding:10;
 `;

@@ -5,15 +5,12 @@ import {Place, Person, Receipt, CalendarToday } from '@mui/icons-material';
 import { ProgressRute } from '../../route/progress-rute-circle/component';
 
 type CardProps = {
-  idPedido: string;
-  status: string;
-  primerTexto: string;
-  segundoTexto: string;
-  progressRute?: number;
-  tipo: string;
+  data:any;
 }
 
-export const CardInformacion = ({idPedido, status, primerTexto, segundoTexto, progressRute, tipo}:CardProps) =>{
+export const CardInformacion = ({data}:CardProps) =>{
+
+  const {idPedido, status, primerTexto, segundoTexto, progressRute, tipo} = data;
   
   const [ isSelect, setIsSelect] = useState(true);
 
