@@ -1,5 +1,6 @@
 import { ArrowForward } from '@mui/icons-material';
-import { Box, CircularProgress, SvgIcon } from '@mui/material';
+import { Box, SvgIcon } from '@mui/material';
+import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -10,35 +11,33 @@ type ruteStatusInterface = {
 
 export const ProgressRute = ({ruteStatus, progressRute} : ruteStatusInterface) => {
 
+  const value = 66;
   return(
     <Content>
-      <CircularProgress variant='determinate' value={25} />
-      <Circle>
+      <CircularProgressStyled value={value} >
         <SvgIconStyled component={ArrowForward} />
-      </Circle>
+      </CircularProgressStyled>
     </Content>
   );
 
 }
 
 const Content = styled.div`
-    width: 150px;
-  height: 150px;
+    width: 150;
+  height: 150;
   border-radius: 50%;
 `;
 
-const Circle = styled(Box)`
- top: 0;
-left: 0;
- bottom: 0;
-          right: 0;
-display: flex;
-position: absolute;
-align-items: center;
-justify-content: center;
+const CircularProgressStyled = styled(CircularProgressbarWithChildren)`
+width:112px;
+stroke: red;
+position: center;
 `;
 
 
 const SvgIconStyled = styled(SvgIcon)`
-  margin:auto;
+margin-right: auto;
+margin-left: auto;
+margin-top: auto;
+margin-bottom: auto;
 `;
