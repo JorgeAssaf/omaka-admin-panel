@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { typeButton } from '../types/typesButtons';
-export function Buttons({text, accion, disabled,type,color,textColor,width}:typeButton) {
+export function Buttons({text, action, disabled,type,color,textColor,width}:typeButton) {
   return (
     <div>
       {
