@@ -2,7 +2,7 @@ import { SvgIcon } from '@mui/material';
 import React, { useState } from 'react';
 import styled, {css} from 'styled-components';
 import {Place, Person, Receipt, CalendarToday } from '@mui/icons-material';
-import { ProgressRute } from '../../route/progress-rute-circle/component';
+import {ProgressRute} from '../../route/progress-rute-circle/progress-circle';
 
 type CardProps = {
   data:any;
@@ -19,7 +19,7 @@ export const CardInformacion = ({data}:CardProps) =>{
   }
 
   return(
-  <ContentCard onClick={clickPrueba} isSelect={isSelect === true}>
+  <ContentCard onClick={clickPrueba} isSelect={isSelect === true} tipo={tipo}>
     <div>
     <ContentTittle>
       {idPedido}
@@ -42,7 +42,8 @@ export const CardInformacion = ({data}:CardProps) =>{
 const ContentCard = styled.div`
 display: flex;
 flex-direction: row;
-  background-color: #FBF7EF;
+  background-color: ${({ tipo }) => tipo === 'ruta' ? '#3D3D3D' : '#FBF7EF'};
+  color: ${({ tipo }) => tipo === 'ruta' ? '#FBF7EF' : '#3D3D3D'};
   border-radius: 12px;
   margin-top: 20px;
   text-align: left;
@@ -53,7 +54,6 @@ flex-direction: row;
   &:hover{
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
   }
-
   ${({isSelect}) => isSelect && css `
     border: 2px solid #3D3D3D;
   `}

@@ -3,7 +3,7 @@ import React, { useState} from 'react';
 import styled from 'styled-components';
 import {IconPhoto} from './icon-photo/icon-photo'
 
-const UserBar = () => {
+export const UserBar = () => {
   const [userData, setUserData] = useState({username: 'Indiana Jones'});
 
   return (
@@ -18,8 +18,6 @@ const UserBar = () => {
     </UserBarContent>
   );
 };
-
-export default UserBar;
 
 const UserBarContent = styled.div`
   color: #F2E6CF;

@@ -12,8 +12,8 @@ type Item = {
 }
 
 const GeneralItemDrawer = ({ text, imgIcon, activeIteam, onClick }: Item) =>(
-  <DrawerItem onClick={onClick} type={activeIteam}>
-    <SvgIconStyle component={imgIcon} fontSize={'xlarge'} type={activeIteam} htmlColor='#FBF7EF' inheritViewBox />
+  <DrawerItem onClick={onClick} type={activeIteam} text={text}>
+    <SvgIconStyle component={imgIcon} fontSize={'large'} type={activeIteam} htmlColor='#FBF7EF' inheritViewBox />
     <ContentText text={!!text}>{text}</ContentText>
   </DrawerItem>
 );
@@ -32,6 +32,7 @@ const DrawerItem = styled.div`
     background: #3D3D3D;
     color:#FBF7EF;
     cursor: pointer;
+    border-top-right-radius: ${({ text, type }) => text != 'Pedidos' ? '0' : type ? '24px' : '0px'};
     ${SvgIconStyle}{
       color:#FBF7EF;
     }
@@ -41,9 +42,8 @@ const DrawerItem = styled.div`
   flex-direction: row;
   justify-content: center;
   height:5rem;
-  
-  border-top-right-radius: 24px;
-`;
+  border-top-right-radius: ${({ text, type }) => text != 'Pedidos' ? '0' : type ? '24px' : '0px'};
+  `;
 
 const ContentText = styled.div`
 margin: auto;

@@ -9,13 +9,17 @@ const CONFIGURACION = 'configuracion';
 const RUTAS = 'rutas';
 const CONDUCTORES = 'conductores'
 
-const SlideBar = () => {
+type SlideBarInterface = {
+  changeContent: any;
+}
+
+export const SlideBar = ({changeContent} : SlideBarInterface) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [stateStyle, setStateStyle] = useState(PEDIDOS);
 
   const onClickItem = (e) => {
     setStateStyle(e);
-   // changeContent(e);
+    changeContent(e);
   };
   if (isDrawerOpen) {
     return (
