@@ -43,7 +43,7 @@ margin-top: 0%;
 const SvgIconStyled = styled(SvgIcon)`
 margin-right: auto;
 margin-left: auto;
-margin-top: 15%;
+margin-top: 25%;
 margin-bottom: auto;
 font-size: 45px;
 `;

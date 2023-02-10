@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import React, { useState} from 'react';
 import styled from 'styled-components';
 import {IconPhoto} from './icon-photo/icon-photo'
+import { Buttons } from '../general/buttons';
 
 export const UserBar = () => {
   const [userData, setUserData] = useState({username: 'Indiana Jones'});
@@ -12,16 +13,16 @@ export const UserBar = () => {
        <TextContent>
         <div>{userData.username}</div>
       </TextContent>
-      <Button>Premium</Button>
+      <Buttons text='PREMIUM' type='primary' color='#F2E6CF' textColor='#292929' width='100px' />
       <Spacing/>
-      <Button>Cerrar Sesion </Button>
+      <Buttons text='CERRAR SESION' type='secondary'  width='200px'/>
     </UserBarContent>
   );
 };
 
 const UserBarContent = styled.div`
   color: #F2E6CF;
-  max-width: 100%;
+  min-width: 100vw;
   display: flex;
   flex-direction: row;
   text-align: left;
@@ -32,10 +33,11 @@ const UserBarContent = styled.div`
   background: #292929;
 `;
 const Spacing = styled.div`
-  width: 70vw;
+  width: 60vw;
 `;
 
 const TextContent = styled.div`
   margin: auto;
+  margin-right: 30px;
   width: auto;
 `;
