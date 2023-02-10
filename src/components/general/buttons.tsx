@@ -39,7 +39,6 @@ const PrimaryButton = styled.div<Props>`
   border-radius:10px;
   padding:5px;
   text-align:center;
-  margin:auto;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 `;
 const SecondaryButton = styled.div`

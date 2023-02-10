@@ -2,7 +2,8 @@ import { SvgIcon } from '@mui/material';
 import React, { useState } from 'react';
 import styled, {css} from 'styled-components';
 import {Place, Person, Receipt, CalendarToday } from '@mui/icons-material';
-import {ProgressRute} from '../../route/progress-rute-circle/progress-circle';
+import {ProgressRute} from '../route/progress-rute-circle/progress-circle';
+import { InformationChip } from './information-chip';
 
 type CardProps = {
   data:any;
@@ -10,7 +11,7 @@ type CardProps = {
 
 export const CardInformacion = ({data}:CardProps) =>{
 
-  const {idPedido, status, primerTexto, segundoTexto, progressRute, tipo} = data;
+  const {idPedido, status, primerTexto, segundoTexto, progressRute, tipo, distancia} = data;
   
   const [ isSelect, setIsSelect] = useState(true);
 
@@ -23,6 +24,7 @@ export const CardInformacion = ({data}:CardProps) =>{
     <div>
     <ContentTittle>
       {idPedido}
+      <InformationChip state={status} distancia={distancia} />
     </ContentTittle>
     <ContentText>
       <SvgIconStyled component={tipo === 'pedido' ? Place : Receipt } fontSize='small'/>
@@ -64,6 +66,8 @@ const ContentTittle = styled.div`
 font-family: Nunito;
 font-weight: bold;
 font-size: 24px;
+display: flex;
+flex-direction: row;
 `;
 const ContentText = styled.div`
 font-family: Nunito;

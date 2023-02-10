@@ -1,6 +1,6 @@
 import React from 'react';
-import { GeneralStructure } from '../../components/general/structure-page/structure-page'
-import { CardInformacion } from '../../components/cards/informacion/component';
+import { GeneralStructure } from '../../components/general/structure-page'
+import { CardInformacion } from '../../components/general/general-card';
 
 export const PanelRutas =() =>{
 
@@ -11,11 +11,12 @@ export const PanelRutas =() =>{
         segundoTexto: 'Eugenia Castillo',
         tipo: 'ruta',
         progressRute: 20,
+        distancia:  '20km.',
       }
 
       const card = <CardInformacion data={data} />;
 
     return(
-        <GeneralStructure contentLeft={card} contentRight={card} isMobile={true} />
+        <GeneralStructure contentLeft={card} contentRight={card} isMobile={false} />
     );
 }

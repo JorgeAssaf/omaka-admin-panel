@@ -22,16 +22,15 @@ export const GeneralStructure = ({contentLeft, contentRight, isMobile}: GeneralS
 
 const Content = styled.div`
 display: flex;
-flex-direction: colum;
+flex-direction: row;
 width: 100%;
 ${({isMobile}) => isMobile && css `
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
   `}
 `;
 
 const ContentSide = styled.div`
-    width: 50;
+    max-width: 50%;
     margin: auto;
-    padding:10;
 `;
