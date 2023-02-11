@@ -2,18 +2,16 @@ import { SvgIcon } from '@mui/material';
 import React, { useState } from 'react';
 import styled, {css} from 'styled-components';
 import {Place, Person, Receipt, CalendarToday } from '@mui/icons-material';
-import { ProgressRute } from '../../route/progress-rute-circle/component';
+import {ProgressRute} from '../route/progress-rute-circle/progress-circle';
+import { InformationChip } from './information-chip';
 
 type CardProps = {
-  idPedido: string;
-  status: string;
-  primerTexto: string;
-  segundoTexto: string;
-  progressRute?: number;
-  tipo: string;
+  data:any;
 }
 
-export const CardInformacion = ({idPedido, status, primerTexto, segundoTexto, progressRute, tipo}:CardProps) =>{
+export const CardInformacion = ({data}:CardProps) =>{
+
+  const {idPedido, status, primerTexto, segundoTexto, progressRute, tipo, distancia} = data;
   
   const [ isSelect, setIsSelect] = useState(true);
 
@@ -22,10 +20,11 @@ export const CardInformacion = ({idPedido, status, primerTexto, segundoTexto, pr
   }
 
   return(
-  <ContentCard onClick={clickPrueba} isSelect={isSelect === true}>
+  <ContentCard onClick={clickPrueba} isSelect={isSelect === true} tipo={tipo}>
     <div>
     <ContentTittle>
       {idPedido}
+      <InformationChip state={status} distancia={distancia} />
     </ContentTittle>
     <ContentText>
       <SvgIconStyled component={tipo === 'pedido' ? Place : Receipt } fontSize='small'/>
@@ -45,18 +44,19 @@ export const CardInformacion = ({idPedido, status, primerTexto, segundoTexto, pr
 const ContentCard = styled.div`
 display: flex;
 flex-direction: row;
-  background-color: #FBF7EF;
+  background-color: ${({ tipo }) => tipo === 'ruta' ? '#3D3D3D' : '#FBF7EF'};
+  color: ${({ tipo }) => tipo === 'ruta' ? '#FBF7EF' : '#3D3D3D'};
   border-radius: 12px;
+  margin: 20px;
   margin-top: 20px;
   text-align: left;
   padding: 10%;
   padding-left: 5%;
-  width: 90%;
+  width: 75%;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
   &:hover{
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
   }
-
   ${({isSelect}) => isSelect && css `
     border: 2px solid #3D3D3D;
   `}
@@ -67,6 +67,8 @@ const ContentTittle = styled.div`
 font-family: Nunito;
 font-weight: bold;
 font-size: 24px;
+display: flex;
+flex-direction: row;
 `;
 const ContentText = styled.div`
 font-family: Nunito;

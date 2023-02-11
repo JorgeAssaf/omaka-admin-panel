@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { typeButton } from '../types/typesButtons';
+import { typeButton } from '../../types/typesButtons';
 export function Buttons({text, action, disabled,type,color,textColor,width}:typeButton) {
   return (
     <div>
@@ -28,16 +28,17 @@ type Props={
 
 const PrimaryButton = styled.div<Props>`
   font-family: Nunito;
-  backgroundColor:${(props)=>props.colorB};
+  background-color:${(props)=>props.colorB};
+  color: ${(props)=>props.textColor};
   border:3px solid ${(props)=>props.colorB};
-  color:${(props)=>props.textColor}
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   width:120px;
   border-radius:10px;
-  padding:15px;
+  padding:5px;
+  text-align:center;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 `;
 const SecondaryButton = styled.div`
