@@ -47,11 +47,12 @@ flex-direction: row;
   background-color: ${({ tipo }) => tipo === 'ruta' ? '#3D3D3D' : '#FBF7EF'};
   color: ${({ tipo }) => tipo === 'ruta' ? '#FBF7EF' : '#3D3D3D'};
   border-radius: 12px;
+  margin: 20px;
   margin-top: 20px;
   text-align: left;
   padding: 10%;
   padding-left: 5%;
-  width: 90%;
+  width: 75%;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
   &:hover{
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
