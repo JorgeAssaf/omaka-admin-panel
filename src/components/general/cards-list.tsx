@@ -9,22 +9,25 @@ type CardListInterface = {
 export const CardList = ({data}: CardListInterface) => {
 
     return(
-        <div>
-            {Object.keys(data).map((current, index) =>(
-
             <Content>
             <Column>
-            {(index + 1) % 2 !== 0 ? <CardInformacion data={data[current]} /> : <div/> }
+            {Object.keys(data).map((current, index) =>{
+                if (index % 2 === 0 ){
+                    return (
+                    <CardInformacion data={data[current]} />) }
+            })}
             </Column>
             <Column>
-            {(index + 1) % 2 !== 0 ? <CardInformacion data={data[current]} /> : <div/> }
+            {Object.keys(data).map((current, index) =>{
+                if (index % 2 !== 0 ){
+                    return(
+                        <CardInformacion data={data[current]} />
+                    )}
+            })}
             </Column>
             </Content> 
-            )) 
-            }
-        </div>
-
-    )};
+    )
+    };
 
     const Content = styled.div`
     display:flex;
@@ -34,5 +37,4 @@ export const CardList = ({data}: CardListInterface) => {
     display: flex;
     flex-direction: column;
     width: 50%;
-    justify-content: space-between;
     `;

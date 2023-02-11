@@ -17,12 +17,11 @@ export const PanelRutas =() =>{
     },
         1:{
             idPedido: '14-1317321',
-            status: 'Entregado',
+            status: 'Pendiente',
             primerTexto: 'Calle Tabachín 45, Tlaquepaque, Jal. 857263', 
             segundoTexto: 'Eugenia Castillo',
             tipo: 'ruta',
             progressRute: 20,
-            distancia:  '20km.',
         },
         2:{
             idPedido: '14-1317321',
@@ -35,12 +34,11 @@ export const PanelRutas =() =>{
         },
         3:{
             idPedido: '14-1317321',
-            status: 'Entregado',
+            status: 'Pendiente',
             primerTexto: 'Calle Tabachín 45, Tlaquepaque, Jal. 857263', 
             segundoTexto: 'Eugenia Castillo',
             tipo: 'ruta',
             progressRute: 20,
-            distancia:  '20km.',
         },
         
       };

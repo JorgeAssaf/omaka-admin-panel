@@ -14,7 +14,7 @@ export const PanelPedidos = () =>{
       },
       1:{
         idPedido: '14-1317321',
-        status: 'En ruta',
+        status: 'Sin ruta',
         primerTexto: 'Calle Tabachín 45, Tlaquepaque, Jal. 857263', 
         segundoTexto: 'Ramira Romo',
         tipo: 'pedido',
@@ -22,7 +22,7 @@ export const PanelPedidos = () =>{
       },
       2:{
         idPedido: '14-1317321',
-        status: 'En ruta',
+        status: 'Entregado',
         primerTexto: 'Calle Tabachín 45, Tlaquepaque, Jal. 857263', 
         segundoTexto: 'Ramira Romo',
         tipo: 'pedido',
