@@ -15,14 +15,25 @@ export const ProgressRute = ({ruteStatus, progressRute} : ruteStatusInterface) =
   return(
     <Content>
       <CircularProgressStyled value={value} strokeWidth={13} >
-        <SvgIconStyled component={ArrowForward} />
+        <SvgIconStyled component={ArrowForward}/>
       </CircularProgressStyled>
     </Content>
   );
 
 }
 
-const Content = styled.div`
+
+type ContentProps = {
+  children: any;
+}
+
+type CircularProgressStyledProps = {
+  value: number;
+  strokeWidth: number;
+}
+
+
+const Content = styled.div<ContentProps>`
     width: 150;
   height: 150;
   border-radius: 50%;
@@ -31,7 +42,7 @@ const Content = styled.div`
   
 `;
 
-const CircularProgressStyled = styled(CircularProgressbarWithChildren)`
+const CircularProgressStyled = styled(CircularProgressbarWithChildren)<CircularProgressStyledProps>`
 width:80px;
 stroke: #F2E6CF;
 position: center;
@@ -39,7 +50,7 @@ margin-top: 0%;
 `;
 
 
-const SvgIconStyled = styled(SvgIcon)`
+const SvgIconStyled = styled(SvgIcon)<any>`
 margin-right: auto;
 margin-left: auto;
 margin-top: 25%;

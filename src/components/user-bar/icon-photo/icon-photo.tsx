@@ -14,13 +14,18 @@ export function IconPhoto ( {photoSrc}: UserBarProps ){
   
 )};
 
+
+type PhotoContainerProps ={
+  children : any
+}
+
 const Photo = styled.img`
   width: 44px;
   height: 44px;
   object-fit: cover;
 `;
 
-const PhotoContanier = styled.div`
+const PhotoContanier = styled.div<PhotoContainerProps>`
   width: 44px;
   height: 44px;
   overflow: hidden;

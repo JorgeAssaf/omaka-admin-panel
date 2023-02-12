@@ -3,6 +3,7 @@
 const Colors=()=>{
     return{
         tizatl100:'#E0E0E0',
+        tizatl600:'#3D3D3D',
         tliltik:'#292929',
         nextic:'#666666',
         iztac:'#FFFFFF',

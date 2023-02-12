@@ -16,22 +16,23 @@ const backgroundColor = {
 
 }
 
-export const InformationChip = ({state, distancia}: InformationChipInterface) => {
-    console.log(state);
+export const InformationChip = ({state='', distancia}: InformationChipInterface) => {
     const colorBackGround = (distancia ? 'Distancia' : state);
     return(
-    <Content state={backgroundColor[colorBackGround ]}>
+    <Content state={backgroundColor[colorBackGround?colorBackGround:'Sin ruta']}>
         {distancia ? distancia : state.toLocaleUpperCase()}
     </Content>
 )}
 
-const Content = styled.div`
+type ContentProps = {
+    state: string;
+  };
+
+const Content = styled.div<ContentProps>`
     color: ${({ state }) => state === '#FBF7EF' ? '#292929' : '#FBF7EF' };
     background-color: ${({ state }) => state};
     border-radius: 25px;
     font-size:10px;
-    width:auto;
     padding-left: 5px;
     padding-right: 5px;
-    margin-left: 1rem;
     `;

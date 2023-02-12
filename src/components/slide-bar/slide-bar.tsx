@@ -76,11 +76,11 @@ export const SlideBar = ({changeContent} : SlideBarInterface) => {
         index={2}
       />
       <ContentSettings>
-      <GeneralItemDrawer
-        activeIteam={stateStyle === CONFIGURACION}
-        imgIcon={Settings}
-        index={3}
-      />
+        <GeneralItemDrawer
+          activeIteam={stateStyle === CONFIGURACION}
+          imgIcon={Settings}
+          index={3}
+        />
       </ContentSettings>
     </StyledDrawer>
   );
@@ -88,7 +88,18 @@ export const SlideBar = ({changeContent} : SlideBarInterface) => {
 
 export default SlideBar;
 
-const StyledDrawer = styled.div`
+
+type StyledDrawerProps = {
+  left?:boolean;
+  children: any;
+  contracted?: boolean;
+}
+
+type ContentSettingsProps = {
+  children: any;
+}
+
+const StyledDrawer = styled.div<StyledDrawerProps>`
   ${(props) =>
     props.left &&
     css`
@@ -120,7 +131,7 @@ const StyledDrawer = styled.div`
   }
 `;
 
-const ContentSettings = styled.div`
+const ContentSettings = styled.div<ContentSettingsProps>`
 margin-top: auto;
   margin-bottom: 1rem;
 `;
