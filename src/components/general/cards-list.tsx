@@ -1,40 +1,37 @@
-import React from 'react';
-import styled from 'styled-components';
-import { CardInformacion } from './general-card';
+import React from "react";
+import styled from "styled-components";
+import { CardInformacion } from "./general-card";
 
 type CardListInterface = {
-    data:Array<Object>;
-}
+  data: Array<Object>;
+};
 
-export const CardList = ({data}: CardListInterface) => {
+export const CardList = ({ data }: CardListInterface) => {
+  return (
+    <Content>
+      <Row>
+        {
+            data.map((item)=>{
+                return(
+                    <CardInformacion data={item} />
+                )
+            })
+        }
+      </Row>
 
-    return(
-            <Content>
-            <Column>
-            {Object.keys(data).map((current, index) =>{
-                if (index % 2 === 0 ){
-                    return (
-                    <CardInformacion data={data[current]} />) }
-            })}
-            </Column>
-            <Column>
-            {Object.keys(data).map((current, index) =>{
-                if (index % 2 !== 0 ){
-                    return(
-                        <CardInformacion data={data[current]} />
-                    )}
-            })}
-            </Column>
-            </Content> 
-    )
-    };
+    </Content>
+  );
+};
 
-    const Content = styled.div`
-    display:flex;
-    flex-direction: row;
-    `;
-    const Column = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    `;
+type Props = {
+  children: any
+};
+
+const Content = styled.div<Props>`
+  display: flex;
+  flex-direction: row;
+`;
+const Row = styled.div<Props>`
+  display: flex;
+  flex-direction: row;
+`;
