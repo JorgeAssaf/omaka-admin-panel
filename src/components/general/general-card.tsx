@@ -81,8 +81,7 @@ const ContentCard = styled.div<ContentCardProps>`
       border: 2px solid #3d3d3d;
     `}
   padding: 16px;
-  min-width:200px;
-  width:100%;
+  margin:8px 0px
 `;
 
 const ContentTittle = styled.div`
@@ -92,12 +91,12 @@ const ContentTittle = styled.div`
   display:flex;
   justify-content: space-between;
   flex-direction: row;
-
+  margin-bottom:8px;
 `;
 const ContentText = styled.div`
   font-family: Nunito;
   font-weight: 500;
-  margin-top: 10px;
+  font-size:0.8rem;
   position: relative;
   display: flex;
   flex-direction: row;

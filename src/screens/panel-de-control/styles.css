@@ -1,0 +1,9 @@
+
+.panelControlContainer{
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+}
+.leftPanelContainer{
+    width: 100%;
+}

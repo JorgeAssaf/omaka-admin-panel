@@ -33,10 +33,11 @@ const PrimaryButton = styled.div<Props>`
   border:3px solid ${(props)=>props.colorB};
   font-style: normal;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 32px;
   width:120px;
   border-radius:10px;
+  cursor: pointer;
   padding:5px;
   text-align:center;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
@@ -45,13 +46,12 @@ const SecondaryButton = styled.div`
   font-family: Nunito;
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 1rem;
   line-height: 32px;
-  width:120px;
   border-radius:10px;
   padding:15px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-
+  cursor: pointer;
   &:hover{
       color:red
   }
@@ -60,10 +60,8 @@ const TertiaryButton =styled.div`
   font-family: Nunito;
   font-style: normal;
   font-weight: 700;
-  width:100px;
-  font-size:20px;
+  font-size:1rem;
   border-radius:10px;
   padding:19px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.04);
-  text-shadow:4px 4px 6px rgba(150, 150, 150, 1);
+  cursor:pointer;
 `
