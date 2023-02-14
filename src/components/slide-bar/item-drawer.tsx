@@ -42,12 +42,10 @@ const SvgIconStyle = styled(SvgIcon)<any>`
 const DrawerItem = styled.div<DrawerItemProps>`
   background: ${({ type }) => type ? '#3D3D3D' : '#FBF7EF'};
   color: ${( {type }) => type ? '#FBF7EF' : '#3D3D3D'};
-  border-top-right-radius: ${({ type, index }) => index != 0 ? '0' : '24px'};
   &: hover {
     background: #3D3D3D;
     color : #FBF7EF;
     cursor: pointer;
-    border-top-right-radius: ${({ index }) => index != 0 ? '0' : '24px'};
     ${SvgIconStyle}{
       color:#FBF7EF;
     }

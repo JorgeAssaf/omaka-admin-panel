@@ -1,0 +1,19 @@
+.pedidos_container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+
+.lista_container {
+    width: 60%;
+}
+.lista_container .contracted {
+    width: 40%;
+}
+.mapa_container {
+    width: 40%;
+}
+
+.mapa_container .contracted{
+    width: 60%;
+}

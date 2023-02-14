@@ -1,17 +1,11 @@
 import { useState } from 'preact/hooks'
 import styled from 'styled-components';
 import './app.css'
-import {AdminRoutes} from './routes/routes.js'
-import { BrowserRouter } from 'react-router-dom';
-
+import AppRouter from './routes/routes'
 
 export function App() {
-
-
   return (
-    <BrowserRouter>
-    <AdminRoutes />
-    </BrowserRouter>
+    <AppRouter />
   )
 }
 

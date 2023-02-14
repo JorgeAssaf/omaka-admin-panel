@@ -38,6 +38,6 @@ const Content = styled.div<ContentProps>`
 `;
 
 const ContentSide = styled.div`
-  max-width: 50%;
-  margin: auto;
+  flex:1;
+  
 `;

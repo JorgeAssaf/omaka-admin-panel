@@ -109,7 +109,6 @@ const StyledDrawer = styled.div<StyledDrawerProps>`
       height: 100vh;
       text-align: center;
       width: 240px;
-      border-top-right-radius: 24px;
     `}
   ${(props) =>
     props.contracted &&
@@ -120,14 +119,12 @@ const StyledDrawer = styled.div<StyledDrawerProps>`
       flex-direction: column;
       height: 90vh;
       width: 75px;
-      border-top-right-radius: 24px;
     `}
     &: hover {
     background: #FBF7EF;
     display: flex;
     flex-direction: column;
     height: 90vh;
-    border-top-right-radius: 24px;
   }
 `;
 
