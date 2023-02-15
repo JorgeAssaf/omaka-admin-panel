@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import SlideBar from "../../components/slide-bar/slide-bar";
 import { UserBar } from "../../components/general/topBar/topBar";
-import { PanelRutas } from "./panel-rutas";
+import { PanelRutas } from "../rutas/panel-rutas";
 import { PanelPedidos } from "../pedidos/panel-pedidos";
 import './styles.css'
 export const PanelDeControl = () => {
