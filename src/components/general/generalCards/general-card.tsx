@@ -2,9 +2,10 @@ import { SvgIcon } from "@mui/material";
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { Place, Person, Receipt, CalendarToday } from "@mui/icons-material";
-import { ProgressRute } from "../route/progress-rute-circle/progress-circle";
-import { InformationChip } from "./information-chip";
-
+import { ProgressRute } from "../progressCircle/progress-circle";
+import { InformationChip } from "../information-chip";
+import './styles.css'
+import { stringCutting } from "../../../utils/stringModifier";
 type CardProps = {
   data: any;
 };
@@ -28,26 +29,30 @@ export const CardInformacion = ({ data }: CardProps) => {
 
   return (
     <ContentCard onClick={clickPrueba} isSelect={isSelect === true} tipo={tipo}>
-      <ContentTittle>
-        {idPedido}
-        <InformationChip state={status} distancia={distancia} />
-      </ContentTittle>
-      <ContentText>
-        <SvgIconStyled
-          component={tipo === "pedido" ? Place : Receipt}
-          fontSize="small"
-        />
-        {primerTexto}
-      </ContentText>
-      <ContentText>
-        <SvgIconStyled
-          component={tipo === "pedido" ? Person : CalendarToday}
-          fontSize="small"
-        />
-        {segundoTexto}
-      </ContentText>
+      <div>
+        <ContentTittle >
+          {idPedido}
+          <InformationChip style={{marginLeft:'6px'}} state={status} distancia={distancia} />
+        </ContentTittle>
+        <ContentText>
+          <SvgIconStyled
+            component={tipo === "pedido" ? Place : Receipt}
+            fontSize="small"
+          />
+          {stringCutting(primerTexto,30)}
+        </ContentText>
+        <ContentText>
+          <SvgIconStyled
+            component={tipo === "pedido" ? Person : CalendarToday}
+            fontSize="small"
+          />
+          {stringCutting(segundoTexto,30)}
+        </ContentText>
+      </div>
       {tipo === "ruta" ? (
-        <ProgressRute ruteStatus={status} progressRute={progressRute} />
+        <div className='progressContainer'>
+          <ProgressRute ruteStatus={status} progressRute={progressRute} />
+        </div>
       ) : (
         <div />
       )}
@@ -61,13 +66,21 @@ type ContentCardProps = {
   tipo: string;
 };
 
+
+type ContentTextProps = {
+  children: any;
+};
+
+
 type SvgIconStyledProps = {
   component: any;
 };
 
+
+
 const ContentCard = styled.div<ContentCardProps>`
-  display: flex;
-  flex-direction: column;
+  display:flex;
+  flex-direction:row;
   background-color: ${({ tipo }) => (tipo === "ruta" ? "#3D3D3D" : "#FBF7EF")};
   color: ${({ tipo }) => (tipo === "ruta" ? "#FBF7EF" : "#3D3D3D")};
   border-radius: 12px;
@@ -81,7 +94,7 @@ const ContentCard = styled.div<ContentCardProps>`
       border: 2px solid #3d3d3d;
     `}
   padding: 16px;
-  margin:8px 0px
+  margin:8px;
 `;
 
 const ContentTittle = styled.div`
@@ -89,11 +102,11 @@ const ContentTittle = styled.div`
   font-weight: bold;
   font-size: 1rem;
   display:flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: row;
   margin-bottom:8px;
 `;
-const ContentText = styled.div`
+const ContentText = styled.div<ContentTextProps>`
   font-family: Nunito;
   font-weight: 500;
   font-size:0.8rem;

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 type InformationChipInterface = {
     state?: string;
     distancia?: string;
+    style?: any;
 }
 
 const backgroundColor = {
@@ -16,16 +17,17 @@ const backgroundColor = {
 
 }
 
-export const InformationChip = ({state='', distancia}: InformationChipInterface) => {
+export const InformationChip = ({state='', distancia, style}: InformationChipInterface) => {
     const colorBackGround = (distancia ? 'Distancia' : state);
     return(
-    <Content state={backgroundColor[colorBackGround?colorBackGround:'Sin ruta']}>
+    <Content style={style?style:{}} state={backgroundColor[colorBackGround?colorBackGround:'Sin ruta']}>
         {distancia ? distancia : state.toLocaleUpperCase()}
     </Content>
 )}
 
 type ContentProps = {
     state: string;
+    style: any;
   };
 
 const Content = styled.div<ContentProps>`

@@ -1,18 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { useDeviceUser } from "../../../hooks/useMobile";
-import { CardInformacion } from "../general-card";
+import { CardInformacion } from "../generalCards/general-card";
 import './styles.css';
 
 type CardListInterface = {
   data: Array<Object>;
-  columns: number;
 };
 
-export const CardList = ({ data, columns }: CardListInterface) => {
+export const CardList = ({ data }: CardListInterface) => {
   const [isMobile] = useDeviceUser();
   return (
-    <div className='listContainer' style={{gridTemplateColumns: `repeat(${columns?columns:isMobile?1:1}, 1fr)`}}>
+    <div className='listContainer'>
       {data.map((item) => {
         return <CardInformacion data={item} />;
       })}
