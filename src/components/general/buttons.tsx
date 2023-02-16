@@ -6,13 +6,13 @@ export function Buttons({text, action, disabled,type,color,textColor,width}:type
     <div>
       {
           type.toLocaleLowerCase()=='primary'?
-          <PrimaryButton colorB={color} textColor={textColor} style={{width:width}}>{text.toLocaleUpperCase()}</PrimaryButton>
+          <PrimaryButton onClick={()=>action()} colorB={color} textColor={textColor} style={{width:width}}>{text.toLocaleUpperCase()}</PrimaryButton>
           :
           type.toLocaleLowerCase()=='secondary'?
-          <SecondaryButton style={{border:`3px solid ${color}`, color:textColor,width:width}}>{text.toLocaleUpperCase()}</SecondaryButton>
+          <SecondaryButton onClick={()=>action()}  style={{border:`3px solid ${color}`, color:textColor,width:width}}>{text.toLocaleUpperCase()}</SecondaryButton>
           :
           type.toLocaleLowerCase()=='tertiary'?
-          <TertiaryButton style={{color:textColor,width:width}}>{text.toLocaleUpperCase()}</TertiaryButton>
+          <TertiaryButton onClick={()=>action()}  style={{color:textColor,width:width}}>{text.toLocaleUpperCase()}</TertiaryButton>
           :<></>
 
       }
@@ -23,7 +23,7 @@ export function Buttons({text, action, disabled,type,color,textColor,width}:type
 
 type Props={
   colorB?:string,
-  textColor:string
+  textColor:string,
 }
 
 const PrimaryButton = styled.div<Props>`
@@ -35,10 +35,9 @@ const PrimaryButton = styled.div<Props>`
   font-weight: 700;
   font-size: 1rem;
   line-height: 32px;
-  width:120px;
   border-radius:10px;
   cursor: pointer;
-  padding:5px;
+  padding:6px 12px;
   text-align:center;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 `;

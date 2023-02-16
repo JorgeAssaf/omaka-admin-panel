@@ -14,6 +14,7 @@ const backgroundColor = {
     Pendiente: '#292929',
     Entregado: '#40C980',
     Distancia: '#FBF7EF',
+    
 
 }
 
