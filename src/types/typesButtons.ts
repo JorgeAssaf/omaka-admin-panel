@@ -1,10 +1,11 @@
 export interface typeButton{
-    text:string,
+    text?:string,
     action:Function;
     disabled?:boolean;
     type:string;
     color?:string;
-    textColor:string;
+    textColor?:string;
+    loading?:boolean;
     width?:string
 }
 

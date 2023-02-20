@@ -2,60 +2,53 @@ import { SvgIcon } from "@mui/material";
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { Place, Person, Receipt, CalendarToday } from "@mui/icons-material";
-import { ProgressRute } from "../progressCircle/progress-circle";
-import { InformationChip } from "../information-chip";
+import { ProgressRute } from "../atoms/progressCircle/progress-circle";
+import { InformationChip } from "../atoms/information-chip";
 import './styles.css'
-import { stringCutting } from "../../../utils/stringModifier";
+import { stringCutting } from "../../utils/stringModifier";
+import { OrderType } from "../../types/typeOrders";
 type CardProps = {
-  data: any;
+  data: OrderType;
 };
 
-export const CardInformacion = ({ data }: CardProps) => {
+const CardPedidos = ({ data }: CardProps) => {
   const {
     idPedido,
+    direccionPedido,
+    nombreCliente,
     status,
-    primerTexto,
-    segundoTexto,
-    progressRute,
-    tipo,
-    distancia
   } = data;
 
   const [isSelect, setIsSelect] = useState(true);
-
+  console.log('====================================');
+  console.log(idPedido);
+  console.log('====================================');
   const clickPrueba = () => {
     setIsSelect(!isSelect);
   };
 
   return (
-    <ContentCard onClick={clickPrueba} isSelect={isSelect === true} tipo={tipo}>
-      <div>
+    <ContentCard onClick={()=>clickPrueba()} isSelect={isSelect === true}>
+         <div>
         <ContentTittle >
-          {idPedido}
-          <InformationChip style={{marginLeft:'6px'}} state={status} distancia={distancia} />
+          {idPedido.slice(-8)}
+          <InformationChip style={{marginLeft:'6px'}} state={status}  />
         </ContentTittle>
         <ContentText>
           <SvgIconStyled
-            component={tipo === "pedido" ? Place : Receipt}
+            component={Place}
             fontSize="small"
           />
-          {stringCutting(primerTexto,30)}
+          {stringCutting(direccionPedido,30)}
         </ContentText>
         <ContentText>
           <SvgIconStyled
-            component={tipo === "pedido" ? Person : CalendarToday}
+            component={Person}
             fontSize="small"
           />
-          {stringCutting(segundoTexto,30)}
+          {stringCutting(nombreCliente,30)}
         </ContentText>
       </div>
-      {tipo === "ruta" ? (
-        <div className='progressContainer'>
-          <ProgressRute ruteStatus={status} progressRute={progressRute} />
-        </div>
-      ) : (
-        <div />
-      )}
     </ContentCard>
   );
 };
@@ -63,7 +56,6 @@ export const CardInformacion = ({ data }: CardProps) => {
 type ContentCardProps = {
   children: any;
   isSelect: boolean;
-  tipo: string;
 };
 
 
@@ -81,8 +73,8 @@ type SvgIconStyledProps = {
 const ContentCard = styled.div<ContentCardProps>`
   display:flex;
   flex-direction:row;
-  background-color: ${({ tipo }) => (tipo === "ruta" ? "#3D3D3D" : "#FBF7EF")};
-  color: ${({ tipo }) => (tipo === "ruta" ? "#FBF7EF" : "#3D3D3D")};
+  background-color: "#FBF7EF"};
+  color:  "#3D3D3D"};
   border-radius: 12px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
   &:hover {
@@ -94,10 +86,11 @@ const ContentCard = styled.div<ContentCardProps>`
       border: 2px solid #3d3d3d;
     `}
   padding: 16px;
+  min-width:200px;
   margin:8px;
 `;
 
-const ContentTittle = styled.div`
+const ContentTittle = styled.div<ContentTextProps>`
   font-family: Nunito;
   font-weight: bold;
   font-size: 1rem;
@@ -121,3 +114,7 @@ const SvgIconStyled = styled(SvgIcon)<SvgIconStyledProps>`
   margin-right: 5px;
   justify-content: center;
 `;
+
+
+
+export default CardPedidos;

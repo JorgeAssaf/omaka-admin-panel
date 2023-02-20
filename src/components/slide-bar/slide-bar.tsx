@@ -106,9 +106,10 @@ const StyledDrawer = styled.div<StyledDrawerProps>`
       background: #FBF7EF;
       display: flex;
       flex-direction: column;
-      height: 100vh;
+      height: 100%;
       text-align: center;
       width: 240px;
+      -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
     `}
   ${(props) =>
     props.contracted &&
@@ -117,14 +118,16 @@ const StyledDrawer = styled.div<StyledDrawerProps>`
       color: #3D3D3D;
       display: flex;
       flex-direction: column;
-      height: 90vh;
+      height: 100%;
       width: 75px;
+      -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
     `}
     &: hover {
     background: #FBF7EF;
     display: flex;
     flex-direction: column;
-    height: 90vh;
+    height: 100%;
+    -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
   }
 `;
 

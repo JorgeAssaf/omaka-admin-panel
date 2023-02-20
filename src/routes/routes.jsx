@@ -15,6 +15,7 @@ const PublicWrapper = ({ children, isAuthenticated }) => {
   return !isAuthenticated? children : <Navigate to="/panel" replace />;
 };
 
+
 const AppRouter = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -37,7 +38,7 @@ const AppRouter = () => {
         dispatch({ type: 'setUserData', payload: userData });
         setIsAuthenticated(true);
       }else{
-        setIsAuthenticated(true);
+        setIsAuthenticated(false);
       }
     }else{
       setIsAuthenticated(false);

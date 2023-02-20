@@ -1,8 +1,8 @@
 .listContainer {
     display: flex;
     flex-direction: row;
-    padding: 16px;
     align-self:center;
     margin: 0px auto;
     flex-wrap: wrap;
+    -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
 }

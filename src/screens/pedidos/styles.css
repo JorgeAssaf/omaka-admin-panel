@@ -6,9 +6,15 @@
 
 .lista_container {
     width: 60%;
+    padding: 16px 32px;
+    -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
 }
-.lista_container .contracted {
+.lista_container.contracted {
     width: 40%;
+    -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
+}
+.header_container{
+    margin: 0px 8px;
 }
 .mapa_container {
     width: 40%;
@@ -17,3 +23,67 @@
 .mapa_container .contracted{
     width: 60%;
 }
+
+
+/************NUEVO PEDIDO**************/
+
+  .nuevo-pedido-form  {
+    padding: 0px 40px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0px auto;
+  }
+  
+  
+  .nuevo-pedido-form label {
+    margin-bottom: 10px;
+    color: #292929;
+  }
+  .nuevo-pedido-form .item-input {
+    width:100% ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    align-items: flex-start;
+  }
+  .nuevo-pedido-form input,
+  .nuevo-pedido-form textarea{
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .nuevo-pedido-form button {
+    background-color: #F2E6CF;
+    color: #292929;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 0px auto;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .nuevo-pedido-form .btn-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .item-check{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0px 10px;
+    margin: 20px 0px;
+  }
