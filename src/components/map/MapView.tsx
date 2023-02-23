@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import mapsStyle from './mapsStyle.json';
 import { typeMapView } from '../../types/typesMap';
-import { SportsMmaSharp } from '@mui/icons-material';
-
-const KEY_MAPS = ''
-
-
+import './MapView.css';
 
 
 const Marker = ({ color, lat, lng }) => <div style={{ backgroundColor: color, width: '1.5rem', height: '1.5rem', borderRadius: '50%' }}> </div>
@@ -31,9 +27,9 @@ function MapView({ points }: typeMapView) {
   
 
   return (
-    <div style={{ height: '800px', width: '600px' }}>
+    <div className='containerMap'>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: KEY_MAPS }}
+        bootstrapURLKeys={{ key:import.meta.env.VITE_KEY_MAPS}}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
         options={{ styles: mapsStyle }}

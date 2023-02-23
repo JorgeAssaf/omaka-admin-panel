@@ -1,3 +1,4 @@
 export interface typeMapView{
-    points:any
+    points:Array<any>
+
 }

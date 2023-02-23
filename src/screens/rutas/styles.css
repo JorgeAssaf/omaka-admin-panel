@@ -1,0 +1,57 @@
+.rutas_container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex:1;
+    height: 100%;
+
+}
+.rutas_view_container{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+
+.rutas_container .lista_container {
+    width: 60%;
+    padding: 16px 32px 16px 32px;
+    -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
+}
+.rutas_container .lista_container.contracted {
+    width: 40%;
+    -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
+}
+.rutas_container .header_container{
+    margin: 0px 8px;
+    padding: 16px 32px;
+}
+.rutas_container .mapa_container {
+    width: 40%;
+}
+
+.mapa_container .contracted{
+    width: 60%;
+}
+.nueva-ruta-container{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex:1;
+    flex:1
+}
+.detalle-ruta-container{
+    background-image: url('../../assets/mapBackground.jpg');
+    background-size: 100% 100%;
+    flex:1;
+    object-fit: cover;
+}
+
+
+
+/********** NUEVA RUTA ***********/
+
+.btn-nueva-ruta-container{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
