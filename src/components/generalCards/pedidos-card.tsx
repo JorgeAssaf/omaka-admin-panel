@@ -1,17 +1,22 @@
 import { SvgIcon } from "@mui/material";
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import { Place, Person, Receipt, CalendarToday } from "@mui/icons-material";
+import { Place, Person, KeyboardArrowRightRounded, KeyboardArrowLeftRounded } from "@mui/icons-material";
 import { ProgressRute } from "../atoms/progressCircle/progress-circle";
 import { InformationChip } from "../atoms/information-chip";
 import './styles.css'
 import { stringCutting } from "../../utils/stringModifier";
 import { OrderType } from "../../types/typeOrders";
+import { cardPropsType } from "../../types/typesCards";
+import Colors from "../../utils/colors";
 type CardProps = {
   data: OrderType;
+  onClick?: (item:OrderType) => void;
+  cardProps?: cardPropsType;
+  variant? : string;
 };
 
-const CardPedidos = ({ data }: CardProps) => {
+const CardPedidos = ({ data, onClick, cardProps, variant }: CardProps) => {
   const {
     idPedido,
     direccionPedido,
@@ -19,17 +24,26 @@ const CardPedidos = ({ data }: CardProps) => {
     status,
   } = data;
 
-  const [isSelect, setIsSelect] = useState(true);
-  console.log('====================================');
-  console.log(idPedido);
-  console.log('====================================');
-  const clickPrueba = () => {
-    setIsSelect(!isSelect);
+  const [isSelect, setIsSelect] = useState(false);
+  const colorStatus = variant?.includes('positive')? Colors().chalchihuitl400 : Colors().xochipaltic400;
+  const onClickItem = () => {
+    !variant?.includes('newRate') && setIsSelect(!isSelect);
+    if(onClick) onClick(data);
   };
 
   return (
-    <ContentCard onClick={()=>clickPrueba()} isSelect={isSelect === true}>
-         <div>
+    <div className={variant?.includes('newRate')?'cardContainer row':'' }>
+      {variant === 'newRate negative' &&
+      <div onClick={()=>onClickItem()} className='btnCircle'>
+         <SvgIconStyled
+            component={KeyboardArrowLeftRounded}
+            fontSize="large"
+            iconColor={colorStatus}
+          />
+      </div>
+    }
+    <ContentCard onClick={()=>onClickItem()} fullWidth={cardProps?.fullWidth} isSelect={isSelect}>
+      <div>
         <ContentTittle >
           {idPedido.slice(-8)}
           <InformationChip style={{marginLeft:'6px'}} state={status}  />
@@ -50,12 +64,24 @@ const CardPedidos = ({ data }: CardProps) => {
         </ContentText>
       </div>
     </ContentCard>
+    {variant === 'newRate positive' &&
+      <div onClick={()=>onClickItem()} className='btnCircle'>
+         <SvgIconStyled
+            component={KeyboardArrowRightRounded}
+            fontSize="large"
+            iconColor={colorStatus}
+          />
+      </div>
+    }
+    </div>
+
   );
 };
 
 type ContentCardProps = {
   children: any;
   isSelect: boolean;
+  fullWidth?: boolean;
 };
 
 
@@ -66,6 +92,7 @@ type ContentTextProps = {
 
 type SvgIconStyledProps = {
   component: any;
+  iconColor?: string;
 };
 
 
@@ -73,13 +100,18 @@ type SvgIconStyledProps = {
 const ContentCard = styled.div<ContentCardProps>`
   display:flex;
   flex-direction:row;
-  background-color: "#FBF7EF"};
-  color:  "#3D3D3D"};
+  background-color: #FBF7EF};
+  color:  #3D3D3D};
   border-radius: 12px;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
   &:hover {
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
   }
+  ${({ fullWidth }) =>
+  fullWidth &&
+  css`
+    width: 100%;
+  `}
   ${({ isSelect }) =>
     isSelect &&
     css`
@@ -112,6 +144,7 @@ const SvgIconStyled = styled(SvgIcon)<SvgIconStyledProps>`
   margin-top: auto;
   margin-bottom: auto;
   margin-right: 5px;
+  color: ${({ iconColor }) => (iconColor  ? iconColor : "#292929")};
   justify-content: center;
 `;
 

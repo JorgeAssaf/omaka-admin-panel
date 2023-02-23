@@ -7,7 +7,7 @@ import HeaderSection from "../../components/header/headerSection";
 import MapView from "../../components/map/MapView";
 import { RootState } from "../../redux/reducers/mainReducer";
 import { RateType, RateTypeForm } from "../../types/typeRate";
-import NuevaRuta from "./nueva-ruta";
+import NuevaRuta from "../nuevaRuta/nueva-ruta";
 
 import "./styles.css";
 export const PanelRutas = () => {
@@ -80,37 +80,43 @@ export const PanelRutas = () => {
   };
 
   return (
-    <div className="rutas_container">
-      <div className="header_container">
-        <HeaderSection
-          actionBack={
-            screenShow != "list" ? () => setScreenShow("list") : undefined
-          }
-          title={screenShow == "list" ? "Rutas" : "Nueva Ruta"}
-          actionBtnAdd={
-            screenShow == "list" ? () => setScreenShow("new") : undefined
-          }
-        />
-      </div>
+    <>
       {screenShow == "list" ? (
-        <div className='rutas_view_container'>
-          <div className="lista_container">
-            <CardList tipo="rutas" data={data} />
+        <div className="rutas_container">
+         <div className="header_container">
+            <HeaderSection
+              title={"Rutas"}
+              actionBtnAdd={()=>setScreenShow("new")}
+            />
           </div>
+<<<<<<< Updated upstream
           <div className="mapa_container">
             <MapView points={arrayPed}/>
+=======
+          <div className="rutas_view_container">
+            <div className="lista_container">
+              <CardList tipo="rutas" data={data} />
+            </div>
+            <div className="mapa_container">
+              <img
+                style={{ width: "100%" }}
+                src="https://cdn-3.expansion.mx/dims4/default/b77fb0a/2147483647/strip/true/crop/624x351+0+0/resize/1200x675!/format/webp/quality/90/?url=https%3A%2F%2Fcherry-brightspot.s3.amazonaws.com%2Fmedia%2F2012%2F06%2F20%2Ftrafico-transito-google-maps-ciudad-de-mexico.jpg"
+              />
+            </div>
+>>>>>>> Stashed changes
           </div>
         </div>
       ) : (
-        <NuevaRuta loading={loading} handleSubmit={newRateClient} />
+        <div className="rutas_container">
+          <NuevaRuta setScreenShow={setScreenShow} loading={loading} handleSubmit={newRateClient} />
+        </div>
       )}
-
       <ToastContainer
         limit={1}
         position="bottom-center"
         autoClose={3000}
         toastClassName="toast"
       />
-    </div>
+    </>
   );
 };

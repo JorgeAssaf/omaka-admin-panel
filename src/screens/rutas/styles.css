@@ -39,19 +39,13 @@
     flex:1;
     flex:1
 }
+/************* Detalles de ruta *****************/
 .detalle-ruta-container{
     background-image: url('../../assets/mapBackground.jpg');
     background-size: 100% 100%;
     flex:1;
     object-fit: cover;
 }
-
-
-
-/********** NUEVA RUTA ***********/
-
-.btn-nueva-ruta-container{
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
+.pedidos_detalles_container{
+    width: 60%;
 }
