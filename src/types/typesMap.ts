@@ -1,4 +1,5 @@
 export interface typeMapView{
-    points:Array<any>
+    points:Array<any>,
+    screenShow:string
 
 }

@@ -7,7 +7,8 @@ import './MapView.css';
 
 const Marker = ({ color, lat, lng }) => <div style={{ backgroundColor: color, width: '1.5rem', height: '1.5rem', borderRadius: '50%' }}> </div>
 
-function MapView({ points }: typeMapView) {
+function MapView({ points, screenShow }: typeMapView) {
+  const [puntosArray, setPuntosArray] = useState<typeMapView[]>([]);
   const defaultProps = {
     center: {
       lat: 20.6665706,
@@ -15,28 +16,54 @@ function MapView({ points }: typeMapView) {
     },
     zoom: 15
   };
+  useEffect(() => {
+      setPuntosArray(points)
+  }, []);
 
-  const apiIsLoaded= (map,maps,points) =>{
-    let bounds=new maps.LatLngBounds();
+  useEffect(() => {
+    if (screenShow == 'new') {
+      setPuntosArray([])
+    }
+    else{
+      setPuntosArray(points)
+    }
+}, [screenShow]);
+
+
+  const apiIsLoaded = (map, maps, points) => {
+    let bounds = new maps.LatLngBounds();
     points.forEach(marker => {
       bounds.extend(marker.ubicacionPedido);
-      
+
     });
     map.fitBounds(bounds)
   }
-  
+  const addPoint = ({ x, y, lat, lng, event }) => {
+    if (screenShow == 'new') {
+      
+      let nuevo = { ubicacionPedido: { lat: lat, lng: lng } }
+      setPuntosArray((prevState) => {
+        let result = [nuevo];
+        return result;
+      });
+
+    }
+
+  }
+
 
   return (
     <div className='containerMap'>
       <GoogleMapReact
-        bootstrapURLKeys={{ key:import.meta.env.VITE_KEY_MAPS}}
+        bootstrapURLKeys={{ key: import.meta.env.VITE_KEY_MAPS }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
         options={{ styles: mapsStyle }}
-        onGoogleApiLoaded={({map,maps})=> apiIsLoaded(map,maps,points)}
+        onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, points)}
+        onClick={addPoint}
       >
         {
-          points.map((it) => {
+          puntosArray.map((it) => {
             return (
               <Marker
                 lat={it.ubicacionPedido.lat}

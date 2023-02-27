@@ -61,7 +61,7 @@ export const PanelPedidos = () =>{
             }
           </div>
           <div className='mapa_container'>
-            <MapView points={arrayPed}/>
+            <MapView points={arrayPed} screenShow={screenShow}/>
           </div>
           <ToastContainer
             limit={1}

@@ -89,21 +89,14 @@ export const PanelRutas = () => {
               actionBtnAdd={()=>setScreenShow("new")}
             />
           </div>
-<<<<<<< Updated upstream
-          <div className="mapa_container">
-            <MapView points={arrayPed}/>
-=======
+
           <div className="rutas_view_container">
             <div className="lista_container">
               <CardList tipo="rutas" data={data} />
             </div>
             <div className="mapa_container">
-              <img
-                style={{ width: "100%" }}
-                src="https://cdn-3.expansion.mx/dims4/default/b77fb0a/2147483647/strip/true/crop/624x351+0+0/resize/1200x675!/format/webp/quality/90/?url=https%3A%2F%2Fcherry-brightspot.s3.amazonaws.com%2Fmedia%2F2012%2F06%2F20%2Ftrafico-transito-google-maps-ciudad-de-mexico.jpg"
-              />
+              <MapView points={arrayPed}/>
             </div>
->>>>>>> Stashed changes
           </div>
         </div>
       ) : (
