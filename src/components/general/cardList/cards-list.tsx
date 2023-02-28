@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useDeviceUser } from "../../../hooks/useMobile";
 import { CardInformacion } from "../general-card";
+import { GeneralInput } from "../generalInput/general-input";
 import './styles.css';
 
 type CardListInterface = {
