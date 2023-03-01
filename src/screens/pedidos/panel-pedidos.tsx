@@ -55,7 +55,7 @@ export const PanelPedidos = () =>{
               <HeaderSection actionBack={screenShow != 'list' ? ()=>setScreenShow('list'): undefined} title={screenShow == 'list'?'Pedidos':'Nuevo pedido'} actionBtnAdd={screenShow == 'list' ? ()=>setScreenShow('new'): undefined} />
             </div>
             {screenShow == 'list'?
-              <CardList tipo='pedidos' data={orderList} />
+              <CardList onClickItem={()=>null} tipo='pedidos' data={orderList} />
               :
               <NuevoPedido loading={loading} handleSubmit={newOrderClient}/>
             }

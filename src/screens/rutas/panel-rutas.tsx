@@ -92,7 +92,7 @@ export const PanelRutas = () => {
 
           <div className="rutas_view_container">
             <div className="lista_container">
-              <CardList tipo="rutas" data={data} />
+              <CardList onClickItem={()=>null} tipo="rutas" data={data} />
             </div>
             <div className="mapa_container">
               <MapView points={arrayPed}/>

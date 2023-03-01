@@ -2105,6 +2105,13 @@
     "loose-envify" "^1.1.0"
     "scheduler" "^0.23.0"
 
+"react-geocode@^0.2.3":
+  "integrity" "sha512-sIpbgmn1IUzAxO4haOZ6jeeFnMD8ya9PC38yiNrmJ9vPWbvAO2D/2yfCBzZjGZVUm4PRzKAc0KghXfaEnug0TQ=="
+  "resolved" "https://registry.npmjs.org/react-geocode/-/react-geocode-0.2.3.tgz"
+  "version" "0.2.3"
+  dependencies:
+    "regenerator-runtime" "^0.13.3"
+
 "react-google-autocomplete@^2.7.3":
   "integrity" "sha512-Nm+7/VDe7/NDWb8p/a39is7ktNqt5bNqAOoQv2Ev/XkuEvjsRk08VAPFmXUH03xKuM8IUuDrk2Lwfge44YEj6Q=="
   "resolved" "https://registry.npmjs.org/react-google-autocomplete/-/react-google-autocomplete-2.7.3.tgz"
@@ -2196,7 +2203,7 @@
   dependencies:
     "@babel/runtime" "^7.9.2"
 
-"regenerator-runtime@^0.13.11":
+"regenerator-runtime@^0.13.11", "regenerator-runtime@^0.13.3":
   "integrity" "sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg=="
   "resolved" "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz"
   "version" "0.13.11"

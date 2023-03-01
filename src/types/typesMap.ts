@@ -1,5 +1,6 @@
 export interface typeMapView{
     points:Array<any>,
-    screenShow:string
+    screenShow?:string,
+    newPedido?:Array<any>
 
 }

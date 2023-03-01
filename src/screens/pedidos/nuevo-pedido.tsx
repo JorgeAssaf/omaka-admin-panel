@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { toast } from "react-toastify";
 import { Buttons } from "../../components/atoms/buttons";
 import CheckBox from "../../components/atoms/checkBox/checkbox";
 import { OrderTypeForm } from "../../types/typeOrders";
 import Colors from "../../utils/colors";
+import { usePlacesWidget } from "react-google-autocomplete";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/reducers/mainReducer";
+import Geocode from "react-geocode";
 
 type NuevoPedidoProps = {
   handleSubmit: (pedido: OrderTypeForm) => void;
@@ -20,6 +24,55 @@ const NuevoPedido = ({ handleSubmit, loading }: NuevoPedidoProps) => {
   const [telefonoPedido, setTelefonoPedido] = useState('');
   const [notaDePedido, setNotaDePedido] = useState('');
   const [orderSaved,setOrderSaved] = useState(false);
+  const newBound = useSelector((state: RootState) => state.pedidos.newBound as any);
+  const dispatch = useDispatch();
+  const [ban, setBan] = useState(true)
+
+  useEffect(() => {
+    if(ban){
+      initialize();
+    }
+    
+  }, [])
+  
+  useEffect(() => {
+    if(ban){
+      //initialize();
+      setBan(false);
+    }
+    else{
+      console.log(newBound);
+      Geocode.fromLatLng(newBound.ubicacionPedido.lat, newBound.ubicacionPedido.lng).then(
+        (response) => {
+          const address = response.results[0].formatted_address;
+          setDireccionPedido(address);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }
+  }, [newBound])
+
+  const initialize =()=>{
+    Geocode.setApiKey(import.meta.env.VITE_KEY_MAPS);
+    Geocode.setLanguage("es");
+    Geocode.setRegion("mx");
+    }
+  
+  const { ref } = usePlacesWidget({
+    apiKey: import.meta.env.VITE_KEY_MAPS,
+    onPlaceSelected: (place) => {
+      let newPlace=[{ubicacionPedido:{lat:place.geometry.location.lat(),lng:place.geometry.location.lng()}}]
+      dispatch({ type: 'setNewPedido', payload: newPlace });
+
+    },
+    options: {
+      types: ["geocode"],
+      componentRestrictions: { country: "mx" },
+    },
+  });
+
 
   const callBackPedido = () => {    
     if(nombreCliente && direccionPedido && ubicacionPedido.lat && ubicacionPedido.lng && telefonoPedido && notaDePedido){
@@ -44,6 +97,7 @@ const NuevoPedido = ({ handleSubmit, loading }: NuevoPedidoProps) => {
         <input
           type="text"
           value={direccionPedido}
+          ref={ref}
           onChange={(event) =>
             setDireccionPedido((event.target as HTMLInputElement).value)
           }
