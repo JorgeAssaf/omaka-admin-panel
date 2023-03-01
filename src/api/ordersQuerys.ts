@@ -1,10 +1,10 @@
 import axios from "axios";
 import { env } from "../env/envDev";
 
-export const newOrder = async (datos : any, idUsuario?:string, isClient?:boolean)=>{
+export const newOrder = async (datos : any, idUsuario?:string, isAdmin?:boolean)=>{
     try{
       if (idUsuario) {
-        let respuestaBack=await axios.post(`${env.serverUrl}/crear-pedido`,{datos:datos,idUsuario:idUsuario,isClient:isClient})
+        let respuestaBack=await axios.post(`${env.serverUrl}/crear-pedido`,{datos:datos,idUsuario:idUsuario,isAdmin:isAdmin})
         return respuestaBack.data;
       }else{
         return (false);

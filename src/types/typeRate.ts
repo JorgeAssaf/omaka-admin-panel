@@ -3,6 +3,7 @@ export interface RateType {
     creador:{
         id: string;
         name: string;
+        foto?: string;
     }
     fechaCreacion: any;
     fechaEntrega: any;
@@ -12,6 +13,7 @@ export interface RateType {
     repartidor: {
         id : string;
         name : string;
+        foto?: string;
     }
     status: string;
 }
@@ -23,10 +25,12 @@ export interface RateTypeForm {
     creador:{
         id: string;
         name: string;
+        foto?: string;
     };
     repartidor?: {
         id : string;
         name : string;
+        foto?: string;
     }
 }
 
@@ -37,5 +41,6 @@ export interface RateTypeFormSimple {
     repartidor?: {
         id : string;
         name : string;
+        foto?: string;
     }
 }

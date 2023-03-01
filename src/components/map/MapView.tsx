@@ -39,8 +39,8 @@ function MapView({ points }: typeMapView) {
           points.map((it) => {
             return (
               <Marker
-                lat={it.ubicacionPedido.lat}
-                lng={it.ubicacionPedido.lng}
+                lat={it.ubicacion.lat}
+                lng={it.ubicacion.lng}
                 color='#F4BE52'
               />
             )

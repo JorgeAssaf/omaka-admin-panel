@@ -2,6 +2,7 @@ import { OrderType } from "../../types/typeOrders";
 import { cardPropsType } from "../../types/typesCards";
 import { CardInformacion } from "../generalCards/general-card";
 import CardPedidos from "../generalCards/pedidos-card";
+import CardRepartidor from "../generalCards/repartidor-card";
 import './styles.css';
 
 type CardListInterface = {
@@ -29,6 +30,15 @@ export const CardList = ({ data, tipo, cardProps, onClickItem, variant }: CardLi
         <div className='listContainer'>
           {data.map((item) => {
             return <CardInformacion data={item} />;
+          })}
+        </div>
+      )
+      break;
+    case 'repartidor':
+      return (
+        <div className='listContainer'>
+          {data.map((item) => {
+            return <CardRepartidor cardProps={cardProps} onClick={(item)=>onClickItem && onClickItem(item)} data={item} />;
           })}
         </div>
       )

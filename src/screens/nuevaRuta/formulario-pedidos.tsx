@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { GetOrders } from "../../api/ordersQuerys";
 import { CardList } from "../../components/cardList/cards-list";
-import { RootState } from "../../redux/store";
 import { OrderType } from "../../types/typeOrders";
 
 type FormularioPedidos = {

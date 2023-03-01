@@ -1,47 +1,36 @@
 import React from "react";
 import styled from "styled-components";
+import Colors from "../../utils/colors";
 
 type InformationChipInterface = {
-  state?: string;
-  distancia?: string;
-  style?: any;
+  text?: string | undefined;
+  color?: string;
+  textColor?: string;
 };
 
-const backgroundColor = {
-  "Sin ruta": "#F4BE52",
-  "En ruta": "#7979F6",
-  "En curso": "#7979F6",
-  pending: "#292929",
-  finish: "#40C980",
-  Distancia: "#FBF7EF"
-};
 
-export const InformationChip = ({
-  state = "",
-  distancia,
-  style
-}: InformationChipInterface) => {
-  const colorBackGround = distancia ? "Distancia" : state;
+
+export const InformationChip = ({text, color = Colors().tizatl600, textColor = Colors().iztac}: InformationChipInterface) => {
   return (
     <Content
-      style={style ? style : {}}
-      state={backgroundColor[colorBackGround ? colorBackGround : "Sin ruta"]}
+      color={color}
+      textColor={textColor}
     >
-      {distancia ? distancia : state.toLocaleUpperCase()}
+      {text}
     </Content>
   );
 };
 
 type ContentProps = {
-  state: string;
-  style: any;
+  color: string;
+  textColor: string;
 };
 
 const Content = styled.div<ContentProps>`
-  color: ${({ state }) => (state === "#FBF7EF" ? "#292929" : "#FBF7EF")};
-  background-color: ${({ state }) => state};
+  color: ${({ textColor }) => textColor};
+  background-color: ${({ color }) => color};
   border-radius: 25px;
   font-size: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 2px 10px;
+  font-size: 0.8em;
 `;

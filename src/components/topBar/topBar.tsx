@@ -16,14 +16,12 @@ export const UserBar = () => {
   const signOutUser = () => {
     signOut(auth);
     dispatch({ type: 'setUserData', payload: {} });
-  }
-  console.log(DatosPersonales);
-  
+  }  
   return (
     <div className='topBarContainer'>
       <div className='leftSide'>
         <div className='avatarContainer'>
-          <Avatar src="https://firebasestorage.googleapis.com/v0/b/omaka-app.appspot.com/o/Patterns%20-%206x6%20(10).png?alt=media&token=817c18a2-d4ac-45f8-ae7e-061fc0d99668" />
+          <Avatar editable  />
         </div>
         <Buttons
           action={() => null}

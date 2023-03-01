@@ -2,9 +2,9 @@ import axios from "axios";
 import { env } from "../env/envDev";
 import { RateType, RateTypeForm } from "../types/typeRate";
 
-export const newRate = async (rutaData : RateTypeForm,creador:RateType['creador'],repartidor:RateType['repartidor'])=>{
+export const newRate = async (rutaData : RateTypeForm,creador:RateType['creador'],repartidor:RateType['repartidor'] | undefined)=>{
     try{
-      if(rutaData){
+      if(rutaData && creador.id){
         let respuestaBack=await axios.post(`${env.serverUrl}/crear-ruta`,{rutaData:rutaData,creador:creador,repartidor:repartidor})
         return respuestaBack.data;
       }else{

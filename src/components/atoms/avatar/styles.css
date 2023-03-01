@@ -5,7 +5,7 @@
     
 }
 
-.avatarContainer:hover::before{
+.avatarContainer.editable :hover::before{
     content: 'Editar';
     color: #F2E6CF;
     display: flex;

@@ -22,8 +22,6 @@ export const PanelPedidos = () =>{
     const getOrderList = async () => {
       const resOrder = await GetOrders(DatosPersonales.idUsuario);
       if (resOrder) {
-        console.log(resOrder);
-        
         setOrderList(resOrder.pedidosSinRuta);
       } else {
         console.error('Error en getOrderList');
@@ -61,7 +59,7 @@ export const PanelPedidos = () =>{
             }
           </div>
           <div className='mapa_container'>
-            <MapView points={arrayPed}/>
+            <MapView points={[]}/>
           </div>
           <ToastContainer
             limit={1}

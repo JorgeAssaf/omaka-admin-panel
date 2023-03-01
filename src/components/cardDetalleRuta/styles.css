@@ -6,8 +6,10 @@
     color: #FBF7EF;
     border-radius: 12px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-    padding: 16px;
+    padding: 24px;
     margin: 8px;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .titulo-card {
@@ -18,4 +20,14 @@
     justify-content: flex-start;
     flex-direction: row;
     margin-bottom: 8px;
+}
+.repartidor_detalles_ruta {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.repartidor_name_right {
+    text-align: right;
+    margin-right: 10px;
 }
