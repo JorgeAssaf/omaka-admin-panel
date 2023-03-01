@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { newRate } from "../../api/rateQuerys";
-import { CardList } from "../../components/cardList/cards-list";
 import HeaderSection from "../../components/header/headerSection";
 import MapView from "../../components/map/MapView";
 import { RootState } from "../../redux/reducers/mainReducer";
-import { RateType, RateTypeForm } from "../../types/typeRate";
+import { RateType, RateTypeFormSimple } from "../../types/typeRate";
 import NuevaRuta from "../nuevaRuta/nueva-ruta";
 
 import "./styles.css";
@@ -27,7 +26,7 @@ export const PanelRutas = () => {
 
   };
 
-  const newRateClient = async (rateData: RateTypeForm) => {
+  const newRateClient = async (rateData: RateTypeFormSimple) => {
     console.log("rateData",rateData);
     
     // setLoading(true);
@@ -36,15 +35,15 @@ export const PanelRutas = () => {
       id: DatosPersonales.idUsuario
     };
     const resRate = await newRate(rateData, creador, rateData.repartidor);
-    // getRateList();
-    // setLoading(false);
-    // setScreenShow("list");
-    // if (resRate.status == "OK") {
-    //   toast.success("Pedido creado exitosamente!!");
-    // } else {
-    //   toast.error("Algo paso mal");
-    //   toast.error(resRate.errorMessage);
-    // }
+    getRateList();
+    setLoading(false);
+    setScreenShow("list");
+    if (resRate.status == "OK") {
+      toast.success("Ruta creada exitosamente!!");
+    } else {
+      toast.error("Algo paso mal");
+      toast.error(resRate.errorMessage);
+    }
   };
 
   return (
@@ -68,7 +67,7 @@ export const PanelRutas = () => {
         </div>
       ) : (
         <div className="rutas_container">
-          <NuevaRuta setScreenShow={setScreenShow} loading={loading} handleSubmit={newRateClient} />
+          <NuevaRuta setScreenShow={setScreenShow} fetching={loading} handleSubmit={newRateClient} />
         </div>
       )}
       <ToastContainer
