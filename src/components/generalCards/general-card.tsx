@@ -31,7 +31,7 @@ export const CardInformacion = ({ data }: CardProps) => {
       <div>
         <ContentTittle >
           {id}
-          <InformationChip style={{marginLeft:'6px'}} state={status} distancia={distancia} />
+          {/* <InformationChip  state={status} distancia={distancia} /> */}
         </ContentTittle>
         <ContentText>
           <SvgIconStyled
@@ -45,7 +45,7 @@ export const CardInformacion = ({ data }: CardProps) => {
             component={tipo === "pedido" && Person }
             fontSize="small"
           />
-          {stringCutting(segundoTexto,30)}
+          {stringCutting(segundoTexto,25)}
         </ContentText>
       </div>
       {tipo === "ruta" ? (

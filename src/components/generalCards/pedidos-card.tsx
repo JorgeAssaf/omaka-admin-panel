@@ -45,8 +45,10 @@ const CardPedidos = ({ data, onClick, cardProps, variant }: CardProps) => {
     <ContentCard onClick={()=>onClickItem()} fullWidth={cardProps?.fullWidth} isSelect={isSelect}>
       <div>
         <ContentTittle >
-          {idPedido.slice(-8)}
-          <InformationChip style={{marginLeft:'6px'}} state={status}  />
+          {idPedido?idPedido.slice(-8):''}
+          <div className='card_chip_container'>
+            <InformationChip  text={status}  />
+          </div>
         </ContentTittle>
         <ContentText>
           <SvgIconStyled

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import './styles.css'
 
 type LoginProps = {
@@ -13,10 +12,11 @@ const Login = ({setScreenShow}:LoginProps)  => {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-  const navigate = useNavigate();
   const handleSubmit = async (event: any) => {
     event.preventDefault();   
-
+    console.log('====================================');
+    console.log('a loggerme');
+    console.log('====================================');
     try {
       const auth = getAuth();
       const userCredential = await signInWithEmailAndPassword(auth, username, password);

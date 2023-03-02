@@ -5,14 +5,7 @@
     
 }
 
-.editar-perfil {
-    width: 150px;
-    height: 150px;
-    margin-left: 1rem;
-    margin: auto;
-}
-
-.avatarContainer:hover::before{
+.avatarContainer.editable :hover::before{
     content: 'Editar';
     color: #F2E6CF;
     display: flex;

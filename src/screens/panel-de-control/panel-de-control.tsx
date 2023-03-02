@@ -6,23 +6,23 @@ import { PanelRutas } from "../rutas/panel-rutas";
 import { PanelPedidos } from "../pedidos/panel-pedidos";
 import { EditarPerfilUsuario } from "../perfil-usuario/editar-perfil";
 import './styles.css'
+import { PanelRepartidores } from "../repartidores/panel-repartidores";
 export const PanelDeControl = () => {
   const Seccion = {
     rutas: <PanelRutas />,
     pedidos: <PanelPedidos />,
-    editarPerfilUsuario: <EditarPerfilUsuario />
+    repartidores: <PanelRepartidores/>
   };
 
   const [seccionActiva, setSeccionActiva] = useState("pedidos");
 
   const CambiarSeccion = (seccionSeleccionada) => {
-    console.log(seccionSeleccionada);
     setSeccionActiva(seccionSeleccionada);
   };
 
   return (
     <div className='panel-container'>
-      <UserBar changeContent={CambiarSeccion} />
+      <UserBar />
       <div className='panelControlContainer'>
         <SlideBar changeContent={CambiarSeccion} />
         <div className="leftPanelContainer">{Seccion[seccionActiva]}</div>

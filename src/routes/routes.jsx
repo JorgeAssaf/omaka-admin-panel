@@ -24,6 +24,8 @@ const AppRouter = () => {
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log('====hizo cambio');
+
       setIsLoading(false);
       getUserData(user?.uid)
     });
@@ -34,6 +36,8 @@ const AppRouter = () => {
   const getUserData = async (uid) => {
     if(uid){
       const userData = await getUser(uid);
+      console.log("userData",userData);
+
       if(userData){
         dispatch({ type: 'setUserData', payload: userData });
         setIsAuthenticated(true);
@@ -63,7 +67,7 @@ const AppRouter = () => {
         <Route
           path="/panel"
           element={(
-            <PrivateWrapper isAuthenticated={!isAuthenticated}>
+            <PrivateWrapper isAuthenticated={isAuthenticated}>
               <PanelDeControl/>
             </PrivateWrapper>
           )}
