@@ -1,11 +1,17 @@
-import { useState } from 'preact/hooks'
 import styled from 'styled-components';
 import './app.css'
+//,{ubicacionPedido:{lat:24.141141,lng:-204.9012558}}
+
+
 import AppRouter from './routes/routes'
+import { Provider } from 'react-redux';
+import Store from './redux/store';
 
 export function App() {
   return (
-    <AppRouter />
+    <Provider store={Store}>
+      <AppRouter />
+    </Provider>
   )
 }
 

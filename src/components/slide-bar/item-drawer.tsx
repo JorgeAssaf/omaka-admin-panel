@@ -44,12 +44,14 @@ const DrawerItem = styled.div<DrawerItemProps>`
   color: ${( {type }) => type ? '#FBF7EF' : '#3D3D3D'};
   &: hover {
     background: #3D3D3D;
+    -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
     color : #FBF7EF;
     cursor: pointer;
     ${SvgIconStyle}{
       color:#FBF7EF;
     }
   }
+  -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
   padding: 10px;
   display: flex;
   flex-direction: row;
@@ -57,8 +59,9 @@ const DrawerItem = styled.div<DrawerItemProps>`
   height:5rem;
   `;
 
-const ContentText = styled.div<ContentTextProps>`
+const ContentText = styled.p<ContentTextProps>`
 margin: auto;
+-webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
   text-align: left;
   width: ${({ text }) => text ? '50%' : '0%'};
 `;

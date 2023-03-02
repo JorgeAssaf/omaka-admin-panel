@@ -1,0 +1,14 @@
+.checkBoxContainer{
+    border-radius: 100%;
+    background-color: #F2E6CF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.3px solid #e6dac4;
+    cursor: pointer;
+}
+
+.checkBoxBody{
+    background-color: #40C980;
+    border-radius: 100%;
+}
