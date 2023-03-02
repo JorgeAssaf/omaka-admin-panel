@@ -1,0 +1,47 @@
+.avatarContainer{
+    width: 56px;
+    height: 56px; 
+    position: relative;
+    
+}
+
+.editar-perfil {
+    width: 150px;
+    height: 150px;
+    margin-left: 1rem;
+    margin: auto;
+}
+
+.avatarContainer:hover::before{
+    content: 'Editar';
+    color: #F2E6CF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   border-radius: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+   cursor: pointer;
+}
+
+.avatarContainer .middle {
+    width: 56px;
+    height: 56px;
+    
+}
+
+.avatarContainer .xlarge {
+    width: 150px;
+    height: 150px;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    object-fit: cover;
+    
+}

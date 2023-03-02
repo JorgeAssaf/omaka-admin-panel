@@ -1,9 +1,0 @@
-.listContainer {
-    display: grid;
-    flex-direction: column;
-    padding: 16px;
-    align-self:center;
-    margin: 0px auto;
-    column-gap: 1em;
-    row-gap: 1em;
-}
