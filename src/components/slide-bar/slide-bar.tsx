@@ -7,7 +7,7 @@ import { TextSnippet, FmdGood, Person, Settings } from '@mui/icons-material';
 const PEDIDOS = 'pedidos';
 const CONFIGURACION = 'configuracion';
 const RUTAS = 'rutas';
-const CONDUCTORES = 'conductores'
+const CONDUCTORES = 'repartidores'
 
 type SlideBarInterface = {
   changeContent: any;
@@ -40,7 +40,7 @@ export const SlideBar = ({changeContent} : SlideBarInterface) => {
         />
         <GeneralItemDrawer
           activeIteam={stateStyle === CONDUCTORES}
-          text="Conductores"
+          text="Repartidores"
           imgIcon={Person}
           index={2}
           onClick={() => onClickItem(CONDUCTORES)}

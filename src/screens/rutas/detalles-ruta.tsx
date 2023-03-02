@@ -11,7 +11,6 @@ type DetallesRutaProps = {
 }
 
 export const DetallesRuta = ({rateData,pedidosList, addOrRemoveOrder}:DetallesRutaProps) => {
-  console.log("pedidosList",pedidosList);
   
   return(
     <div style={{ display: "flex", flexDirection: "column", width:'100%' }}>

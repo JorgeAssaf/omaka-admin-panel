@@ -20,82 +20,49 @@ export const PanelRutas = () => {
   const { DatosPersonales } = useSelector(
     (state: RootState) => state.user.userData as any
   );
-  const arrayPed=[{ubicacionPedido:{lat:20.67171803720562,lng:-103.47215320422521}},{ubicacionPedido:{lat:20.69271803720562,lng:-103.47215320422521}},{ubicacionPedido:{lat:20.57171803720562,lng:-103.47215320422521}}]
 
-  const data = [
-    {
-      idPedido: "14-1317321",
-      status: "Entregado",
-      primerTexto: "Calle Tabachín 45, Tlaquepaque, Jal. 857263",
-      segundoTexto: "Eugenia Castillo",
-      tipo: "ruta",
-      progressRute: 20,
-      distancia: "20km."
-    },
-    {
-      idPedido: "14-1317321",
-      status: "Pendiente",
-      primerTexto: "Calle Tabachín 45, Tlaquepaque, Jal. 857263",
-      segundoTexto: "Eugenia Castillo",
-      tipo: "ruta",
-      progressRute: 20
-    },
-    {
-      idPedido: "14-1317321",
-      status: "Entregado",
-      primerTexto: "Calle Tabachín 45, Tlaquepaque, Jal. 857263",
-      segundoTexto: "Eugenia Castillo",
-      tipo: "ruta",
-      progressRute: 20,
-      distancia: "20km."
-    },
-    {
-      idPedido: "14-1317321",
-      status: "Pendiente",
-      primerTexto: "Calle Tabachín 45, Tlaquepaque, Jal. 857263",
-      segundoTexto: "Eugenia Castillo",
-      tipo: "ruta",
-      progressRute: 20
-    }
-  ];
 
-  const getRateList = () => {};
+
+  const getRateList = () => {
+
+  };
 
   const newRateClient = async (rateData: RateTypeForm) => {
-    setLoading(true);
+    console.log("rateData",rateData);
+    
+    // setLoading(true);
     const creador = {
       name: DatosPersonales.nombre,
       id: DatosPersonales.idUsuario
     };
-    const resRate = await newRate(rateData, creador, repartidor);
-    getRateList();
-    setLoading(false);
-    setScreenShow("list");
-    if (resRate.status == "OK") {
-      toast.success("Pedido creado exitosamente!!");
-    } else {
-      toast.error("Algo paso mal");
-      toast.error(resRate.errorMessage);
-    }
+    const resRate = await newRate(rateData, creador, rateData.repartidor);
+    // getRateList();
+    // setLoading(false);
+    // setScreenShow("list");
+    // if (resRate.status == "OK") {
+    //   toast.success("Pedido creado exitosamente!!");
+    // } else {
+    //   toast.error("Algo paso mal");
+    //   toast.error(resRate.errorMessage);
+    // }
   };
 
   return (
     <>
       {screenShow == "list" ? (
         <div className="rutas_container">
-         <div className="header_container">
+          <div className="rutas_view_container">
+            <div className="lista_container">
+            <div className="header_container">
             <HeaderSection
               title={"Rutas"}
               actionBtnAdd={()=>setScreenShow("new")}
             />
           </div>
-
-          <div className="rutas_view_container">
-            <div className="lista_container">
-              <CardList onClickItem={()=>null} tipo="rutas" data={data} />
+              {/* <CardList onClickItem={()=>null} tipo="rutSas" data={orderList} /> */}
             </div>
             <div className="mapa_container">
-              <MapView points={arrayPed}/>
+              {/* <MapView points={arrayPed}/> */}
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ import { env } from '../env/envDev';
 export const getUser = async (uid? : string )  =>{
     try{
       if (uid) {
-        let respuestaBack = await axios.post(env.serverUrl+`/get-profile`,{idUsuario:uid,isClient:true})
+        let respuestaBack = await axios.post(env.serverUrl+`/get-profile`,{idUsuario:uid,isAdmin:true})
           if(respuestaBack.data.status=='OK'){
             return(respuestaBack.data.user);
           }
@@ -21,7 +21,7 @@ export const getUser = async (uid? : string )  =>{
 export const registrarUsuario = async (userData : any)  =>{
   try{
     if (userData) {
-      let respuestaBack = await axios.post(env.serverUrl+`/crear-usuario`,{userData:userData,isClient:true})
+      let respuestaBack = await axios.post(env.serverUrl+`/crear-usuario`,{userData:userData,isAdmin:true})
       return(respuestaBack.data);
     }
   }catch(err){

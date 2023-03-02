@@ -13,7 +13,7 @@ function RegistrationForm({ setScreenShow }: LoginProps) {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [telefono, setTelefono] = useState("");
-  const [fechaNacimineto, setFechaNacimineto] = useState("");
+  const [fechaNacimiento, setfechaNacimiento] = useState("");
   const [login, setLogin] = useState(false);
 
   const handleSubmit = async (event) => {
@@ -25,7 +25,7 @@ function RegistrationForm({ setScreenShow }: LoginProps) {
       nombre,
       apellido,
       telefono,
-      fechaNacimineto
+      fechaNacimiento
     });
     setLogin(false);
     console.log(resApi);
@@ -101,9 +101,9 @@ function RegistrationForm({ setScreenShow }: LoginProps) {
           Fecha de nacimiento:
           <input
             type="date"
-            value={fechaNacimineto}
+            value={fechaNacimiento}
             onChange={(event) =>
-              setFechaNacimineto((event.target as HTMLInputElement).value)
+              setfechaNacimiento((event.target as HTMLInputElement).value)
             }
             required
           />

@@ -21,4 +21,12 @@ const Colors=()=>{
         xochipaltic050:'#FFEBEB'
     }
 }
+
+export const repartidorColor = {
+    libre:Colors().chalchihuitl400,
+    renovar:Colors().zacatazcalli300,
+    'en ruta': Colors().texotli200,
+    inactivo:Colors().xochipaltic400,
+   }
+
 export default Colors;

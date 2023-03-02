@@ -14,7 +14,9 @@ const Login = ({setScreenShow}:LoginProps)  => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();   
-
+    console.log('====================================');
+    console.log('a loggerme');
+    console.log('====================================');
     try {
       const auth = getAuth();
       const userCredential = await signInWithEmailAndPassword(auth, username, password);

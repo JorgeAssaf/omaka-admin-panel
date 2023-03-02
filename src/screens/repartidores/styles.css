@@ -1,0 +1,55 @@
+.repartidor_container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex:1;
+    height: 100%;
+
+}
+.repartidor_view_container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+}
+
+.repartidor_container .lista_container {
+    width: 50%;
+    padding: 16px 32px 16px 32px;
+    -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
+}
+.repartidor_container .lista_container.contracted {
+    width: 50%;
+    -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
+}
+.repartidor_container .header_nav_form{
+    margin: 0px 8px;
+    padding: 16px 32px;
+}
+.repartidor_container .mapa_container {
+    width: 40%;
+    height: 100%;
+    flex:1;
+}
+
+.mapa_container .contracted{
+    width: 60%;
+    height: 100%;
+}
+.nueva-ruta-container{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex:1;
+    flex:1
+}
+/************* Detalles de ruta *****************/
+.detalle-ruta-container{
+    background-image: url('../../assets/mapBackground.jpg');
+    background-size: 100% 100%;
+    flex:1;
+    object-fit: cover;
+}
+.pedidos_detalles_container{
+    width: 60%;
+}

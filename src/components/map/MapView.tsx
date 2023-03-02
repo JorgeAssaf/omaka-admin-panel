@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import mapsStyle from './mapsStyle.json';
-import { typeMapView } from '../../types/typesMap';
+import { typeMapView, PointType} from '../../types/typesMap';
 import { RootState } from "../../redux/reducers/mainReducer";
 import { useDispatch, useSelector } from "react-redux";
 import './MapView.css';
-
+ 
 
 const Marker = ({ color, lat, lng }) => <div style={{ backgroundColor: color, width: '1.5rem', height: '1.5rem', borderRadius: '50%' }}> </div>
 let generalMap;
@@ -13,7 +13,7 @@ let generalMaps;
 let generalPoints;
 let ban=false;
 function MapView({ points, screenShow }: typeMapView) {
-  const [puntosArray, setPuntosArray] = useState<typeMapView[]>([]);
+  const [puntosArray, setPuntosArray] = useState<PointType[]>([]);
   const newPedido = useSelector((state: RootState) => state.pedidos.newPedidoUbicacion as any);
   const dispatch = useDispatch();
 

@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { GetOrders } from "../../api/ordersQuerys";
+import { GetRepartidores } from "../../api/repartidorQuery";
 import { Buttons } from "../../components/atoms/buttons";
-import CheckBox from "../../components/atoms/checkBox/checkbox";
 import HeaderSection from "../../components/header/headerSection";
 import { RootState } from "../../redux/reducers/mainReducer";
-import { OrderType, OrderTypeForm } from "../../types/typeOrders";
-import { RateTypeForm, RateTypeFormSimple } from "../../types/typeRate";
+import { OrderType } from "../../types/typeOrders";
+import { RateTypeFormSimple } from "../../types/typeRate";
+import { RepartidorType } from "../../types/typeRepartidor";
 import Colors from "../../utils/colors";
+import { getIdPedidos } from "../../utils/pedidos";
 import { DetallesRuta } from "../rutas/detalles-ruta";
 import FormularioDatos from "./formulario-datos";
 import { FormularioPedidos } from "./formulario-pedidos";
@@ -28,14 +30,14 @@ const NuevoRuta = ({ handleSubmit,setScreenShow, fetching, }: NuevaRutaProps) =>
   const [screenLocal, setScreenLocal] = useState("data");
   const [loading, setLoading] = useState(false);
   const [allPedidosList, setAllPedidosList ] = useState<OrderType[]> ([]);
+  const [allRepartidoresList, setAllRepartidoresList ] = useState<RepartidorType[]> ([]);
   const [pedidosInRate, setPedidosInRate ] = useState<OrderType[]> ([]);
   const [dataForm, setDataForm] = useState({} as RateTypeFormSimple);
   const {DatosPersonales} = useSelector((state: RootState) => state.user.userData as any);
 
   const callBackRate = () => {
     if(dataForm.nombreRuta && dataForm.fechaEntrega){
-      console.log('crear ruta');
-      
+      handleSubmit(dataForm);
     }else{
       toast.error('Llena todos los campos')
     }
@@ -43,6 +45,7 @@ const NuevoRuta = ({ handleSubmit,setScreenShow, fetching, }: NuevaRutaProps) =>
   
   useEffect(() => {
     getOrderList();
+    getRepartidoresList();
   }, [])
   
 
@@ -53,6 +56,18 @@ const NuevoRuta = ({ handleSubmit,setScreenShow, fetching, }: NuevaRutaProps) =>
       setAllPedidosList(resOrder.pedidosSinRuta);
     } else {
       console.error('Error en getOrderList');
+    }
+    setLoading(false);
+  };
+
+
+    const getRepartidoresList = async () => {
+    setLoading(true);
+    const resOrder = await GetRepartidores(DatosPersonales.idUsuario);
+    if (resOrder) {
+      setAllRepartidoresList(resOrder);
+    } else {
+      console.error('Error en getRepartidoresList');
     }
     setLoading(false);
   };
@@ -70,6 +85,10 @@ const NuevoRuta = ({ handleSubmit,setScreenShow, fetching, }: NuevaRutaProps) =>
     moverPedido(allPedidosList, pedidosInRate, objPedido.idPedido);
     setAllPedidosList([...allPedidosList]);
     setPedidosInRate([...pedidosInRate]);
+    setDataForm({
+      ...dataForm,
+      Pedidos:getIdPedidos([...pedidosInRate])
+    })
   };
   
   const removePedidoToRate = (objPedido : OrderType) => {
@@ -77,6 +96,20 @@ const NuevoRuta = ({ handleSubmit,setScreenShow, fetching, }: NuevaRutaProps) =>
     setPedidosInRate([...pedidosInRate]);
     setAllPedidosList([...allPedidosList]);
   };
+
+  const addRepartidoresToRate = (repartidor: RepartidorType) => {
+    const idRepartidor = repartidor.DatosPersonales.idUsuario;
+    if(idRepartidor){
+      setDataForm({
+        ...dataForm,
+        repartidor:{
+          id:idRepartidor,
+          name:repartidor.DatosPersonales.nombre,
+          foto:repartidor.DatosPersonales.foto,
+        }
+      })
+    }
+  }
 
   const navigationBack = () => {
     switch (screenLocal) {
@@ -87,7 +120,7 @@ const NuevoRuta = ({ handleSubmit,setScreenShow, fetching, }: NuevaRutaProps) =>
         setScreenLocal('data')
         break;
       case 'repartidores':
-        setScreenShow('pedidos')
+        setScreenLocal('pedidos')
         break;
       default:
         break;
@@ -134,7 +167,7 @@ const NuevoRuta = ({ handleSubmit,setScreenShow, fetching, }: NuevaRutaProps) =>
             <FormularioPedidos pedidosList={allPedidosList} loading={loading}  onClickItem={addPedidoToRate}/>
           </>
         ):(
-          <FormularioRepartidores/>
+          <FormularioRepartidores repartidoresList={allRepartidoresList} loading={loading} onClickItem={addRepartidoresToRate} />
         )
       }
       </div>
