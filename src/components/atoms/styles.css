@@ -1,0 +1,8 @@
+.atom_select_input {
+    padding: 10px;
+    width: 50%;
+    font-size: 16px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    width: 100%; 
+}

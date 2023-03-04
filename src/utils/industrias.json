@@ -1,0 +1,165 @@
+{
+    "industrias": [
+      {
+        "id": 1,
+        "name": "Agricultura y ganadería"
+      },
+      {
+        "id": 2,
+        "name": "Alimentos y bebidas"
+      },
+      {
+        "id": 3,
+        "name": "Artes y entretenimiento"
+      },
+      {
+        "id": 4,
+        "name": "Automotriz"
+      },
+      {
+        "id": 5,
+        "name": "Construcción"
+      },
+      {
+        "id": 6,
+        "name": "Educación"
+      },
+      {
+        "id": 7,
+        "name": "Energía"
+      },
+      {
+        "id": 8,
+        "name": "Financiero"
+      },
+      {
+        "id": 9,
+        "name": "Hospitales y atención médica"
+      },
+      {
+        "id": 10,
+        "name": "Hotelería y turismo"
+      },
+      {
+        "id": 11,
+        "name": "Ingeniería y diseño"
+      },
+      {
+        "id": 12,
+        "name": "Internet y tecnología"
+      },
+      {
+        "id": 13,
+        "name": "Manufactura"
+      },
+      {
+        "id": 14,
+        "name": "Marketing y publicidad"
+      },
+      {
+        "id": 15,
+        "name": "Medios y comunicaciones"
+      },
+      {
+        "id": 16,
+        "name": "Minería y extracción"
+      },
+      {
+        "id": 17,
+        "name": "Productos farmacéuticos"
+      },
+      {
+        "id": 18,
+        "name": "Servicios legales"
+      },
+      {
+        "id": 19,
+        "name": "Servicios públicos"
+      },
+      {
+        "id": 20,
+        "name": "Transporte y logística"
+      },
+      {
+        "id": 21,
+        "name": "Bienes de consumo"
+      },
+      {
+        "id": 22,
+        "name": "Comercio minorista"
+      },
+      {
+        "id": 23,
+        "name": "Consultoría y asesoría"
+      },
+      {
+        "id": 24,
+        "name": "Cosméticos y cuidado personal"
+      },
+      {
+        "id": 25,
+        "name": "E-commerce"
+      },
+      {
+        "id": 26,
+        "name": "Inmobiliaria"
+      },
+      {
+        "id": 27,
+        "name": "Investigación y desarrollo"
+      },
+      {
+        "id": 28,
+        "name": "Materiales de construcción"
+      },
+      {
+        "id": 29,
+        "name": "Organizaciones sin fines de lucro"
+      },
+      {
+        "id": 30,
+        "name": "Servicios financieros"
+      },
+      {
+        "id": 31,
+        "name": "Software y tecnología"
+      },
+      {
+        "id": 32,
+        "name": "Suministros de oficina"
+      },
+      {
+        "id": 33,
+        "name": "Telecomunicaciones"
+      },
+      {
+        "id": 34,
+        "name": "Textiles y moda"
+      },
+      {
+        "id": 35,
+        "name": "Transporte aéreo"
+      },
+      {
+        "id": 36,
+        "name": "Transporte marítimo"
+      },
+      {
+        "id": 37,
+        "name": "Ventas al por mayor"
+      },
+      {
+        "id": 38,
+        "name": "Viajes y turismo"
+      },
+      {
+        "id": 39,
+        "name": "Videojuegos"
+      },
+      {
+        "id": 40,
+        "name": "Vinos y licores"
+      }
+    ]
+  }
+  

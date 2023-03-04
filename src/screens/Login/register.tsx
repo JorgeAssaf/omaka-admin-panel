@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { registrarUsuario } from "../../api/userQuerys";
+import SelectInput from "../../components/atoms/select-input";
+import IndustriasJson from '../../utils/industrias.json'
 import "./styles.css";
 
 type LoginProps = {
@@ -13,9 +15,11 @@ function RegistrationForm({ setScreenShow }: LoginProps) {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [telefono, setTelefono] = useState("");
-  const [fechaNacimiento, setfechaNacimiento] = useState("");
+  const [nombreEmpresa, setNombreEmpresa] = useState("");
+  const [industriaEmpresa,setIndustriaEmpresa] = useState("");
   const [login, setLogin] = useState(false);
-
+  console.log(industriaEmpresa);
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLogin(true);
@@ -25,10 +29,10 @@ function RegistrationForm({ setScreenShow }: LoginProps) {
       nombre,
       apellido,
       telefono,
-      fechaNacimiento
+      nombreEmpresa,
+      industriaEmpresa
     });
     setLogin(false);
-    console.log(resApi);
     
     if(resApi.status == 'OK'){
         setScreenShow("login");
@@ -98,16 +102,24 @@ function RegistrationForm({ setScreenShow }: LoginProps) {
           />
         </label>
         <label>
-          Fecha de nacimiento:
+          Nombre de empresa
           <input
-            type="date"
-            value={fechaNacimiento}
+            type="text"
+            value={nombreEmpresa}
             onChange={(event) =>
-              setfechaNacimiento((event.target as HTMLInputElement).value)
+              setNombreEmpresa((event.target as HTMLInputElement).value)
             }
             required
           />
         </label>
+
+        <label>
+            Industria de la empresa
+         <div>
+          <SelectInput options={IndustriasJson.industrias} onSelect={(value) => setIndustriaEmpresa(IndustriasJson.industrias[value-1]?.name)} textPlaceholder="Selecciona una industria"/>
+         </div>
+        </label>
+        
 
         <button type="submit">Registrarse</button>
         <p>

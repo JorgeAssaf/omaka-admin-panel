@@ -4,3 +4,14 @@ export interface TypographyProps {
     customedStyles?: Object;
     children: string;
   }
+
+export interface SelectInputProps {
+  options: SelectInputOption[];
+  onSelect: (option: string) => void;
+  textPlaceholder: string;
+}
+
+export interface SelectInputOption {
+  id: number;
+  name: string;
+}
