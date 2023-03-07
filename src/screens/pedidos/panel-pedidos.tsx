@@ -11,6 +11,7 @@ import { AppDispatch } from '../../redux/store';
 import { OrderType, OrderTypeForm } from '../../types/typeOrders';
 import NuevoPedido from './nuevo-pedido';
 import './styles.css'
+
 export const PanelPedidos = () =>{
   const [screenShow, setScreenShow] = useState('list');
   const [loading,setLoading] = useState(false);
