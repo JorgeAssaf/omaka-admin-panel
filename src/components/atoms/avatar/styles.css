@@ -26,6 +26,12 @@
     
 }
 
+.avatarContainer.large {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+}
+
 .avatarContainer.xlarge {
     width: 150px;
     height: 150px;

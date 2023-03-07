@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import GeneralItemDrawer from './item-drawer';
 // import { pinIcon, settingsIcon, userIcon } from '../../helpers/icons.js';
-import { TextSnippet, FmdGood, Person, Settings } from '@mui/icons-material';
+import { TextSnippet, FmdGood, Person, Settings, PersonPin } from '@mui/icons-material';
 
 const PEDIDOS = 'pedidos';
 const CONFIGURACION = 'configuracion';
@@ -35,7 +35,7 @@ const SlideBar = () => {
         <GeneralItemDrawer
           activeIteam={stateStyle === CONDUCTORES}
           text="Conductores"
-          imgIcon={Person}
+          imgIcon={PersonPin}
           onClick={() => onClickItem(CONDUCTORES)}
         />
         <ContentSettings>
@@ -62,7 +62,7 @@ const SlideBar = () => {
       />
       <GeneralItemDrawer
         activeIteam={stateStyle === CONDUCTORES}
-        imgIcon={Person}
+        imgIcon={PersonPin}
       />
       <ContentSettings>
       <GeneralItemDrawer

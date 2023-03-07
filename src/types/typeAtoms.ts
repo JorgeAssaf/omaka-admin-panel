@@ -4,6 +4,15 @@ export interface TypographyProps {
     customedStyles?: Object;
     children: string;
   }
+export interface LabelInputProps {
+  label?: string;
+  placeholder?: string;
+  value?: string;
+  onChange: (value: string) => void;
+  type?: string;
+  required? : boolean;
+  inputProps?: any;
+}
 
 export interface SelectInputProps {
   options: SelectInputOption[];
