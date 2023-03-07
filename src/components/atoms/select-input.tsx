@@ -10,7 +10,7 @@ export default function SelectInput({ options, onSelect,textPlaceholder }:Select
     ));
   
     return (
-      <select className='atom_select_input' onChange={(e)=>onSelect((e.target as HTMLInputElement).value)}>
+      <select className='atom_select_input' onChange={(e)=>onSelect(parseInt((e.target as HTMLInputElement).value))}>
         <option value="">{textPlaceholder}</option>
         {allOptions}
       </select>

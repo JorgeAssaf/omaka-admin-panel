@@ -1,31 +1,28 @@
 import React, {useState, useEffect} from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import { GetOrders, newOrder } from '../../api/ordersQuerys';
 import { CardList } from '../../components/cardList/cards-list';
 import HeaderSection from '../../components/header/headerSection';
 import MapView from '../../components/map/MapView';
+import { getListaPedidos } from '../../redux/actions';
 import { RootState } from '../../redux/reducers/mainReducer';
+import { AppDispatch } from '../../redux/store';
 import { OrderType, OrderTypeForm } from '../../types/typeOrders';
 import NuevoPedido from './nuevo-pedido';
 import './styles.css'
 export const PanelPedidos = () =>{
   const [screenShow, setScreenShow] = useState('list');
-  const [orderList,setOrderList] = useState <OrderType[]> ([])
   const [loading,setLoading] = useState(false);
   const {DatosPersonales} = useSelector((state: RootState) => state.user.userData as any);
-
+  const orderList = useSelector((state: RootState) => state.pedidos.orderList);
+  const dispatch = useDispatch<AppDispatch>();
     useEffect(() => {
       getOrderList();
     }, []);
 
     const getOrderList = async () => {
-      const resOrder = await GetOrders(DatosPersonales.idUsuario);
-      if (resOrder) {
-        setOrderList(resOrder.pedidosSinRuta);
-      } else {
-        console.error('Error en getOrderList');
-      }
+      dispatch(getListaPedidos(DatosPersonales.idUsuario));
     };
    
    
@@ -44,8 +41,6 @@ export const PanelPedidos = () =>{
     }
     const arrayPed=[{ubicacionPedido:{lat:20.67171803720562,lng:-103.47215320422521}},{ubicacionPedido:{lat:20.69271803720562,lng:-103.47215320422521}},{ubicacionPedido:{lat:20.57171803720562,lng:-103.47215320422521}}]
 
-
-    
       return(
         <div className='pedidos_container'>
           <div className={screenShow == 'new'? ' lista_container contracted':'lista_container'}>

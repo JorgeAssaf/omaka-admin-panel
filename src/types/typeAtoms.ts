@@ -7,7 +7,7 @@ export interface TypographyProps {
 
 export interface SelectInputProps {
   options: SelectInputOption[];
-  onSelect: (option: string) => void;
+  onSelect: (option: number) => void;
   textPlaceholder: string;
 }
 

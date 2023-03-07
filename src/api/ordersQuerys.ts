@@ -34,3 +34,28 @@ export const GetOrders = async (idUsuario? : string, idRuta? : string)  =>{
     return (false);
   }
 }
+
+
+export const TranferPedidosToRuta = async (idUsuario : string | undefined,rutaToTransfer : any,arrayPedidosToTransfer : any)=>{
+  try{
+    if(idUsuario && rutaToTransfer && arrayPedidosToTransfer){
+    let respuestaBack=await axios.post(`${env?.serverUrl}/transfer-pedido-ruta`,{idUsuario:idUsuario,rutaToTransfer:rutaToTransfer,arrayPedidosToTransfer:arrayPedidosToTransfer})
+    return respuestaBack;
+    }else{
+      return({status:'300'})
+    }
+  }catch(err){
+    console.log(err);
+  }
+}
+
+export const preparateOrdersToTransfer = (ordersList? : Array<any>) => {
+  let newArrayOrders = [] as any;
+  if(ordersList){
+    ordersList.map((item)=>{
+      newArrayOrders.push(item.idPedido);
+    })
+  }
+
+  return(newArrayOrders)
+}

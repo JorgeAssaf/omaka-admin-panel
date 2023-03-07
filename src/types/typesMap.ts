@@ -11,6 +11,7 @@ export interface PointType {
     lng: number;
   };
   nombre?: string;
+  color?: string;
   status?: string;
   velocidad?: number;
 }

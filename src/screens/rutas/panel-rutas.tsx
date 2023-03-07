@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
-import { newRate } from "../../api/rateQuerys";
+import { newRate, tomarRutas } from "../../api/rateQuerys";
+import { DetallesRutaCard } from "../../components/cardDetalleRuta/detalles-ruta-card";
+import { CardList } from "../../components/cardList/cards-list";
 import HeaderSection from "../../components/header/headerSection";
 import MapView from "../../components/map/MapView";
 import { RootState } from "../../redux/reducers/mainReducer";
+import { OrderType } from "../../types/typeOrders";
 import { RateType, RateTypeFormSimple } from "../../types/typeRate";
+import { PointType } from "../../types/typesMap";
+import { getOderForID, getPointsORder } from "../../utils/pedidos";
+import { getPointsRates } from "../../utils/rates";
 import NuevaRuta from "../nuevaRuta/nueva-ruta";
 
 import "./styles.css";
 export const PanelRutas = () => {
   const [screenShow, setScreenShow] = useState("list");
-  const [orderList, setOrderList] = useState<RateType[]>([]);
+  const [activeRateList, setActiveRateList] = useState<RateType[]>([]);
+  const [historyRateList, setHistoryRateList] = useState<RateType[]>([]);
   const [loading, setLoading] = useState(false);
+  const [rateSelected, setRateSelected] = useState({} as RateType);
+  const [poinstRates, setPoinstRates] = useState({} as PointType[]);
   const [repartidor, setRepartidor] = useState<RateType["repartidor"]>(
     {} as any
   );
@@ -20,14 +29,24 @@ export const PanelRutas = () => {
     (state: RootState) => state.user.userData as any
   );
 
+  const orderWithRate = useSelector(
+    (state: RootState) => state.pedidos.orderListWithRate
+  );
 
-
-  const getRateList = () => {
-
+  const getRateList = async () => {
+    const reqBack = await  tomarRutas( DatosPersonales.idUsuario, true);
+    if(reqBack.status == 'OK'){
+      setActiveRateList(reqBack.activeRates);
+      setHistoryRateList(reqBack.historyRates);
+    }
   };
 
+  useEffect(() => {
+    getRateList();
+  }, [])
+  
+
   const newRateClient = async (rateData: RateTypeFormSimple) => {
-    console.log("rateData",rateData);
     
     // setLoading(true);
     const creador = {
@@ -46,6 +65,28 @@ export const PanelRutas = () => {
     }
   };
 
+  const onSelectRate = (itemRate) => {
+    setRateSelected(itemRate);
+  }
+
+  const getArrayPointsRates = () => {
+    if(activeRateList.length>0 && orderWithRate.length>0){
+      const points = getPointsRates(activeRateList,orderWithRate);      
+      setPoinstRates(points);
+    }
+  }
+
+  useEffect(() => {
+    getArrayPointsRates();
+  },[activeRateList,orderWithRate])
+
+  const focusOrderMap = (item: OrderType) => {
+    const points = getPointsORder([item]);
+    console.log(points);
+    
+    setPoinstRates(points);
+  }
+
   return (
     <>
       {screenShow == "list" ? (
@@ -58,10 +99,19 @@ export const PanelRutas = () => {
               actionBtnAdd={()=>setScreenShow("new")}
             />
           </div>
-              {/* <CardList onClickItem={()=>null} tipo="rutSas" data={orderList} /> */}
+              <CardList  onClickItem={(item)=>onSelectRate(item)} cardProps={{fullWidth:true}} tipo='rutas' data={activeRateList} />
             </div>
             <div className="mapa_container">
-              {/* <MapView points={arrayPed}/> */}
+              <div className='card_detalles_ruta_float'>
+                {rateSelected.idRuta && <DetallesRutaCard {...rateSelected} />}
+                <div className='order_list_float_right'>
+                  {
+                    <CardList  onClickItem={(item)=>focusOrderMap(item)} tipo='pedidos' data={getOderForID(rateSelected.Pedidos)} />
+                  }
+                </div>
+              
+              </div>
+              {poinstRates.length>0 && <MapView points={poinstRates}/>}
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ export interface RateType {
         foto?: string;
     }
     fechaCreacion: any;
+    idRuta: string;
     fechaEntrega: any;
     nombreRuta: string;
     pedidosDetenidos: number;
