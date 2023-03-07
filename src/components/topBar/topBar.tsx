@@ -9,7 +9,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { InformationChip } from "../atoms/information-chip";
 import { getAuth, signOut } from "firebase/auth";
 
-export const UserBar = () => {
+type UserBarInterface = {
+  changeContent: any;
+}
+
+export const UserBar = ({changeContent}: UserBarInterface) => {
   const {DatosPersonales, Nivel} = useSelector((state: RootState) => state.user.userData as any);
   const auth = getAuth();
   const dispatch = useDispatch();
@@ -21,7 +25,7 @@ export const UserBar = () => {
     <div className='topBarContainer'>
       <div className='leftSide'>
         <div className='avatarContainer'>
-          <Avatar editable  />
+          <Avatar editable={true} onClick={() => changeContent('editarPerfil')}  />
         </div>
         <Buttons
           action={() => null}

@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-left: 4rem;
     margin-top: 1rem;
 
 }
@@ -15,15 +14,34 @@
 
 }
 
-.column-derecha {
+.column.derecha {
     display: flex;
     flex-direction: column;
     width: 30%;
     justify-content: center;
-    background-color: black;
+    background-color: rgb(49, 49, 49);
+    color:#FBF7EF;
     padding: 4rem;
     border-radius: 24px;
     margin: 2rem;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+}
+
+.column.izquierda{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    justify-content: center;
+    background-color: #FBF7EF;
+    padding: 4rem;
+    border-radius: 24px;
+    margin: 2rem;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.boton-contrata {
+    margin: auto auto 0 auto;
 }
 
 .text-container {
@@ -34,7 +52,7 @@
     margin-bottom: 1rem;
 }
 
-.text {
+.text  {
     display: flex;
     flex-direction: row;
     margin-top: 1rem;
@@ -53,4 +71,71 @@
 
 .tipo-cuenta {
     color: #eff14a
+}
+
+.titulo-nivel {
+    color:#8BDBB0;
+    font-weight: 800;
+    font-size:1rem;
+    margin: 2rem auto 2rem auto;
+}
+
+.pin-image {
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lista-beneficios{
+    color:black;
+    margin-bottom: 3rem;
+    font-weight: 600;
+    line-height: 2.5rem;
+}
+
+.modal-contrata {
+    color:black;
+
+}
+
+.content-modal .encabezado-modal {
+
+    color:black;
+    font-weight: 900;
+    border-bottom : .5px solid;
+}
+
+.content-modal {
+    padding: 2rem;
+}
+
+.primer-elemento {
+    display:flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1200px ) {
+
+    .text {
+        flex-direction: column;
+    }
+    
+}
+
+@media screen and (max-width: 800px ) {
+.perfil-container {
+    flex-direction: column;
+}
+
+.column.derecha {
+    margin: auto;
+    width: 75%;
+}
+.column.izquierda {
+    margin: auto;
+    width: 75%;
+    margin-top: 2rem;
+}
+
 }

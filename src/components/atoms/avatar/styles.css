@@ -20,15 +20,16 @@
    cursor: pointer;
 }
 
-.avatarContainer .middle {
+.avatarContainer.middle {
     width: 56px;
     height: 56px;
     
 }
 
-.avatarContainer .xlarge {
+.avatarContainer.xlarge {
     width: 150px;
     height: 150px;
+    margin: auto;
 }
 
 .avatar {

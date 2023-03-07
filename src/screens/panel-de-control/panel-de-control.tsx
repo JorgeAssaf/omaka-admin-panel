@@ -11,7 +11,8 @@ export const PanelDeControl = () => {
   const Seccion = {
     rutas: <PanelRutas />,
     pedidos: <PanelPedidos />,
-    repartidores: <PanelRepartidores/>
+    repartidores: <PanelRepartidores/>,
+    editarPerfil: <EditarPerfilUsuario />
   };
 
   const [seccionActiva, setSeccionActiva] = useState("pedidos");
@@ -22,7 +23,7 @@ export const PanelDeControl = () => {
 
   return (
     <div className='panel-container'>
-      <UserBar />
+      <UserBar changeContent={CambiarSeccion} />
       <div className='panelControlContainer'>
         <SlideBar changeContent={CambiarSeccion} />
         <div className="leftPanelContainer">{Seccion[seccionActiva]}</div>
