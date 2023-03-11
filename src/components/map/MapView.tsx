@@ -42,6 +42,10 @@ function MapView({ points, screenShow }: typeMapView) {
   useEffect(() => {
     setPuntosArray(points);
   }, []);
+  useEffect(() => {
+    setPuntosArray(points);
+    console.log(points);
+  }, [points]);
 
   useEffect(() => {
     if (screenShow == "new") {

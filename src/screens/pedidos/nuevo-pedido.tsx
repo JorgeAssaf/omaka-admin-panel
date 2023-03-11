@@ -46,6 +46,8 @@ const NuevoPedido = ({ handleSubmit, loading }: NuevoPedidoProps) => {
         (response) => {
           const address = response.results[0].formatted_address;
           setDireccionPedido(address);
+          setUbicacionPedido({lat:newBound.ubicacionPedido.lat,lng:newBound.ubicacionPedido.lng});
+
         },
         (error) => {
           console.error(error);
@@ -63,7 +65,8 @@ const NuevoPedido = ({ handleSubmit, loading }: NuevoPedidoProps) => {
   const { ref } = usePlacesWidget({
     apiKey: import.meta.env.VITE_KEY_MAPS,
     onPlaceSelected: (place) => {
-      let newPlace=[{ubicacionPedido:{lat:place.geometry.location.lat(),lng:place.geometry.location.lng()}}]
+      let newPlace=[{ubicacionPedido:{lat:place.geometry.location.lat(),lng:place.geometry.location.lng()}}];
+      setUbicacionPedido({lat:place.geometry.location.lat(),lng:place.geometry.location.lng()});
       dispatch({ type: 'setNewPedido', payload: newPlace });
 
     },

@@ -18,11 +18,11 @@ function ButtonRounded({
     <div onClick={action}>
       {type.toLowerCase() == "margin" ? (
         <MarginButton
-          widthB={width ? width : "200px"}
+          widthB={width ? width : "170px"}
           colorB={color}
           textColor={textColor}
         >
-          {text}
+          {text.toUpperCase()}
           <Tag colorB={tagColor} textColor={tagTextColor}>
             {tagValue}
           </Tag>
@@ -33,7 +33,7 @@ function ButtonRounded({
           colorB={color}
           textColor={textColor}
         >
-          {text}
+          {text.toUpperCase()}
           <Tag colorB={tagColor} textColor={tagTextColor}>
             {tagValue}
           </Tag>
@@ -56,10 +56,10 @@ const MarginButton = styled.div<Props>`
   border-radius: 40px;
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 32px;
+  font-size: 14px;
+  line-height: 14px;
   width: ${(props) => props.widthB};
-  padding: 18px;
+  padding: 8px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -73,23 +73,23 @@ const CompleteButton = styled.div<Props>`
   border-radius: 40px;
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 32px;
+  font-size: 14px;
+  line-height: 14px;
   width: ${(props) => props.widthB};
-  padding: 18px;
+  padding: 8px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 `;
 const Tag = styled.div<Props>`
-  padding: 8px 17px;
+  padding: 7px 12px;
   background-color: ${(props) => props.colorB};
   color: ${(props) => props.textColor};
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 32px;
+  font-size: 14px;
+  line-height: 14px;
   border-radius: 40px;
 `;
 

@@ -40,8 +40,8 @@ export const PanelPedidos = () =>{
         toast.error(resOrder.errorMessage)
       }
     }
-    const arrayPed=[{ubicacionPedido:{lat:20.67171803720562,lng:-103.47215320422521}},{ubicacionPedido:{lat:20.69271803720562,lng:-103.47215320422521}},{ubicacionPedido:{lat:20.57171803720562,lng:-103.47215320422521}}]
-
+    const arrayPed=[{ubicacionPedido:{lat:20.661844,lng:-103.704351}},{ubicacionPedido:{lat:20.661844,lng:-103.47215320422521}},{ubicacionPedido:{lat:20.57171803720562,lng:-103.47215320422521}}]
+ 
       return(
         <div className='pedidos_container'>
           <div className={screenShow == 'new'? ' lista_container contracted':'lista_container'}>
@@ -55,7 +55,7 @@ export const PanelPedidos = () =>{
             }
           </div>
           <div className='mapa_container'>
-            <MapView points={arrayPed} screenShow={screenShow}/>
+            <MapView points={orderList} screenShow={screenShow}/>
           </div>
           <ToastContainer
             limit={1}

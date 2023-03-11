@@ -17,3 +17,5 @@
     margin-right: 16px;
     cursor: pointer;
 }
+
+.filtrosContainer{display: flex;flex-direction: row;width: 100%;}
