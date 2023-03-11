@@ -67,3 +67,22 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.relative{
+  position: relative
+}
+
+.closeBtn.float.circle {
+  background-color: #FBF7EF;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  cursor: pointer;
+}

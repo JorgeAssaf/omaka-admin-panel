@@ -44,7 +44,9 @@ export const EditarPerfilUsuario = () => {
     <div className="perfil-container">
       <div className="column derecha">
         <Avatar
-          src="https://firebasestorage.googleapis.com/v0/b/omaka-app.appspot.com/o/Patterns%20-%206x6%20(10).png?alt=media&token=817c18a2-d4ac-45f8-ae7e-061fc0d99668"
+          fullName={dataProfile.nombre}
+          src={dataProfile.foto}
+          uuid={dataProfile.idUsuario}
           size="large"
         />
         <div className="tipo-cuenta">

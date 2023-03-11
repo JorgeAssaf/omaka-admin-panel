@@ -71,7 +71,7 @@ const PrimaryButton = styled.div<Props>`
   line-height: 32px;
   border-radius: 10px;
   cursor: pointer;
-  padding: 6px 12px;
+  padding: 2px 12px;
   text-align: center;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 `;

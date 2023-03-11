@@ -2,7 +2,7 @@
     width: 56px;
     height: 56px; 
     position: relative;
-    
+    cursor: pointer;
 }
 
 .avatarContainer.editable :hover::before{
@@ -18,6 +18,11 @@
    border-radius: 100%;
    background-color: rgba(0, 0, 0, 0.5);
    cursor: pointer;
+}
+.avatarContainer.small {
+    width: 56px;
+    height: 56px;
+    
 }
 
 .avatarContainer.middle {

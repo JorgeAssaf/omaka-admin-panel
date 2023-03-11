@@ -16,9 +16,7 @@ export const DetallesRutaCard = (props: RateTypeFormSimple) => {
   const clickPrueba = () => {
     setIsSelect(!isSelect);
   };
-console.log('====================================');
-console.log(repartidor);
-console.log('====================================');
+
   return (
     <div className="card-detalle-ruta-container">
       <div>
@@ -42,7 +40,7 @@ console.log('====================================');
               <Typography variant="cardInfo" color={Colors().iztac} >Conductor asignado</Typography>
               <Typography variant="cardTitle" color={Colors().iztac} >{repartidor.name}</Typography>
             </div>
-            <Avatar size='2rem' src={repartidor.foto} />
+            <Avatar uuid={repartidor.id} fullName={repartidor.name} size='middle' src={repartidor.foto} />
         </div> 
       }
     </div>

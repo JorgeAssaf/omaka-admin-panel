@@ -1,0 +1,30 @@
+
+.card-detalle-pedido-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #3D3D3D;
+    color: #FBF7EF;
+    border-radius: 12px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    padding: 24px;
+    margin: 8px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.card-detalle-pedido-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 8px;
+}
+
+
+.item_detalles_pedidos {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr; /* dos columnas */
+    grid-gap: 10px; /* espacio entre columnas */
+    margin: 0 auto; 
+}

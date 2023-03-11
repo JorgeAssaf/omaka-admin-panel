@@ -56,6 +56,8 @@ export const DetallesRepartidorCard = ({
             <div className="title_container">
               <div className="avatar_container">
                 <Avatar
+                  uuid={DatosPersonales.idUsuario}
+                  fullName={DatosPersonales.nombre}
                   src={DatosPersonales.foto ? DatosPersonales.foto : ""}
                 />
               </div>

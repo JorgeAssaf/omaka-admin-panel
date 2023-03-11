@@ -24,11 +24,14 @@ export const UserBar = ({changeContent}: UserBarInterface) => {
   return (
     <div className='topBarContainer'>
       <div className='leftSide'>
-        <div className='avatarContainer'>
-          <Avatar editable={true} onClick={() => changeContent('editarPerfil')}  />
+        <div className='avatar_topBar_container'>
+          <Avatar
+            fullName={DatosPersonales.nombre}
+            uuid={DatosPersonales.idUsuario}
+           size='small' editable={true} onClick={() => changeContent('editarPerfil')}  />
         </div>
         <Buttons
-          action={() => null}
+          action={() => changeContent('editarPerfil')}
           text={DatosPersonales?.nombre}
           type="tertiary"
           textColor={Colors().akostik200}

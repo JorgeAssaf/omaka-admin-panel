@@ -4,17 +4,19 @@ import CardRutas from "../generalCards/rutas-card";
 import CardPedidos from "../generalCards/pedidos-card";
 import CardRepartidor from "../generalCards/repartidor-card";
 import './styles.css';
+import Loading from "../atoms/loading";
 
 type CardListInterface = {
   data: any[];
   tipo: string;
   variant?: string;
   cardProps?: cardPropsType;
+  loading?: boolean;
   onClickItem: (item: OrderType | any) => void;
 };
 
-export const CardList = ({ data, tipo, cardProps, onClickItem, variant }: CardListInterface) => {
-  
+export const CardList = ({ data, tipo, cardProps, onClickItem, variant, loading }: CardListInterface) => {
+  if(loading)return(<Loading/>)
   switch (tipo) {
     case 'pedidos':
       return (

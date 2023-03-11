@@ -1,8 +1,11 @@
+import { Close } from "@mui/icons-material";
+import { SvgIcon } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { newRate, tomarRutas } from "../../api/rateQuerys";
 import { DetallesRutaCard } from "../../components/cardDetalleRuta/detalles-ruta-card";
+import DetallesPedidoCard from "../../components/cardDetallesPedido/detalles-pedido-card";
 import { CardList } from "../../components/cardList/cards-list";
 import HeaderSection from "../../components/header/headerSection";
 import MapView from "../../components/map/MapView";
@@ -22,6 +25,7 @@ export const PanelRutas = () => {
   const [loading, setLoading] = useState(false);
   const [rateSelected, setRateSelected] = useState({} as RateType);
   const [poinstRates, setPoinstRates] = useState({} as PointType[]);
+  const [orderSelected, setOrderSelected] = useState({} as OrderType);
   const [repartidor, setRepartidor] = useState<RateType["repartidor"]>(
     {} as any
   );
@@ -34,11 +38,13 @@ export const PanelRutas = () => {
   );
 
   const getRateList = async () => {
+    setLoading(true);
     const reqBack = await  tomarRutas( DatosPersonales.idUsuario, true);
     if(reqBack.status == 'OK'){
       setActiveRateList(reqBack.activeRates);
       setHistoryRateList(reqBack.historyRates);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -81,9 +87,8 @@ export const PanelRutas = () => {
   },[activeRateList,orderWithRate])
 
   const focusOrderMap = (item: OrderType) => {
+    setOrderSelected(item);
     const points = getPointsORder([item]);
-    console.log(points);
-    
     setPoinstRates(points);
   }
 
@@ -99,15 +104,31 @@ export const PanelRutas = () => {
               actionBtnAdd={()=>setScreenShow("new")}
             />
           </div>
-              <CardList  onClickItem={(item)=>onSelectRate(item)} cardProps={{fullWidth:true}} tipo='rutas' data={activeRateList} />
+              <CardList loading={loading}  onClickItem={(item)=>onSelectRate(item)} cardProps={{fullWidth:true}} tipo='rutas' data={activeRateList} />
             </div>
             <div className="mapa_container">
               <div className='card_detalles_ruta_float'>
-                {rateSelected.idRuta && <DetallesRutaCard {...rateSelected} />}
+                {rateSelected.idRuta && 
+                 <div className='relative'>
+                 <div onClick={()=>{
+                  setRateSelected({} as RateType)
+                  setOrderSelected({} as OrderType)
+                 }} className='closeBtn float circle'>
+                   <SvgIcon component={Close} fontSize="small"  />
+                 </div>
+                <DetallesRutaCard {...rateSelected} />
+                </div>
+                }
+                {orderSelected.idPedido &&  
+                <div className='relative'>
+                  <div onClick={()=>setOrderSelected({} as OrderType)} className='closeBtn float circle'>
+                    <SvgIcon component={Close} fontSize="small"  />
+                  </div>
+                  <DetallesPedidoCard {...orderSelected} />
+                </div>
+                }
                 <div className='order_list_float_right'>
-                  {
-                    <CardList  onClickItem={(item)=>focusOrderMap(item)} tipo='pedidos' data={getOderForID(rateSelected.Pedidos)} />
-                  }
+                  <CardList  onClickItem={(item)=>focusOrderMap(item)} tipo='pedidos' data={getOderForID(rateSelected.Pedidos,useSelector)} />
                 </div>
               
               </div>

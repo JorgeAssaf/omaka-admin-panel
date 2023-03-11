@@ -21,7 +21,7 @@ type CardPropsTypes = {
 
 const CardRepartidor = ({ data, onClick, cardProps }: CardPropsTypes) => {
   const { DatosPersonales, Ubicacion } = data;
-  const { nombre, apellido, correo, telefono, foto } = DatosPersonales;
+  const { nombre, apellido, correo, telefono, foto, idUsuario } = DatosPersonales;
   const [isSelect, setIsSelect] = useState(false);
 
   const statusColor ={
@@ -43,7 +43,7 @@ const CardRepartidor = ({ data, onClick, cardProps }: CardPropsTypes) => {
       isSelect={isSelect}
     >
       <div className="avatar_card">
-        <Avatar src={foto} />
+        <Avatar src={foto} fullName={nombre} uuid={idUsuario} />
       </div>
       <div>
         <div className='title_card_container'>
