@@ -39,12 +39,15 @@ function MapView({ points, screenShow }: typeMapView) {
     },
     zoom: 15
   };
+  
+
   useEffect(() => {
     setPuntosArray(points);
-  }, []);
-  useEffect(() => {
-    setPuntosArray(points);
-    console.log(points);
+    if(points.length>0){
+      apiIsLoaded(generalMap, generalMaps, points);
+
+    }
+    console.log(points)
   }, [points]);
 
   useEffect(() => {
@@ -72,10 +75,13 @@ function MapView({ points, screenShow }: typeMapView) {
     generalMaps = maps;
     generalPoints = points;
     let bounds = new maps.LatLngBounds();
-    points.forEach((marker) => {
-      bounds.extend(marker.ubicacionPedido);
-    });
-    map.fitBounds(bounds);
+    if(points.length>0){
+      points.forEach((marker) => {
+        bounds.extend(marker.ubicacionPedido);
+      });
+      map.fitBounds(bounds);
+    }
+   
   };
   const addPoint = ({ x, y, lat, lng, event }) => {
     if (screenShow == "new") {
@@ -107,7 +113,7 @@ function MapView({ points, screenShow }: typeMapView) {
             <Marker
               lat={it.ubicacionPedido.lat}
               lng={it.ubicacionPedido.lng}
-              color={it.color?it.color:Colors().akostik200}
+              color={it.color?it.color:Colors().zacatazcalli300}
             />
           );
         })}

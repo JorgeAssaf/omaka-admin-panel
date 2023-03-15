@@ -16,14 +16,23 @@ export const PanelPedidos = () =>{
   const [screenShow, setScreenShow] = useState('list');
   const [loading,setLoading] = useState(false);
   const {DatosPersonales} = useSelector((state: RootState) => state.user.userData as any);
-  const orderList = useSelector((state: RootState) => state.pedidos.orderList);
+  const orderList =  useSelector((state: RootState) => state.pedidos.orderList);
+  const orderListRate = useSelector((state: RootState) => state.pedidos.orderListWithRate);
+  const [orderView, setOrderView]=useState(1);
+  const [pedidosListMostrar,setPedidosListMostrar]=useState([]);
   const dispatch = useDispatch<AppDispatch>();
-    useEffect(() => {
+   
+  useEffect(() => {
       getOrderList();
+      console.log('inicio')
     }, []);
 
+    useEffect(() => {
+      setPedidosListMostrar(orderView==1?orderList:orderView==2?orderListRate:[]);
+    }, [orderView,orderList,orderListRate]);
+
     const getOrderList = async () => {
-      dispatch(getListaPedidos(DatosPersonales.idUsuario));
+       dispatch(getListaPedidos(DatosPersonales.idUsuario));
     };
    
    
@@ -46,16 +55,16 @@ export const PanelPedidos = () =>{
         <div className='pedidos_container'>
           <div className={screenShow == 'new'? ' lista_container contracted':'lista_container'}>
             <div className='header_container'>
-              <HeaderSection actionBack={screenShow != 'list' ? ()=>setScreenShow('list'): undefined} title={screenShow == 'list'?'Pedidos':'Nuevo pedido'} actionBtnAdd={screenShow == 'list' ? ()=>setScreenShow('new'): undefined} />
+              <HeaderSection actionBack={screenShow != 'list' ? ()=>setScreenShow('list'): undefined} title={screenShow == 'list'?'Pedidos':'Nuevo pedido'} actionBtnAdd={screenShow == 'list' ? ()=>setScreenShow('new'): undefined} pedidos={true} typeOrder={orderView} typeOrderSet={setOrderView} lengths={{uno:orderList.length,dos:orderListRate.length}}/>
             </div>
             {screenShow == 'list'?
-              <CardList onClickItem={()=>null} tipo='pedidos' data={orderList} />
+              <CardList onClickItem={()=>null} tipo='pedidos' data={orderView==1?orderList:orderView==2?orderListRate:[]} />
               :
               <NuevoPedido loading={loading} handleSubmit={newOrderClient}/>
             }
           </div>
           <div className='mapa_container'>
-            <MapView points={orderList} screenShow={screenShow}/>
+            <MapView points={orderView==1?orderList:orderView==2?orderListRate:[]} screenShow={screenShow}/>
           </div>
           <ToastContainer
             limit={1}

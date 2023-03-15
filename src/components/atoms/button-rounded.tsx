@@ -56,10 +56,10 @@ const MarginButton = styled.div<Props>`
   border-radius: 40px;
   font-style: normal;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 14px;
   width: ${(props) => props.widthB};
-  padding: 8px;
+  padding: 7px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -73,10 +73,10 @@ const CompleteButton = styled.div<Props>`
   border-radius: 40px;
   font-style: normal;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 14px;
   width: ${(props) => props.widthB};
-  padding: 8px;
+  padding: 7px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;

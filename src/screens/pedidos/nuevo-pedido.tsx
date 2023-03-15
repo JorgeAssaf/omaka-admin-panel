@@ -67,6 +67,7 @@ const NuevoPedido = ({ handleSubmit, loading }: NuevoPedidoProps) => {
     onPlaceSelected: (place) => {
       let newPlace=[{ubicacionPedido:{lat:place.geometry.location.lat(),lng:place.geometry.location.lng()}}];
       setUbicacionPedido({lat:place.geometry.location.lat(),lng:place.geometry.location.lng()});
+      setDireccionPedido(place.formatted_address);
       dispatch({ type: 'setNewPedido', payload: newPlace });
 
     },
