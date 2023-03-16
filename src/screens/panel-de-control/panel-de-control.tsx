@@ -18,6 +18,7 @@ export const PanelDeControl = () => {
   const [seccionActiva, setSeccionActiva] = useState("pedidos");
 
   const CambiarSeccion = (seccionSeleccionada) => {
+    console.log(seccionSeleccionada)
     setSeccionActiva(seccionSeleccionada);
   };
 

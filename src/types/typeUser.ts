@@ -5,6 +5,7 @@ export interface UserType {
         correo: string;
         fechaCreacion?: string;
         nombreEmpresa: string;
+        direccionEmpresa: string;
         industriaEmpresa: string;
         idUsuario?: string;
         foto?: string;
@@ -12,6 +13,7 @@ export interface UserType {
         password: string;
         status?: number;
         telefono: string;
+
     };
     creador?:{
         name: string;
