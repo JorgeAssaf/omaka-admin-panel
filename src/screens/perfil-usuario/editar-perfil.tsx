@@ -20,16 +20,23 @@ export const EditarPerfilUsuario = () => {
   const auth = getAuth();
   const dispatch = useDispatch();
 
+
   const [disableInput, setDisabledInput] = useState(true);
   const [textButton, settextButton] = useState("Editar Perfil");
   const [openModal, setOpenModal] = useState(false);
   const [dataProfile, setDataProfile] = useState(
     {} as UserType["DatosPersonales"]
   );
+  const [metricaDatos, setMetricaDatos] = useState({rutas: 0, repartidores: 0});
 
   useEffect(() => {
     setDataProfile({ ...DatosPersonales });
   }, []);
+
+  useEffect(() => {
+    setMetricaDatos({rutas: Rutas, repartidores:Repartidores ? Repartidores : 0 });
+  }, [Rutas, Repartidores]);
+
 
   const editarCampo = () => {
     setDisabledInput(false);
@@ -92,6 +99,15 @@ export const EditarPerfilUsuario = () => {
             label="Empresa"
             placeholder="Como se llama tu negocio o empresa?"
           />
+          <LabelInput
+            inputProps={{ disabled: disableInput }}
+            value={dataProfile.direccionEmpresa}
+            onChange={(value) =>
+              setDataProfile({ ...dataProfile, direccionEmpresa: value })
+            }
+            label="Direccion de empresa"
+            placeholder="Dirección de empresa"
+          />
         </div>
         <Buttons
           action={() => editarCampo()}
@@ -109,7 +125,7 @@ export const EditarPerfilUsuario = () => {
               htmlColor={Colors().tizatl600}
             />
             <Typography variant="cardTitle">
-            {`${Rutas.length} Ruta(s)`}
+                {`${metricaDatos.rutas} Ruta${metricaDatos.rutas > 1 || metricaDatos.rutas === 0 ? `s` : ''}`}
             </Typography>
         </div>
         <div className='card_analitics'>
@@ -119,7 +135,7 @@ export const EditarPerfilUsuario = () => {
               htmlColor={Colors().tizatl600}
             />
             <Typography variant="cardTitle">
-            {`${Repartidores.length} Conductores(s)`}
+            {`${metricaDatos.repartidores} Conductor${metricaDatos.repartidores > 1 || metricaDatos.repartidores === 0 ? `es` : ''} `}
             </Typography>
         </div>
       </div>
