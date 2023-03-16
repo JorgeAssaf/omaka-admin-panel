@@ -144,12 +144,18 @@
     .text {
         flex-direction: column;
     }
+
+    .column.centro {
+        margin: auto;
+        width: 70%;
+    }
     
 }
 
-@media screen and (max-width: 800px ) {
+@media screen and (max-width: 900px ) {
 .perfil-container {
     flex-direction: column;
+    margin-top: 2rem;
 }
 
 .column.derecha {
