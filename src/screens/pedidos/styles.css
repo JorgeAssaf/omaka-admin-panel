@@ -88,3 +88,48 @@
     padding: 0px 10px;
     margin: 20px 0px;
   }
+
+  .detalles-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background: #F2E6CF;
+  }
+
+  .row-information{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+  }
+
+  .row-information-client{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .MuiDrawer-paper{
+    width: 50%;
+    background: #F2E6CF;
+  }
+
+  .botonera-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: flex-end;
+  }
+
+  .botones-principales{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .segunda-fila{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: .5rem;
+  }

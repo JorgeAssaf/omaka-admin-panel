@@ -9,6 +9,8 @@ import { getListaPedidos } from '../../redux/actions';
 import { RootState } from '../../redux/reducers/mainReducer';
 import { AppDispatch } from '../../redux/store';
 import { OrderType, OrderTypeForm } from '../../types/typeOrders';
+import { DetallesPedidos } from './detalles-pedido';
+import { Drawer } from '@mui/material';
 import NuevoPedido from './nuevo-pedido';
 import './styles.css'
 
@@ -19,6 +21,8 @@ export const PanelPedidos = () =>{
   const orderList =  useSelector((state: RootState) => state.pedidos.orderList);
   const orderListRate = useSelector((state: RootState) => state.pedidos.orderListWithRate);
   const [orderView, setOrderView]=useState(1);
+  const [datosPedidos, setDatosPedidos] = useState();
+  const [openDrawer, setOpenDrawer] = useState(false);
   const [pedidosListMostrar,setPedidosListMostrar]=useState([]);
   const dispatch = useDispatch<AppDispatch>();
    
@@ -49,6 +53,12 @@ export const PanelPedidos = () =>{
         toast.error(resOrder.errorMessage)
       }
     }
+
+    const onClickPedido = (e) =>{
+      setDatosPedidos(e);
+      setOpenDrawer(true);
+    }
+
     const arrayPed=[{ubicacionPedido:{lat:20.661844,lng:-103.704351}},{ubicacionPedido:{lat:20.661844,lng:-103.47215320422521}},{ubicacionPedido:{lat:20.57171803720562,lng:-103.47215320422521}}]
  
       return(
@@ -58,7 +68,7 @@ export const PanelPedidos = () =>{
               <HeaderSection actionBack={screenShow != 'list' ? ()=>setScreenShow('list'): undefined} title={screenShow == 'list'?'Pedidos':'Nuevo pedido'} actionBtnAdd={screenShow == 'list' ? ()=>setScreenShow('new'): undefined} pedidos={true} typeOrder={orderView} typeOrderSet={setOrderView} lengths={{uno:orderList.length,dos:orderListRate.length}}/>
             </div>
             {screenShow == 'list'?
-              <CardList onClickItem={()=>null} tipo='pedidos' data={orderView==1?orderList:orderView==2?orderListRate:[]} />
+              <CardList onClickItem={onClickPedido} tipo='pedidos' data={orderView==1?orderList:orderView==2?orderListRate:[]} />
               :
               <NuevoPedido loading={loading} handleSubmit={newOrderClient}/>
             }
@@ -66,6 +76,13 @@ export const PanelPedidos = () =>{
           <div className='mapa_container'>
             <MapView points={orderView==1?orderList:orderView==2?orderListRate:[]} screenShow={screenShow}/>
           </div>
+          <Drawer 
+          anchor='right'
+          open={openDrawer}
+          onClose={() => setOpenDrawer(false)}
+          >
+          <DetallesPedidos datosPedidos={datosPedidos} />
+          </Drawer>
           <ToastContainer
             limit={1}
             position="bottom-center"
