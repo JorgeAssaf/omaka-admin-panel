@@ -74,6 +74,7 @@ function MapView({ points, screenShow }: typeMapView) {
     generalMap = map;
     generalMaps = maps;
     generalPoints = points;
+    console.log(points)
     let bounds = new maps.LatLngBounds();
     if(points.length>0){
       points.forEach((marker) => {

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { InformationChip } from '../../components/atoms/information-chip';
 import LabelInput from '../../components/atoms/label-input';
 import './styles.css';
 import { Buttons } from "../../components/atoms/buttons";
 import Colors from "../../utils/colors";
+import MapView from '../../components/map/MapView';
+import { PointType } from '../../types/typesMap';
 
 type DetallesPedidosInterface = {
     datosPedidos?: DatosPedidos;
@@ -64,6 +66,9 @@ export const DetallesPedidos = ({datosPedidos} : DetallesPedidosInterface) => {
             onChange={() => null}
             label="Notas"
             />
+            </div>
+            <div>
+                <MapView points={[datosPedidos]} />
             </div>
             <div className='bottom-section'>
                 <div className='botonera'>
