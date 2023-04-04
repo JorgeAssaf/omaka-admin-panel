@@ -28,6 +28,55 @@
   cursor: not-allowed;
 }
 
+
+/* ItemReportTable */
+.item-reporte-container { 
+  display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-radius: 10px;
+    margin: 0px auto;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    padding: 10px 20px;
+    align-items: center;
+    box-shadow: #00000021 0px 2px 4px 1px;
+    cursor: pointer;
+}
+
+.item-reporte-table-repa {
+  display: flex;
+  flex-direction: row;
+}
+
+.table-child {
+  flex:2;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.table-child.small{
+  flex:1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.table-child.small.left{
+  flex:1;
+  display: flex;
+  justify-content: flex-start;
+  text-align: left;
+  align-items: center;
+}
+.table-child.small.right{
+  flex:1;
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+  align-items: center;
+}
+
 /* Loading */
 
 .atom_loading_container {

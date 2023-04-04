@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { DetallesRutaCard } from "../../components/cardDetalleRuta/detalles-ruta-card";
 import { CardList } from "../../components/cardList/cards-list";
 import { OrderType } from "../../types/typeOrders";
-import { RateTypeForm, RateTypeFormSimple } from "../../types/typeRate";
+import { RateType } from "../../types/typeRate";
 
 type DetallesRutaProps = {
-  rateData : RateTypeFormSimple | RateTypeForm;
+  rateData : RateType;
   pedidosList?: OrderType[];
   addOrRemoveOrder?:(item: OrderType) => void
 }

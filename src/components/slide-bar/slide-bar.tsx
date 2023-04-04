@@ -1,52 +1,57 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import GeneralItemDrawer from './item-drawer';
-import { TextSnippet, FmdGood, Person, Settings } from '@mui/icons-material';
+import { TextSnippet, FmdGood, Person, Settings, Inventory2 } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
-const PEDIDOS = 'pedidos';
-const CONFIGURACION = 'configuracion';
-const RUTAS = 'rutas';
-const CONDUCTORES = 'repartidores'
+const PEDIDOS = '/panel/pedidos';
+const CONFIGURACION = '/perfil';
+const RUTAS = '/panel/rutas';
+const CONDUCTORES = '/panel/repartidores'
+const REPORTES = '/panel/reportes'
 
-type SlideBarInterface = {
-  changeContent: any;
-}
 
-export const SlideBar = ({changeContent} : SlideBarInterface) => {
+export const SlideBar = ({currentSection}: {currentSection: string}) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [stateStyle, setStateStyle] = useState(PEDIDOS);
+  const navigate = useNavigate();
 
   const onClickItem = (e) => {
-    setStateStyle(e);
-    changeContent(e);
+    navigate(e)
   };
   if (isDrawerOpen) {
+  
     return (
       <StyledDrawer left onMouseLeave={() => setIsDrawerOpen(false)}>
         <GeneralItemDrawer
-          activeIteam={stateStyle === PEDIDOS}
+          activeIteam={currentSection === PEDIDOS}
           text="Pedidos"
           index={0}
           imgIcon={TextSnippet}
           onClick={() => onClickItem(PEDIDOS)}
         />
         <GeneralItemDrawer
-          activeIteam={stateStyle === RUTAS}
+          activeIteam={currentSection === RUTAS}
           text="Rutas"
           index={1}
           imgIcon={FmdGood}
           onClick={() => onClickItem(RUTAS)}
         />
         <GeneralItemDrawer
-          activeIteam={stateStyle === CONDUCTORES}
+          activeIteam={currentSection === CONDUCTORES}
           text="Repartidores"
           imgIcon={Person}
           index={2}
           onClick={() => onClickItem(CONDUCTORES)}
         />
+        <GeneralItemDrawer
+          activeIteam={currentSection === REPORTES}
+          text="Reportes"
+          imgIcon={Inventory2}
+          onClick={() => onClickItem(REPORTES)}
+        />
         <ContentSettings>
         <GeneralItemDrawer
-          activeIteam={stateStyle === CONFIGURACION}
+          activeIteam={currentSection === CONFIGURACION}
           text="Configuracion"
           imgIcon={Settings}
           index={3}
@@ -60,25 +65,30 @@ export const SlideBar = ({changeContent} : SlideBarInterface) => {
     <StyledDrawer contracted onMouseOver={() => setIsDrawerOpen(!isDrawerOpen)}>
 
       <GeneralItemDrawer
-        activeIteam={stateStyle === PEDIDOS}
+        activeIteam={currentSection === PEDIDOS}
         imgIcon={TextSnippet}
         index={0}
       />
       <GeneralItemDrawer
-        activeIteam={stateStyle === RUTAS}
+        activeIteam={currentSection === RUTAS}
         imgIcon={FmdGood}
         index={1}
       />
       <GeneralItemDrawer
-        activeIteam={stateStyle === CONDUCTORES}
+        activeIteam={currentSection === CONDUCTORES}
         imgIcon={Person}
         index={2}
       />
+       <GeneralItemDrawer
+        activeIteam={currentSection === REPORTES}
+        imgIcon={Inventory2}
+        index={3}
+      />
       <ContentSettings>
         <GeneralItemDrawer
-          activeIteam={stateStyle === CONFIGURACION}
+          activeIteam={currentSection === CONFIGURACION}
           imgIcon={Settings}
-          index={3}
+          index={4}
         />
       </ContentSettings>
     </StyledDrawer>

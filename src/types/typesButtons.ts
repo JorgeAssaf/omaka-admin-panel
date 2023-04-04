@@ -15,7 +15,6 @@ export interface typeRoundedButton{
     type:string;
     color?:string;
     textColor:string;
-    width?:string;
     tagColor?:string;
     tagValue?:number;
     tagTextColor?:string

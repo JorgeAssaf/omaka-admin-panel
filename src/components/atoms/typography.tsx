@@ -14,7 +14,7 @@ export default function Typography({
           style={{
             fontFamily: 'Nunito',
             fontWeight:700,
-            fontSize: '1.2em',
+            fontSize: '1.15em',
             color:color
           }}>
           {children}

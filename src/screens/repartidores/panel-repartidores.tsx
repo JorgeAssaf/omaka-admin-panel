@@ -11,6 +11,7 @@ import { RateType, RateTypeForm } from "../../types/typeRate";
 import { RepartidorType, RepartidorTypeForm } from "../../types/typeRepartidor";
 import NuevaRuta from "../nuevaRuta/nueva-ruta";
 import NuevoRepartidor from "../nuevoRepartidor/nuevo-repartidor";
+import { PanelDeControl } from "../panel-de-control/panel-de-control";
 
 import "./styles.css";
 export const PanelRepartidores = () => {
@@ -25,16 +26,20 @@ export const PanelRepartidores = () => {
   );
 
   useEffect(() => {
+    console.log("entro a repartidores");
+    
     getRepartidorList();
   }, []);
 
   const getRepartidorList = async () => {
+    setLoading(true);
     const resBack = await GetRepartidores(DatosPersonales.idUsuario);
     if (resBack) {
       setRepartidorList(resBack);
     } else {
       console.error('Error en getOrderList');
     }
+    setLoading(false);
   };
  
 
@@ -57,43 +62,45 @@ export const PanelRepartidores = () => {
   };
 
   return (
-    <>
-      {screenShow == "list" ? (
-        <div className="repartidor_container">
-          <div className="repartidor_view_container">
-            <div className="lista_container">
-              <div className="header_nav_form">
-                <HeaderSection
-                  title={"Repartidores"}
-                  actionBtnAdd={() => setScreenShow("new")}
+    <PanelDeControl currentSection='/panel/repartidores'>
+      <>
+        {screenShow == "list" ? (
+          <div className="repartidor_container">
+            <div className="repartidor_view_container">
+              <div className="lista_container">
+                <div className="header_nav_form">
+                  <HeaderSection
+                    title={"Repartidores"}
+                    actionBtnAdd={() => setScreenShow("new")}
+                  />
+                </div>
+                <CardList
+                  onClickItem={() => null}
+                  tipo="repartidor"
+                  data={repartidorList}
                 />
               </div>
-              <CardList
-                onClickItem={() => null}
-                tipo="repartidor"
-                data={repartidorList}
-              />
-            </div>
-            <div className="mapa_container">
-              <MapView points={[]} />
+              <div className="mapa_container">
+                <MapView points={[]} />
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div className="repartidor_container">
-          <NuevoRepartidor
-            handleSubmit={newRepartidorClient}
-            loading={loading}
-            setScreenShow={setScreenShow}
-          />
-        </div>
-      )}
-      <ToastContainer
-        limit={1}
-        position="bottom-center"
-        autoClose={3000}
-        toastClassName="toast"
-      />
-    </>
+        ) : (
+          <div className="repartidor_container">
+            <NuevoRepartidor
+              handleSubmit={newRepartidorClient}
+              loading={loading}
+              setScreenShow={setScreenShow}
+            />
+          </div>
+        )}
+        <ToastContainer
+          limit={1}
+          position="bottom-center"
+          autoClose={3000}
+          toastClassName="toast"
+        />
+      </>
+    </PanelDeControl>
   );
 };

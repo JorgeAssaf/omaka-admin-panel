@@ -8,6 +8,8 @@ export interface RateType {
     fechaCreacion: any;
     idRuta: string;
     fechaEntrega: any;
+    fechaInicio: any;
+    fechaTermino: any;
     nombreRuta: string;
     pedidosDetenidos: number;
     pedidosEntregados: number;
