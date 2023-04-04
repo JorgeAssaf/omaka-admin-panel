@@ -39,66 +39,67 @@ function MapViewRoutes({ points }: typeMapView) {
     },
     zoom: 15
   };
-  
 
   useEffect(() => {
     setPuntosArray(points);
-    if(points.length>0){
+    if (points.length > 0) {
       apiIsLoaded(generalMap, generalMaps, points);
     }
   }, [points]);
-
 
   const apiIsLoaded = (map, maps, points) => {
     generalMap = map;
     generalMaps = maps;
     generalPoints = points;
-    let bounds = new maps.LatLngBounds();
-    if(points.length>0){
-      points.forEach((marker) => {
-        bounds.extend(marker.ubicacionPedido);
-      });
-      map.fitBounds(bounds);
-      const DirectionsService = new generalMaps.DirectionsService();
+    if (maps) {
+      let bounds = new maps.LatLngBounds();
+      if (points.length > 0) {
+        points.forEach((marker) => {
+          bounds.extend(marker.ubicacionPedido);
+        });
+        map.fitBounds(bounds);
+        const DirectionsService = new generalMaps.DirectionsService();
 
+        let directionsDisplay = new generalMaps.DirectionsRenderer({
+          suppressMarkers: false,
+          suppressBicyclingLayer: true
+        });
 
-      let directionsDisplay = new generalMaps.DirectionsRenderer({
-        suppressMarkers: false,
-        suppressBicyclingLayer: true,
-      });
-      
-      directionsDisplay.setOptions({
-        polylineOptions: {
-          strokeColor: '#ff85a2',
-          strokeWeight: '5',
-          strokeOpacity: '0.7',
-        },
-        // draggable: true,
-      });
-      console.log(points);
-
-      directionsDisplay.setMap(generalMap);
-
-      DirectionsService.route(
-        {
-          
-          origin: new generalMaps.LatLng(20.66986014230566, -103.35488439970105),
-          destination: new generalMaps.LatLng(20.630817843719313, -103.40663765319535),
-          travelMode:generalMaps.TravelMode.DRIVING,
-        },
-        (result, status) => {
-          if (status === generalMaps.DirectionsStatus.OK) {
-            console.log(result);
-            directionsDisplay.setDirections(result);
-
-
-          } else {
-            console.error(`error fetching directions ${result}`);
+        directionsDisplay.setOptions({
+          polylineOptions: {
+            strokeColor: "#ff85a2",
+            strokeWeight: "5",
+            strokeOpacity: "0.7"
           }
-        }
-      );
+          // draggable: true,
+        });
+        console.log(points);
+
+        directionsDisplay.setMap(generalMap);
+
+        DirectionsService.route(
+          {
+            origin: new generalMaps.LatLng(
+              20.66986014230566,
+              -103.35488439970105
+            ),
+            destination: new generalMaps.LatLng(
+              20.630817843719313,
+              -103.40663765319535
+            ),
+            travelMode: generalMaps.TravelMode.DRIVING
+          },
+          (result, status) => {
+            if (status === generalMaps.DirectionsStatus.OK) {
+              console.log(result);
+              directionsDisplay.setDirections(result);
+            } else {
+              console.error(`error fetching directions ${result}`);
+            }
+          }
+        );
+      }
     }
-   
   };
 
   return (
@@ -119,7 +120,7 @@ function MapViewRoutes({ points }: typeMapView) {
             <Marker
               lat={it.ubicacionPedido.lat}
               lng={it.ubicacionPedido.lng}
-              color={it.color?it.color:Colors().zacatazcalli300}
+              color={it.color ? it.color : Colors().zacatazcalli300}
             />
           );
         })}

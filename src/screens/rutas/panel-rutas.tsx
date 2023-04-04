@@ -45,6 +45,8 @@ export function PanelRutas(){
   };
 
   useEffect(() => {   
+    console.log('amos por rutas');
+    
       getRateList();
   },[]);
 
