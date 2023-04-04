@@ -30,6 +30,7 @@ const CardRepartidor = ({ data, onClick, cardProps }: CardPropsTypes) => {
     inRate: Colors().texotli200,
     inactive: Colors().xochipaltic400,
   }
+  
 
   const onClickItem = () => {
     setIsSelect(!isSelect);

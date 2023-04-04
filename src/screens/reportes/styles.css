@@ -1,0 +1,78 @@
+.reportes-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  position: relative;
+}
+.detalles-reportes-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+}
+.detalles-reportes-container .banner {
+  width: 30%;
+}
+.detalles-reporte-info {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.detalles-reporte-info .header_container {
+  width: 100%;
+}
+.detalles-reporte-maps {
+  width: 100%;
+  flex: 0.8;
+  position: relative;
+}
+.table-container {
+  width: 95%;
+  margin: 0px auto;
+}
+
+.header-table-container {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-child-header {
+  flex: 2;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: "Nunito";
+}
+
+.table-child-header.small {
+  flex: 1;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.table-child-header.small.left {
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+}
+
+.table-child-header.small.right {
+  justify-content: flex-end;
+  align-items: center;
+  text-align: right;
+}
+
+.order-detalles-reporte {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

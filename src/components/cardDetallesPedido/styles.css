@@ -28,3 +28,7 @@
     grid-gap: 10px; /* espacio entre columnas */
     margin: 0 auto; 
 }
+.report-detalles-card{
+    margin-top: 15px;
+    width: 100%;
+}

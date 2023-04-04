@@ -2,6 +2,7 @@ export interface OrderType {
     direccionPedido : string;
     esUrgentePedido : boolean;
     fechaCreacion : any;
+    fechaEntrega? : any;
     ruta : {
         idRuta: string;
         nombreRuta: string;
@@ -18,6 +19,11 @@ export interface OrderType {
     }
     isInProgress?:boolean;
     idPedido:string;
+    report? : {
+        dateReport: any;
+        messageReport: string;
+        reportFor: string;
+    }
 }
 
 export interface OrderTypeForm {
@@ -25,6 +31,7 @@ export interface OrderTypeForm {
     nombreCliente : string;
     notaDePedido : string;
     telefonoPedido : string;
+    orderSaved?: boolean;
     ubicacionPedido : {
         lat: number;
         lng: number;

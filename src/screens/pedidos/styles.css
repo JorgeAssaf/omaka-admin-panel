@@ -7,6 +7,7 @@
 
 .lista_container {
     width: 60%;
+    border-right: 1px solid #d8d8d8;
     padding: 16px 32px;
     -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
 }

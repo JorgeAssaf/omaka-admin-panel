@@ -33,4 +33,5 @@ const Content = styled.div<ContentProps>`
   font-size: 10px;
   padding: 2px 10px;
   font-size: 0.8em;
+  width: fit-content;
 `;
