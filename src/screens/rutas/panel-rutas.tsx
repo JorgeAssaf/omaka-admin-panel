@@ -8,7 +8,7 @@ import { DetallesRutaCard } from "../../components/cardDetalleRuta/detalles-ruta
 import DetallesPedidoCard from "../../components/cardDetallesPedido/detalles-pedido-card";
 import { CardList } from "../../components/cardList/cards-list";
 import HeaderSection from "../../components/header/headerSection";
-import MapView from "../../components/map/MapView";
+import MapViewRoutes from "../../components/map/mapRoutesView";
 import { RootState } from "../../redux/reducers/mainReducer";
 import { OrderType } from "../../types/typeOrders";
 import { RateType, RateTypeFormSimple } from "../../types/typeRate";
@@ -132,7 +132,7 @@ export const PanelRutas = () => {
                 </div>
               
               </div>
-              {poinstRates.length>0 && <MapView points={poinstRates}/>}
+              {poinstRates.length>0 && <MapViewRoutes points={poinstRates}/>}
             </div>
           </div>
         </div>

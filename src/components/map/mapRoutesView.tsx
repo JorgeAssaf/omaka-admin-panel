@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import GoogleMapReact from "google-map-react";
+
 import mapsStyle from "./mapsStyle.json";
 import { typeMapView, PointType } from "../../types/typesMap";
 import { RootState } from "../../redux/reducers/mainReducer";
@@ -10,7 +11,6 @@ import Colors from "../../utils/colors";
 let generalMap;
 let generalMaps;
 let generalPoints;
-let ban = false;
 
 const Marker = ({ color, lat, lng }) => (
   <div
@@ -25,7 +25,7 @@ const Marker = ({ color, lat, lng }) => (
   </div>
 );
 
-function MapView({ points, screenShow }: typeMapView) {
+function MapViewRoutes({ points }: typeMapView) {
   const [puntosArray, setPuntosArray] = useState<PointType[]>([]);
   const newPedido = useSelector(
     (state: RootState) => state.pedidos.newPedidoUbicacion as any
@@ -45,30 +45,9 @@ function MapView({ points, screenShow }: typeMapView) {
     setPuntosArray(points);
     if(points.length>0){
       apiIsLoaded(generalMap, generalMaps, points);
-
     }
-    console.log(points)
   }, [points]);
 
-  useEffect(() => {
-    if (screenShow == "new") {
-       setPuntosArray([]);
-    } else {
-      setPuntosArray(points);
-      if (ban) {
-        apiIsLoaded(generalMap, generalMaps, points);
-      } else {
-        ban = true;
-      }
-    }
-  }, [screenShow]);
-
-  useEffect(() => {
-    if (screenShow == "new") {
-      setPuntosArray(newPedido);
-      apiIsLoaded(generalMap, generalMaps, newPedido);
-    }
-  }, [newPedido]);
 
   const apiIsLoaded = (map, maps, points) => {
     generalMap = map;
@@ -80,18 +59,46 @@ function MapView({ points, screenShow }: typeMapView) {
         bounds.extend(marker.ubicacionPedido);
       });
       map.fitBounds(bounds);
+      const DirectionsService = new generalMaps.DirectionsService();
+
+
+      let directionsDisplay = new generalMaps.DirectionsRenderer({
+        suppressMarkers: false,
+        suppressBicyclingLayer: true,
+      });
+      
+      directionsDisplay.setOptions({
+        polylineOptions: {
+          strokeColor: '#ff85a2',
+          strokeWeight: '5',
+          strokeOpacity: '0.7',
+        },
+        // draggable: true,
+      });
+      console.log(points);
+
+      directionsDisplay.setMap(generalMap);
+
+      DirectionsService.route(
+        {
+          
+          origin: new generalMaps.LatLng(20.66986014230566, -103.35488439970105),
+          destination: new generalMaps.LatLng(20.630817843719313, -103.40663765319535),
+          travelMode:generalMaps.TravelMode.DRIVING,
+        },
+        (result, status) => {
+          if (status === generalMaps.DirectionsStatus.OK) {
+            console.log(result);
+            directionsDisplay.setDirections(result);
+
+
+          } else {
+            console.error(`error fetching directions ${result}`);
+          }
+        }
+      );
     }
    
-  };
-  const addPoint = ({ x, y, lat, lng, event }) => {
-    if (screenShow == "new") {
-      let nuevo = { ubicacionPedido: { lat: lat, lng: lng } };
-      dispatch({ type: "setNewBound", payload: nuevo });
-      setPuntosArray((prevState) => {
-        let result = [nuevo];
-        return result;
-      });
-    }
   };
 
   return (
@@ -106,7 +113,6 @@ function MapView({ points, screenShow }: typeMapView) {
         options={{ styles: mapsStyle }}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, points)}
-        onClick={addPoint}
       >
         {puntosArray.map((it) => {
           return (
@@ -122,4 +128,4 @@ function MapView({ points, screenShow }: typeMapView) {
   );
 }
 
-export default MapView;
+export default MapViewRoutes;

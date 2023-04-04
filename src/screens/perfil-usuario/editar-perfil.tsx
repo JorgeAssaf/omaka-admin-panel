@@ -27,7 +27,7 @@ export const EditarPerfilUsuario = () => {
   const [dataProfile, setDataProfile] = useState(
     {} as UserType["DatosPersonales"]
   );
-  const [metricaDatos, setMetricaDatos] = useState({rutas: 0, repartidores: 0});
+  const [metricaDatos, setMetricaDatos] = useState({rutas: [], repartidores: []});
 
   useEffect(() => {
     setDataProfile({ ...DatosPersonales });
@@ -125,7 +125,7 @@ export const EditarPerfilUsuario = () => {
               htmlColor={Colors().tizatl600}
             />
             <Typography variant="cardTitle">
-                {`${metricaDatos.rutas} Ruta${metricaDatos.rutas > 1 || metricaDatos.rutas === 0 ? `s` : ''}`}
+                {`${metricaDatos.rutas.length} Ruta${metricaDatos.rutas.length > 1 || metricaDatos.rutas.length === 0 ? `s` : ''}`}
             </Typography>
         </div>
         <div className='card_analitics'>
