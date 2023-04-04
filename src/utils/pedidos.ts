@@ -1,5 +1,4 @@
 import { RootState } from "../redux/reducers/mainReducer";
-import Store from "../redux/store";
 import { OrderType } from "../types/typeOrders";
 import Colors from "./colors";
 
@@ -15,17 +14,20 @@ export const getIdPedidos = (pedidosList : OrderType[]) => {
 
 
 export const getOderForID = (orderListId? : string[],selector?:any) => {
-    const orderWithRate = selector(
-        (state: RootState) => state.pedidos.orderListWithRate
-      )
+    console.log("vamos a tomaer pedido",orderListId);
+
+    const orderWithRate = selector((state: RootState) => state.pedidos.orderListWithRate)
+    console.log("orderWithRate",orderWithRate);
+    
     if(orderListId){
         const newOrderList = orderWithRate.filter((item)=> orderListId?.includes(item.idPedido));
         return(newOrderList);
     }else{
         return([])
     }
-
 }
+
+
 
 export const getPointsORder = (orderList : OrderType[]) => {
     const orderPoints = orderList.map(item => {

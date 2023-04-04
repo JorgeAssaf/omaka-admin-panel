@@ -41,7 +41,6 @@ const NuevoPedido = ({ handleSubmit, loading }: NuevoPedidoProps) => {
       setBan(false);
     }
     else{
-      console.log(newBound);
       Geocode.fromLatLng(newBound.ubicacionPedido.lat, newBound.ubicacionPedido.lng).then(
         (response) => {
           const address = response.results[0].formatted_address;
@@ -86,6 +85,7 @@ const NuevoPedido = ({ handleSubmit, loading }: NuevoPedidoProps) => {
         ubicacionPedido,
         telefonoPedido,
         notaDePedido,
+        orderSaved
       });
     }else{
     console.log("[as]444");

@@ -1,7 +1,7 @@
 
 .card-detalle-ruta-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background-color: #3D3D3D;
     color: #FBF7EF;
     border-radius: 12px;
@@ -9,8 +9,27 @@
     padding: 24px;
     padding-right: 40px;
     margin: 8px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.card-detalle-ruta-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.card-detalle-ruta-footer {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .repartidor_detalles_ruta {

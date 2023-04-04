@@ -1,10 +1,12 @@
 import axios from "axios";
 import { env } from "../env/envDev";
 
-export const newOrder = async (datos : any, idUsuario?:string, isAdmin?:boolean)=>{
+export const newOrder = async (datos : any, idUsuario?:string, isAdmin?:boolean,orderSaved?:boolean)=>{
     try{
       if (idUsuario) {
-        let respuestaBack=await axios.post(`${env.serverUrl}/crear-pedido`,{datos:datos,idUsuario:idUsuario,isAdmin:isAdmin})
+        console.log("orderSaved",orderSaved);
+        
+        let respuestaBack=await axios.post(`${env.serverUrl}/crear-pedido`,{datos,idUsuario,isAdmin,orderSaved})
         return respuestaBack.data;
       }else{
         return (false);
@@ -19,7 +21,7 @@ export const newOrder = async (datos : any, idUsuario?:string, isAdmin?:boolean)
 export const GetOrders = async (idUsuario? : string, idRuta? : string)  =>{
   try{
     if (idUsuario) {
-      let respuestaBack = await axios.post(env?.serverUrl+`/get-pedidos`,{idUsuario:idUsuario,idRuta:idRuta})        
+      let respuestaBack = await axios.post(env?.serverUrl+`/get-pedidos`,{idUsuario:idUsuario,isAdmin: true,idRuta:idRuta})        
         if(respuestaBack.data.status=='OK'){
           return({pedidosSinRuta:respuestaBack.data.pedidosSinRuta,pedidosConRuta:respuestaBack.data.pedidosConRuta});
         }

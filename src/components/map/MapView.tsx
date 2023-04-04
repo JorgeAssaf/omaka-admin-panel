@@ -45,9 +45,7 @@ function MapView({ points, screenShow }: typeMapView) {
     setPuntosArray(points);
     if(points.length>0){
       apiIsLoaded(generalMap, generalMaps, points);
-
     }
-    console.log(points)
   }, [points]);
 
   useEffect(() => {
@@ -74,14 +72,15 @@ function MapView({ points, screenShow }: typeMapView) {
     generalMap = map;
     generalMaps = maps;
     generalPoints = points;
-    let bounds = new maps.LatLngBounds();
-    if(points.length>0){
-      points.forEach((marker) => {
-        bounds.extend(marker.ubicacionPedido);
-      });
-      map.fitBounds(bounds);
+    if(maps){
+      let bounds = new maps.LatLngBounds();
+      if(points.length>0){
+        points.forEach((marker) => {
+          bounds.extend(marker.ubicacionPedido);
+        });
+        map.fitBounds(bounds);
+      }
     }
-   
   };
   const addPoint = ({ x, y, lat, lng, event }) => {
     if (screenShow == "new") {
@@ -108,7 +107,8 @@ function MapView({ points, screenShow }: typeMapView) {
         onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, points)}
         onClick={addPoint}
       >
-        {puntosArray.map((it) => {
+
+        {puntosArray.length > 0 && puntosArray.map((it) => {
           return (
             <Marker
               lat={it.ubicacionPedido.lat}
@@ -117,6 +117,7 @@ function MapView({ points, screenShow }: typeMapView) {
             />
           );
         })}
+
       </GoogleMapReact>
     </div>
   );

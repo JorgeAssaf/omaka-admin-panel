@@ -4,7 +4,9 @@ import {
   Receipt,
   CalendarToday,
   Place,
-  Phone
+  Phone,
+  Note,
+  Warning
 } from "@mui/icons-material";
 import { IconText } from "../atoms/iconText";
 import "./styles.css";
@@ -22,7 +24,8 @@ const DetallesPedidoCard = (props: OrderType) => {
     notaDePedido,
     status,
     telefonoPedido,
-    idPedido
+    idPedido,
+    report
   } = props;
 
   const [isSelect, setIsSelect] = useState(true);
@@ -31,49 +34,67 @@ const DetallesPedidoCard = (props: OrderType) => {
   };
   return (
     <div className="card-detalle-pedido-container">
-        <div className="card-detalle-pedido-header">
-          <Typography variant="cardTitle" color={Colors().iztac}>
-            {idPedido.slice(-8)}
-          </Typography>
-          <div className="card_chip_container">
-            <InformationChip text={status} />
-          </div>
+      <div className="card-detalle-pedido-header">
+        <Typography variant="cardTitle" color={Colors().iztac}>
+          {idPedido.slice(-8)}
+        </Typography>
+        <div className="card_chip_container">
+          <InformationChip text={status} />
         </div>
-        <div className="item_detalles_pedidos">
+      </div>
+      <div className="item_detalles_pedidos">
+        <IconText
+          textColor={Colors().akostik200}
+          icon={Place}
+          iconSize="small"
+          text={direccionPedido}
+        />
+        <IconText
+          textColor={Colors().akostik200}
+          icon={Person}
+          iconSize="small"
+          text={nombreCliente}
+        />
+      </div>
+      <div className="item_detalles_pedidos">
+        <IconText
+          textColor={Colors().akostik200}
+          icon={Phone}
+          iconSize="small"
+          text={telefonoPedido}
+        />
+        <IconText
+          textColor={Colors().akostik200}
+          icon={CalendarToday}
+          iconSize="small"
+          text={`Creado el: ${getDateAndHour(fechaCreacion)}`}
+        />
+      </div>
+      <IconText
+        textColor={Colors().akostik200}
+        icon={Receipt}
+        iconSize="small"
+        text={notaDePedido}
+      />
+      {report ? (
+        <div className="report-detalles-card">
+          <Typography variant="cardInfo" color={Colors().iztac}>Reporte</Typography>
+      <div className="item_detalles_pedidos">
           <IconText
             textColor={Colors().akostik200}
-            icon={Place}
+            icon={Warning}
             iconSize="small"
-            text={direccionPedido}
+            text={report?.messageReport}
           />
-          <IconText
-            textColor={Colors().akostik200}
-            icon={Person}
-            iconSize="small"
-            text={nombreCliente}
-          />
-        </div>
-        <div className="item_detalles_pedidos">
-          <IconText
-            textColor={Colors().akostik200}
-            icon={Phone}
-            iconSize="small"
-            text={telefonoPedido}
-          />
-          <IconText
+           <IconText
             textColor={Colors().akostik200}
             icon={CalendarToday}
             iconSize="small"
-            text={`Creado el: ${getDateAndHour(fechaCreacion)}`}
+            text={getDateAndHour(report?.dateReport)}
           />
+          </div>
         </div>
-
-        <IconText
-          textColor={Colors().akostik200}
-          icon={Receipt}
-          iconSize="small"
-          text={notaDePedido}
-        />
+      ) : null}
     </div>
   );
 };

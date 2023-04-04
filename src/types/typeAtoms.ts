@@ -1,3 +1,6 @@
+import { OrderType } from "./typeOrders";
+import { RateType } from "./typeRate";
+
 export interface TypographyProps {
     variant: 'section' | 'cardTitle' | 'cardInfo' | 'button' | 'chip' | 'label';
     color?: string;
@@ -23,4 +26,18 @@ export interface SelectInputProps {
 export interface SelectInputOption {
   id: number;
   name: string;
+}
+
+export interface ParentScreenProps {
+  sectionActive: string;
+}
+
+export interface ItemReportTableProps {
+  datosRow: RateType,
+  setRateDetails: (rate: RateType) => void
+}
+export interface ItemOrderTableProps {
+  datosRow: OrderType,
+  fechaInicio: any,
+  setOrderDetails: (rate: OrderType) => void
 }

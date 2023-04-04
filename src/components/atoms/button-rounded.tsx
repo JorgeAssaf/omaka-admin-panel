@@ -9,7 +9,6 @@ function ButtonRounded({
   type,
   color = Colors().tizatl600,
   textColor,
-  width,
   tagColor = Colors().tizatl600,
   tagTextColor = Colors().tizatl600,
   tagValue
@@ -18,7 +17,6 @@ function ButtonRounded({
     <div onClick={action}>
       {type.toLowerCase() == "margin" ? (
         <MarginButton
-          widthB={width ? width : "170px"}
           colorB={color}
           textColor={textColor}
         >
@@ -29,7 +27,6 @@ function ButtonRounded({
         </MarginButton>
       ) : (
         <CompleteButton
-          widthB={width ? width : "200px"}
           colorB={color}
           textColor={textColor}
         >
@@ -45,7 +42,6 @@ function ButtonRounded({
 type Props = {
   colorB: string;
   textColor: string;
-  widthB?: string;
   children: any;
 };
 
@@ -56,14 +52,14 @@ const MarginButton = styled.div<Props>`
   border-radius: 40px;
   font-style: normal;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 10px;
   line-height: 14px;
-  width: ${(props) => props.widthB};
   padding: 7px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  margin:8px;
 `;
 const CompleteButton = styled.div<Props>`
   font-family: Nunito;
@@ -73,24 +69,25 @@ const CompleteButton = styled.div<Props>`
   border-radius: 40px;
   font-style: normal;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 10px;
   line-height: 14px;
-  width: ${(props) => props.widthB};
   padding: 7px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  margin:8px;
 `;
 const Tag = styled.div<Props>`
-  padding: 7px 12px;
+  padding: 4px 8px;
   background-color: ${(props) => props.colorB};
   color: ${(props) => props.textColor};
   font-style: normal;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 10px;
   line-height: 14px;
   border-radius: 40px;
+  margin-left:8px;
 `;
 
 export default ButtonRounded;
