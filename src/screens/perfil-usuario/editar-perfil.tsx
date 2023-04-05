@@ -127,7 +127,7 @@ export const EditarPerfilUsuario = () => {
                 htmlColor={Colors().tizatl600}
               />
               <Typography variant="cardTitle">
-                  {`${metricaDatos.rutas} Ruta${metricaDatos.rutas > 1 || metricaDatos.rutas === 0 ? `s` : ''}`}
+                  {`${metricaDatos.rutas.length} Ruta${metricaDatos.rutas.length > 1 || metricaDatos.rutas.length === 0 ? `s` : ''}`}
               </Typography>
           </div>
           <div className='card_analitics'>
@@ -137,7 +137,7 @@ export const EditarPerfilUsuario = () => {
                 htmlColor={Colors().tizatl600}
               />
               <Typography variant="cardTitle">
-              {`${metricaDatos.repartidores} Conductor${metricaDatos.repartidores > 1 || metricaDatos.repartidores === 0 ? `es` : ''} `}
+              {`${metricaDatos.repartidores.length} Conductor${metricaDatos.repartidores.length > 1 || metricaDatos.repartidores.length === 0 ? `es` : ''} `}
               </Typography>
           </div>
         </div>

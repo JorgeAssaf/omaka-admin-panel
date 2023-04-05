@@ -1,5 +1,6 @@
 import axios from "axios";
 import { env } from "../env/envDev";
+import { OrderType } from "../types/typeOrders";
 
 export const newOrder = async (datos : any, idUsuario?:string, isAdmin?:boolean,orderSaved?:boolean)=>{
     try{
@@ -60,4 +61,18 @@ export const preparateOrdersToTransfer = (ordersList? : Array<any>) => {
   }
 
   return(newArrayOrders)
+}
+
+export const orderOrdersPerDistance = async(pedidos :OrderType[],ubicacionInicial:OrderType['direccionPedido'])=>{
+  try{
+    if (pedidos &&ubicacionInicial) {
+      let respuestaBack = await axios.post(env?.serverUrl+`/ordenar-pedido-distancia`,{pedidos,ubicacionInicial})        
+          return(respuestaBack.data.pedidosOrdenados);
+    }else{
+      return (false);
+    }
+  }catch(err){
+    console.error(err);
+    return (false);
+  }
 }

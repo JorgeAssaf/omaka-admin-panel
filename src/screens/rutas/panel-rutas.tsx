@@ -3,6 +3,7 @@ import { SvgIcon } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
+import { orderOrdersPerDistance } from "../../api/ordersQuerys";
 import { newRate, tomarRutas } from "../../api/rateQuerys";
 import { DetallesRutaCard } from "../../components/cardDetalleRuta/detalles-ruta-card";
 import DetallesPedidoCard from "../../components/cardDetallesPedido/detalles-pedido-card";
@@ -29,6 +30,7 @@ export function PanelRutas(){
   const [loading, setLoading] = useState(false);
   const [rateSelected, setRateSelected] = useState({} as RateType);
   const [poinstRates, setPoinstRates] = useState({} as PointType[]);
+  const [ordenatePoints,setOrdenatePoints]=useState({} as OrderType[])
   const [orderSelected, setOrderSelected] = useState({} as OrderType);
   const [repartidor, setRepartidor] = useState<RateType["repartidor"]>({} as RateType["repartidor"]);
   const { DatosPersonales } = useSelector((state: RootState) => state.user.userData as any);
@@ -45,11 +47,27 @@ export function PanelRutas(){
   };
 
   useEffect(() => {   
-    console.log('amos por rutas');
-    
       getRateList();
   },[]);
 
+  useEffect(() => {
+    getArrayPointsRates();
+  }, [activeRateList, orderWithRate]);
+
+
+  useEffect(()=>{
+
+    getOrdersOrdenate();  
+  },[rateSelected])
+
+  const getOrdersOrdenate = async()=>{
+    const pedidosArray=getOderForID(rateSelected.Pedidos, useSelector);
+    const rest= await orderOrdersPerDistance(pedidosArray,pedidosArray[0].direccionPedido)
+    const points = getPointsORder(rest);
+    setOrdenatePoints(rest);
+    setPoinstRates(points);
+
+  }
 
   const newRateClient = async (rateData: RateTypeFormSimple) => {
     // setLoading(true);
@@ -83,9 +101,6 @@ export function PanelRutas(){
     }
   };
 
-  useEffect(() => {
-    getArrayPointsRates();
-  }, [activeRateList, orderWithRate]);
 
   const focusOrderMap = (item: OrderType) => {
     setOrderSelected(item);
@@ -150,7 +165,7 @@ export function PanelRutas(){
                   />
                 </div>
               </div>
-              {poinstRates.length>0 && <MapViewRoutes points={poinstRates}/>}
+              {rateSelected && <MapViewRoutes points={poinstRates}/>}
             </div>
           </div>
         </div>

@@ -11,7 +11,7 @@ import Colors from "../../utils/colors";
 let generalMap;
 let generalMaps;
 let generalPoints;
-
+let directionsDisplay;
 const Marker = ({ color, lat, lng }) => (
   <div
     style={{
@@ -43,24 +43,36 @@ function MapViewRoutes({ points }: typeMapView) {
   useEffect(() => {
     setPuntosArray(points);
     if (points.length > 0) {
+      if(directionsDisplay){
+        directionsDisplay.setMap(null);
+      }
       apiIsLoaded(generalMap, generalMaps, points);
     }
   }, [points]);
 
   const apiIsLoaded = (map, maps, points) => {
-    generalMap = map;
+    generalMap =  map;
     generalMaps = maps;
     generalPoints = points;
     if (maps) {
       let bounds = new maps.LatLngBounds();
+      let waypoints=[];
       if (points.length > 0) {
-        points.forEach((marker) => {
+        console.log(points)
+        points.forEach((marker,key) => {
+          
+          if(key!=0 && key!=points.length-1){
+            waypoints.push({
+              location:marker.ubicacionPedido,
+              stopover: true,
+            })
+          }
           bounds.extend(marker.ubicacionPedido);
         });
         map.fitBounds(bounds);
         const DirectionsService = new generalMaps.DirectionsService();
 
-        let directionsDisplay = new generalMaps.DirectionsRenderer({
+         directionsDisplay = new generalMaps.DirectionsRenderer({
           suppressMarkers: false,
           suppressBicyclingLayer: true
         });
@@ -71,22 +83,24 @@ function MapViewRoutes({ points }: typeMapView) {
             strokeWeight: "5",
             strokeOpacity: "0.7"
           }
-          // draggable: true,
         });
-        console.log(points);
 
         directionsDisplay.setMap(generalMap);
-
+        
         DirectionsService.route(
           {
             origin: new generalMaps.LatLng(
-              20.66986014230566,
-              -103.35488439970105
+              points[0].ubicacionPedido.lat,
+              points[0].ubicacionPedido.lng
             ),
+
+
             destination: new generalMaps.LatLng(
-              20.630817843719313,
-              -103.40663765319535
+              points[points.length-1].ubicacionPedido.lat,
+              points[points.length-1].ubicacionPedido.lng
             ),
+            waypoints: waypoints,
+            optimizeWaypoints: true,
             travelMode: generalMaps.TravelMode.DRIVING
           },
           (result, status) => {

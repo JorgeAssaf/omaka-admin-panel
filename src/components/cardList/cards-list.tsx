@@ -16,6 +16,7 @@ type CardListInterface = {
 };
 
 export const CardList = ({ data, tipo, cardProps, onClickItem, variant, loading }: CardListInterface) => {
+  
   if(loading)return(<Loading/>)
   switch (tipo) {
     case 'pedidos':
