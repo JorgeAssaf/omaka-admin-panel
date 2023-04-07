@@ -41,3 +41,8 @@ export interface ItemOrderTableProps {
   fechaInicio: any,
   setOrderDetails: (rate: OrderType) => void
 }
+
+export interface ModalDetallesPedidoProps {
+  order: OrderType;
+  onClose: ()=> void;
+}

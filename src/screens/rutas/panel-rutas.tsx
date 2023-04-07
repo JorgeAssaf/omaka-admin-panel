@@ -1,7 +1,7 @@
-import { Close } from "@mui/icons-material";
+import { ArrowDropDown, Close, MoveDown } from "@mui/icons-material";
 import { SvgIcon } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { orderOrdersPerDistance } from "../../api/ordersQuerys";
 import { newRate, tomarRutas } from "../../api/rateQuerys";
@@ -23,6 +23,9 @@ import NuevaRuta from "../nuevaRuta/nueva-ruta";
 import { PanelDeControl } from "../panel-de-control/panel-de-control";
 
 import "./styles.css";
+import ModalDetallesPedido from "../../components/modalDetallesPedido/modal-detalles-pedido";
+import { getListaPedidos } from "../../redux/actions";
+import { AppDispatch } from "../../redux/store";
 export function PanelRutas(){
   const [screenShow, setScreenShow] = useState("list");
   const [activeRateList, setActiveRateList] = useState<RateType[]>([]);
@@ -35,6 +38,8 @@ export function PanelRutas(){
   const [repartidor, setRepartidor] = useState<RateType["repartidor"]>({} as RateType["repartidor"]);
   const { DatosPersonales } = useSelector((state: RootState) => state.user.userData as any);
   const orderWithRate = useSelector((state: RootState) => state.pedidos.orderListWithRate);
+  const orderList = useSelector((state: RootState) => state.pedidos.orderList);
+  const dispatch = useDispatch<AppDispatch>();
 
   const getRateList = async () => {
     setLoading(true);
@@ -54,7 +59,12 @@ export function PanelRutas(){
     getArrayPointsRates();
   }, [activeRateList, orderWithRate]);
 
-
+  useEffect(()=> {
+    if(orderList.length == 0 &&orderWithRate.length === 0 ){
+      dispatch(getListaPedidos(DatosPersonales.idUsuario));
+    }
+  },[])
+  
   useEffect(()=>{
 
     getOrdersOrdenate();  
@@ -146,7 +156,7 @@ export function PanelRutas(){
                     <DetallesRutaCard {...rateSelected} />
                   </div>
                 )}
-                {orderSelected.idPedido && (
+                 {orderSelected.idPedido && (
                   <div className="relative">
                     <div
                       onClick={() => setOrderSelected({} as OrderType)}
@@ -154,18 +164,21 @@ export function PanelRutas(){
                     >
                       <SvgIcon component={Close} fontSize="small" />
                     </div>
-                    <DetallesPedidoCard {...orderSelected} />
+                    <ModalDetallesPedido order={orderSelected} onClose={()=>setOrderSelected({} as OrderType)} />
                   </div>
                 )}
-                <div className="order_list_float_right">
+              </div>
+              <div className="order_list_float_right">
                   <CardList
                     onClickItem={(item) => focusOrderMap(item)}
                     tipo="pedidos"
                     data={getOderForID(rateSelected.Pedidos, useSelector)}
                   />
                 </div>
-              </div>
-              {rateSelected && <MapViewRoutes points={poinstRates}/>}
+                <div className='scroll-icon float down'>
+                    <SvgIcon component={ArrowDropDown} fontSize="large" />
+                </div>
+                {rateSelected && <MapViewRoutes points={poinstRates}/>}
             </div>
           </div>
         </div>

@@ -49,6 +49,14 @@
 }
 .order_list_float_right{
     float: right;
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    top: 145px;
+    width: 16vw;
+    height: 71vh;
+    overflow-y: scroll;
+    padding-bottom: 40px;
 }
 /************* Detalles de ruta *****************/
 .detalle-ruta-container{
@@ -60,3 +68,28 @@
 .pedidos_detalles_container{
     width: 60%;
 }
+
+
+.scroll-icon.float.down {
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+    z-index: 4;
+    animation: float 2s ease-in-out infinite;
+}
+
+
+@keyframes float {
+    0% {
+      transform: translatey(0);
+    }
+    50% {
+      transform: translatey(-10px);
+    }
+    100% {
+      transform: translatey(0);
+    }
+  }
+  
+  
+  
