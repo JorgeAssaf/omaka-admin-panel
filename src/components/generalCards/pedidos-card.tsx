@@ -9,6 +9,7 @@ import { stringCutting } from "../../utils/stringModifier";
 import { OrderType } from "../../types/typeOrders";
 import { cardPropsType } from "../../types/typesCards";
 import Colors from "../../utils/colors";
+import { getStatusOrder } from "../../utils/pedidos";
 type CardProps = {
   data: OrderType;
   onClick?: (item:OrderType) => void;
@@ -30,6 +31,15 @@ const CardPedidos = ({ data, onClick, cardProps, variant }: CardProps) => {
     !variant?.includes('newRate') && setIsSelect(!isSelect);
     if(onClick) onClick(data);
   };
+  const textChip = data.report?'Reportado':getStatusOrder(data.status);
+
+  const colorChip =  data.report
+    ? Colors().xochipaltic400 
+    :data.status === 'finish'
+    ? Colors().chalchihuitl400
+    : data.status === 'inProgress'
+    ? Colors().texotli300
+    : Colors().tizatl600;
 
   return (
     <div className={variant?.includes('newRate')?'cardContainer row':'' }>
@@ -47,7 +57,7 @@ const CardPedidos = ({ data, onClick, cardProps, variant }: CardProps) => {
         <ContentTittle >
           {idPedido?idPedido.slice(-8):''}
           <div className='card_chip_container'>
-            <InformationChip  text={status}  />
+            <InformationChip  text={textChip} color={colorChip}  />
           </div>
         </ContentTittle>
         <ContentText>

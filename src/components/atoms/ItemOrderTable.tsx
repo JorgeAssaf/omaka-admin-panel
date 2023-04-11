@@ -23,8 +23,6 @@ export default function ItemOrderTable({
       : datosRow.status == "finish"
       ? Colors().chalchihuitl400
       : Colors().xochipaltic400;
-  console.log(datosRow);
-  
   const tiempoEnPedido = getTimeDifference(fechaInicio,datosRow.fechaEntrega);
 
   return (

@@ -1,6 +1,7 @@
 export interface typeMapView{
     points:PointType[],
     screenShow?:string,
+    repartidorUbicacion?: any;
     newPedido?:Array<any>
 }
 

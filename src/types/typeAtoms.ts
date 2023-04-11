@@ -1,4 +1,4 @@
-import { OrderType } from "./typeOrders";
+import { ClientType, OrderType } from "./typeOrders";
 import { RateType } from "./typeRate";
 
 export interface TypographyProps {
@@ -46,3 +46,9 @@ export interface ModalDetallesPedidoProps {
   order: OrderType;
   onClose: ()=> void;
 }
+
+export interface SuggerClientListProps {
+  direccionText: string;
+  setClientDetails: (cliente: ClientType)=> void;
+}
+

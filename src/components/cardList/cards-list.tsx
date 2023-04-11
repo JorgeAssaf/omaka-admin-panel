@@ -5,6 +5,7 @@ import CardPedidos from "../generalCards/pedidos-card";
 import CardRepartidor from "../generalCards/repartidor-card";
 import './styles.css';
 import Loading from "../atoms/loading";
+import CardCliente from "../generalCards/cliente-card";
 
 type CardListInterface = {
   data: any[];
@@ -12,10 +13,11 @@ type CardListInterface = {
   variant?: string;
   cardProps?: cardPropsType;
   loading?: boolean;
+  activeItem?: string;
   onClickItem: (item: OrderType | any) => void;
 };
 
-export const CardList = ({ data, tipo, cardProps, onClickItem, variant, loading }: CardListInterface) => {
+export const CardList = ({ data, tipo, cardProps, onClickItem, variant, loading, activeItem }: CardListInterface) => {
   
   if(loading)return(<Loading/>)
   switch (tipo) {
@@ -32,7 +34,7 @@ export const CardList = ({ data, tipo, cardProps, onClickItem, variant, loading 
       return (
         <div className='listContainer'>
           {data.map((item) => {
-            return <CardRutas data={item} cardProps={cardProps} onClick={(item)=>onClickItem && onClickItem(item)} />;
+            return <CardRutas data={item} activeItem={activeItem} cardProps={cardProps} onClick={(item)=>onClickItem && onClickItem(item)} />;
           })}
         </div>
       )
@@ -42,6 +44,15 @@ export const CardList = ({ data, tipo, cardProps, onClickItem, variant, loading 
         <div className='listContainer'>
           {data.map((item) => {
             return <CardRepartidor cardProps={cardProps} onClick={(item)=>onClickItem && onClickItem(item)} data={item} />;
+          })}
+        </div>
+      )
+      break;
+    case 'cliente':
+      return (
+        <div className='listContainer'>
+          {data.map((item) => {
+            return <CardCliente activeItem={activeItem} cardProps={cardProps} onClick={(item)=>onClickItem && onClickItem(item)} data={item} />;
           })}
         </div>
       )

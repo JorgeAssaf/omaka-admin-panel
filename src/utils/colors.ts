@@ -13,11 +13,11 @@ const Colors=()=>{
         chalchihuitl400:'#40C980',
         chalchihuitl050:'#CFF2DF',
         texotli200:'#7B7BF7',
-        texotli300:'#5252F4',
+        texotli300:'#5252F4', //azul
         zacatazcalli200:'#F6CD79',
-        zacatazcalli300:'#F4BE52',
+        zacatazcalli300:'#F4BE52',//naranja
         xochipaltic300:'#FC7373',
-        xochipaltic400:'#FB4B4B',
+        xochipaltic400:'#FB4B4B', //rojo
         xochipaltic050:'#FFEBEB'
     }
 }

@@ -37,3 +37,19 @@ export interface OrderTypeForm {
         lng: number;
     }
 }
+
+
+export interface ClientType {
+    direccionPedido : string;
+    nombreCliente : string;
+    idCliente  : string;
+    idUsuario  : string;
+    fechaCreacion : any;
+    telefonoPedido : string;
+    ubicacionPedido : {
+        lat: number;
+        lng: number;
+    }
+    Reports? : [];
+}
+

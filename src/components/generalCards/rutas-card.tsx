@@ -1,27 +1,40 @@
 import { SvgIcon } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
-import { Place, Person, Receipt, CalendarToday, CalendarMonth, Lock } from "@mui/icons-material";
+import { Receipt, CalendarMonth, Lock } from "@mui/icons-material";
 import { ProgressRute } from "../atoms/progressCircle/progress-circle";
 import { InformationChip } from "../atoms/information-chip";
 import "./styles.css";
-import { stringCutting } from "../../utils/stringModifier";
 import { RateType } from "../../types/typeRate";
 import { cardPropsType } from "../../types/typesCards";
+import Colors from "../../utils/colors";
+import { getStatusOrder } from "../../utils/pedidos";
 
 type CardProps = {
   data: RateType;
+  activeItem?: string;
   onClick?: (item:RateType) => void;
   cardProps?: cardPropsType;
 };
 
 
-const CardRutas = ({ data, onClick, cardProps }: CardProps) => {
+const CardRutas = ({ data, onClick, cardProps, activeItem }: CardProps) => {
   const { idRuta, Pedidos, fechaEntrega, status, nombreRuta } = data;
 
   const [isSelect, setIsSelect] = useState(false);
+  const textChip = getStatusOrder(data.status);
+
+  const colorChip = data.status === 'finish'
+    ? Colors().chalchihuitl400
+    : data.status === 'inProgress'
+    ? Colors().texotli300
+    : Colors().tizatl600;
+
+  useEffect(() => {
+    setIsSelect(activeItem === data.idRuta);
+  }, [activeItem])
+  
   const onClickItem = () => {
-    setIsSelect(!isSelect);
     if (onClick) onClick(data);
   };
 
@@ -35,7 +48,7 @@ const CardRutas = ({ data, onClick, cardProps }: CardProps) => {
         <ContentTittle>
           {nombreRuta}
           <div className="card_chip_container">
-            <InformationChip text={status} />
+            <InformationChip text={textChip} color={colorChip} />
           </div>
         </ContentTittle>
         <ContentText>

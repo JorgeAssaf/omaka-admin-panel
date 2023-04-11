@@ -2,7 +2,7 @@ import React, { useState,useEffect } from "react";
 import { toast } from "react-toastify";
 import { Buttons } from "../../components/atoms/buttons";
 import CheckBox from "../../components/atoms/checkBox/checkbox";
-import { OrderTypeForm } from "../../types/typeOrders";
+import { ClientType, OrderTypeForm } from "../../types/typeOrders";
 import Colors from "../../utils/colors";
 import { usePlacesWidget } from "react-google-autocomplete";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,9 +12,11 @@ import Geocode from "react-geocode";
 type NuevoPedidoProps = {
   handleSubmit: (pedido: OrderTypeForm) => void;
   loading: boolean;
+  setDireccionText: (direccion: string) => void;
+  clientDetails: ClientType
 };
 
-const NuevoPedido = ({ handleSubmit, loading }: NuevoPedidoProps) => {
+const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails }: NuevoPedidoProps) => {
   const [nombreCliente, setNombreCliente] = useState('');
   const [direccionPedido, setDireccionPedido] = useState('');
   const [ubicacionPedido, setUbicacionPedido] = useState({
@@ -32,8 +34,16 @@ const NuevoPedido = ({ handleSubmit, loading }: NuevoPedidoProps) => {
     if(ban){
       initialize();
     }
-    
   }, [])
+
+  useEffect(()=>{
+    if(clientDetails?.idCliente){
+      setDireccionPedido(clientDetails.direccionPedido);
+      setUbicacionPedido(clientDetails.ubicacionPedido);
+      setTelefonoPedido(clientDetails.telefonoPedido);
+      setNombreCliente(clientDetails.nombreCliente);
+    }
+  },[clientDetails])
   
   useEffect(() => {
     if(ban){
@@ -46,7 +56,7 @@ const NuevoPedido = ({ handleSubmit, loading }: NuevoPedidoProps) => {
           const address = response.results[0].formatted_address;
           setDireccionPedido(address);
           setUbicacionPedido({lat:newBound.ubicacionPedido.lat,lng:newBound.ubicacionPedido.lng});
-
+          setDireccionText(address);
         },
         (error) => {
           console.error(error);
@@ -66,6 +76,7 @@ const NuevoPedido = ({ handleSubmit, loading }: NuevoPedidoProps) => {
     onPlaceSelected: (place) => {
       let newPlace=[{ubicacionPedido:{lat:place.geometry.location.lat(),lng:place.geometry.location.lng()}}];
       setUbicacionPedido({lat:place.geometry.location.lat(),lng:place.geometry.location.lng()});
+      setDireccionText(place.formatted_address);
       setDireccionPedido(place.formatted_address);
       dispatch({ type: 'setNewPedido', payload: newPlace });
 
@@ -88,7 +99,6 @@ const NuevoPedido = ({ handleSubmit, loading }: NuevoPedidoProps) => {
         orderSaved
       });
     }else{
-    console.log("[as]444");
       toast.error('Llena todos los campos :D')
     }
 
@@ -102,9 +112,10 @@ const NuevoPedido = ({ handleSubmit, loading }: NuevoPedidoProps) => {
           type="text"
           value={direccionPedido}
           ref={ref}
-          onChange={(event) =>
+          onChange={(event) =>{
+            setDireccionText((event.target as HTMLInputElement).value);
             setDireccionPedido((event.target as HTMLInputElement).value)
-          }
+          }}
           required
         />
       </div>

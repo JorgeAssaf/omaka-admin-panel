@@ -63,11 +63,30 @@ export const preparateOrdersToTransfer = (ordersList? : Array<any>) => {
   return(newArrayOrders)
 }
 
-export const orderOrdersPerDistance = async(pedidos :OrderType[],ubicacionInicial:OrderType['direccionPedido'])=>{
+export const orderOrdersPerDistance = async(pedidos :OrderType[],ubicacionInicial:OrderType['ubicacionPedido'])=>{
   try{
     if (pedidos &&ubicacionInicial) {
       let respuestaBack = await axios.post(env?.serverUrl+`/ordenar-pedido-distancia`,{pedidos,ubicacionInicial})        
           return(respuestaBack.data.pedidosOrdenados);
+    }else{
+      return (false);
+    }
+  }catch(err){
+    console.error(err);
+    return (false);
+  }
+}
+
+export const getClientByUser = async (idUsuario? : string)  =>{
+  try{
+    if (idUsuario) {
+      let respuestaBack = await axios.post(env?.serverUrl+`/get-client-by-user`,{idUsuario:idUsuario})        
+        if(respuestaBack.data.status=='OK'){
+          return(respuestaBack.data.arrayBusqueda);
+        }
+        else{
+          return (false);
+        }
     }else{
       return (false);
     }

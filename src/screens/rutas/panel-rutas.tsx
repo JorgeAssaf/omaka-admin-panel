@@ -6,36 +6,32 @@ import { toast, ToastContainer } from "react-toastify";
 import { orderOrdersPerDistance } from "../../api/ordersQuerys";
 import { newRate, tomarRutas } from "../../api/rateQuerys";
 import { DetallesRutaCard } from "../../components/cardDetalleRuta/detalles-ruta-card";
-import DetallesPedidoCard from "../../components/cardDetallesPedido/detalles-pedido-card";
 import { CardList } from "../../components/cardList/cards-list";
 import HeaderSection from "../../components/header/headerSection";
 import MapViewRoutes from "../../components/map/mapRoutesView";
-import MapView from "../../components/map/MapView";
-import { useIsVisible } from "../../hooks/useVisible";
 import { RootState } from "../../redux/reducers/mainReducer";
-import { ParentScreenProps } from "../../types/typeAtoms";
 import { OrderType } from "../../types/typeOrders";
 import { RateType, RateTypeFormSimple } from "../../types/typeRate";
 import { PointType } from "../../types/typesMap";
-import { getOderForID, getPointsORder } from "../../utils/pedidos";
+import { getOderForID, getPointsOrder } from "../../utils/pedidos";
 import { getPointsRates } from "../../utils/rates";
 import NuevaRuta from "../nuevaRuta/nueva-ruta";
 import { PanelDeControl } from "../panel-de-control/panel-de-control";
-
+import Firestore, { doc, onSnapshot } from 'firebase/firestore';
 import "./styles.css";
 import ModalDetallesPedido from "../../components/modalDetallesPedido/modal-detalles-pedido";
 import { getListaPedidos } from "../../redux/actions";
 import { AppDispatch } from "../../redux/store";
+import { db } from "../../utils/firebase";
 export function PanelRutas(){
   const [screenShow, setScreenShow] = useState("list");
   const [activeRateList, setActiveRateList] = useState<RateType[]>([]);
   const [historyRateList, setHistoryRateList] = useState<RateType[]>([]);
   const [loading, setLoading] = useState(false);
   const [rateSelected, setRateSelected] = useState({} as RateType);
-  const [poinstRates, setPoinstRates] = useState({} as PointType[]);
-  const [ordenatePoints,setOrdenatePoints]=useState({} as OrderType[])
+  const [poinstRates, setPoinstRates] = useState([] as PointType[]);
   const [orderSelected, setOrderSelected] = useState({} as OrderType);
-  const [repartidor, setRepartidor] = useState<RateType["repartidor"]>({} as RateType["repartidor"]);
+  const [repartidor, setRepartidor] = useState({} as any);
   const { DatosPersonales } = useSelector((state: RootState) => state.user.userData as any);
   const orderWithRate = useSelector((state: RootState) => state.pedidos.orderListWithRate);
   const orderList = useSelector((state: RootState) => state.pedidos.orderList);
@@ -55,29 +51,43 @@ export function PanelRutas(){
       getRateList();
   },[]);
 
-  useEffect(() => {
-    getArrayPointsRates();
-  }, [activeRateList, orderWithRate]);
-
   useEffect(()=> {
     if(orderList.length == 0 &&orderWithRate.length === 0 ){
-      dispatch(getListaPedidos(DatosPersonales.idUsuario));
+      getPedidos();
     }
   },[])
-  
-  useEffect(()=>{
 
+  const getPedidos = () => {
+    dispatch(getListaPedidos(DatosPersonales.idUsuario));
+  }
+
+  useEffect(()=>{
     getOrdersOrdenate();  
   },[rateSelected])
 
   const getOrdersOrdenate = async()=>{
-    const pedidosArray=getOderForID(rateSelected.Pedidos, useSelector);
-    const rest= await orderOrdersPerDistance(pedidosArray,pedidosArray[0].direccionPedido)
-    const points = getPointsORder(rest);
-    setOrdenatePoints(rest);
-    setPoinstRates(points);
-
+    try {
+      if(rateSelected.idRuta){
+        const pedidosArray=getOderForID(rateSelected.Pedidos, orderWithRate);
+        const rest= await orderOrdersPerDistance(pedidosArray,pedidosArray[0].ubicacionPedido)
+        const points = getPointsOrder(rest);
+        setPoinstRates(points);
+      }
+    }catch(err){
+      console.error(err)
+    }
   }
+
+  useEffect(() => {
+    let unsub = null as any;
+    if(rateSelected.idRuta){
+      unsub = onSnapshot(doc(db, "Repartidores",rateSelected.repartidor.id), (doc) => {
+        const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        setRepartidor(doc.data())
+      });
+    }
+    return unsub;
+  }, [rateSelected]);
 
   const newRateClient = async (rateData: RateTypeFormSimple) => {
     // setLoading(true);
@@ -86,6 +96,7 @@ export function PanelRutas(){
       id: DatosPersonales.idUsuario
     };
     const resRate = await newRate(rateData, creador, rateData.repartidor);
+    getPedidos();
     getRateList();
     setLoading(false);
     setScreenShow("list");
@@ -101,20 +112,9 @@ export function PanelRutas(){
     setRateSelected(itemRate);
   };
 
-  const getArrayPointsRates = () => {
-    if (activeRateList.length > 0 && orderWithRate.length > 0) {
-      const points = getPointsRates(activeRateList, orderWithRate);
-      setPoinstRates(points);
-    }
-    else if (activeRateList.length == 0) {
-      setPoinstRates([]);
-    }
-  };
-
-
   const focusOrderMap = (item: OrderType) => {
     setOrderSelected(item);
-    const points = getPointsORder([item]);
+    const points = getPointsOrder([item]);
     setPoinstRates(points);
   };
 
@@ -135,9 +135,10 @@ export function PanelRutas(){
               <CardList
                 loading={loading}
                 onClickItem={(item) => onSelectRate(item)}
+                activeItem={rateSelected.idRuta}
                 cardProps={{ fullWidth: true }}
                 tipo="rutas"
-                data={activeRateList}
+                data={[...activeRateList,...activeRateList]}
               />
             </div>
             <div className="mapa_container">
@@ -172,13 +173,13 @@ export function PanelRutas(){
                   <CardList
                     onClickItem={(item) => focusOrderMap(item)}
                     tipo="pedidos"
-                    data={getOderForID(rateSelected.Pedidos, useSelector)}
+                    data={getOderForID(rateSelected.Pedidos, orderWithRate)}
                   />
                 </div>
                 <div className='scroll-icon float down'>
                     <SvgIcon component={ArrowDropDown} fontSize="large" />
                 </div>
-                {rateSelected && <MapViewRoutes points={poinstRates}/>}
+                <MapViewRoutes points={poinstRates} repartidorUbicacion={repartidor?.Ubicacion}/>
             </div>
           </div>
         </div>

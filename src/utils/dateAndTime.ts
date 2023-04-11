@@ -1,4 +1,4 @@
-import { differenceInHours, differenceInMinutes } from "date-fns";
+import { differenceInHours, differenceInMinutes, differenceInSeconds } from "date-fns";
 
 export const getDateAndHour = (dateCreation: any) => {
   const convertedDate = new Date(
@@ -37,6 +37,26 @@ export const getTimeDifference = (fechaInicio : any, fechaEntrega: any) =>  {
           return(differenceInMinutes(convertedEntrega,convertedInicio) + ' min(s)');
       }else{
        return(differenceInHours(convertedEntrega,convertedInicio)+ ' hora(s)');
+      }
+  }else{
+      return('N/A')
+  }
+
+}
+
+export const getLastUpdate = (fechaInicio : any,) =>  {
+  if(fechaInicio ){
+      const convertedInicio = new Date(fechaInicio.seconds * 1000 + fechaInicio.nanoseconds / 1000000);
+      const convertedCurrent = new Date();
+      if(differenceInHours(convertedCurrent,convertedInicio) < 1 ){
+          if(differenceInMinutes(convertedCurrent,convertedInicio) < 1){
+            return(differenceInSeconds(convertedCurrent,convertedInicio) + ' seg(s)');
+
+          }else{
+          return(differenceInMinutes(convertedCurrent,convertedInicio) + ' min(s)');
+          }
+      }else{
+       return(differenceInHours(convertedCurrent,convertedInicio)+ ' hora(s)');
       }
   }else{
       return('N/A')

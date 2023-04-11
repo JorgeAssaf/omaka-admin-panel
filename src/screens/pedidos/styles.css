@@ -5,24 +5,24 @@
     flex-direction: row;
 }
 
-.lista_container {
+.pedidos_container .lista_container {
     width: 60%;
     border-right: 1px solid #d8d8d8;
     padding: 16px 32px;
     -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
 }
-.lista_container.contracted {
+.pedidos_container .lista_container.contracted {
     width: 40%;
     -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
 }
 .header_container{
     margin: 0px 8px;
 }
-.mapa_container {
+.pedidos_container .mapa_container {
     width: 40%;
 }
 
-.mapa_container .contracted{
+.pedidos_container .mapa_container.contracted{
     width: 60%;
 }
 

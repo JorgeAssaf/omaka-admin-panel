@@ -18,7 +18,6 @@ function RegistrationForm({ setScreenShow }: LoginProps) {
   const [nombreEmpresa, setNombreEmpresa] = useState("");
   const [industriaEmpresa,setIndustriaEmpresa] = useState("");
   const [login, setLogin] = useState(false);
-  console.log(industriaEmpresa);
   
   const handleSubmit = async (event) => {
     event.preventDefault();

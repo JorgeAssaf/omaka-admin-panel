@@ -1,7 +1,7 @@
 import { RootState } from "../redux/reducers/mainReducer";
+import Store from "../redux/store";
 import { OrderType } from "../types/typeOrders";
 import Colors from "./colors";
-
 
 
 export const getIdPedidos = (pedidosList : OrderType[]) => { 
@@ -13,13 +13,8 @@ export const getIdPedidos = (pedidosList : OrderType[]) => {
 }
 
 
-export const getOderForID = (orderListId? : string[],selector?:any) => {
-    console.log("vamos a tomaer pedido",orderListId);
-
-    const orderWithRate = selector((state: RootState) => state.pedidos.orderListWithRate)
-    console.log("orderWithRate",orderWithRate);
-    
-    if(orderListId){
+export const getOderForID = (orderListId? : string[],orderWithRate? : any) => {
+    if(orderListId && orderWithRate){
         const newOrderList = orderWithRate.filter((item)=> orderListId?.includes(item.idPedido));
         return(newOrderList);
     }else{
@@ -28,8 +23,24 @@ export const getOderForID = (orderListId? : string[],selector?:any) => {
 }
 
 
+export const getStatusOrder = (status : string) => {
+    let localStatus = "Pendiente";
+        switch (status) {
+            case "pending":
+                localStatus = "Pendiente"
+                break;
+            case "inProgress":
+                localStatus = "En curso"
+                break;
+            case "finish":
+                localStatus = "Entregado"
+                break;
+        }
+    return localStatus;
+}
 
-export const getPointsORder = (orderList : OrderType[]) => {
+
+export const getPointsOrder = (orderList : OrderType[]) => {
     const orderPoints = orderList.map(item => {
         return({
             ubicacionPedido:item.ubicacionPedido,

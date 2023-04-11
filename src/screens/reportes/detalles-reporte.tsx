@@ -21,6 +21,7 @@ import { getOderForID } from "../../utils/pedidos";
 import { DetallesRutaCard } from "../../components/cardDetalleRuta/detalles-ruta-card";
 import { SvgIcon } from "@mui/material";
 import DetallesPedidoCard from "../../components/cardDetallesPedido/detalles-pedido-card";
+import Typography from "../../components/atoms/typography";
 
 type DetallesReporteProps = {
   rate: RateType;
@@ -44,8 +45,6 @@ const DetallesReporte = ({ rate, setRateDetails }: DetallesReporteProps) => {
   const { DatosPersonales } = useSelector(
     (state: RootState) => state.user.userData as any
   );
-console.log(rate);
-
   useEffect(() => {
     getArrayPointsRates();
     getOrders();
@@ -85,6 +84,9 @@ console.log(rate);
             typeOrderSet={() => null}
           />
         </div>
+        <Typography variant="cardTitle" >
+          Lista de pedidos
+        </Typography>
         <OrderList rate={rate} orderList={orders}  setOrderDetails={setOrderDetails} />
       </div>
       <div className="detalles-reporte-maps">

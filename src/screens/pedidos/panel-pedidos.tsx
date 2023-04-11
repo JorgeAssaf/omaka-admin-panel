@@ -8,10 +8,11 @@ import MapView from "../../components/map/MapView";
 import { getListaPedidos } from "../../redux/actions";
 import { RootState } from "../../redux/reducers/mainReducer";
 import { AppDispatch } from "../../redux/store";
-import { OrderType, OrderTypeForm } from "../../types/typeOrders";
+import { ClientType, OrderType, OrderTypeForm } from "../../types/typeOrders";
 import { PanelDeControl } from "../panel-de-control/panel-de-control";
 import NuevoPedido from "./nuevo-pedido";
 import "./styles.css";
+import SuggerClientList from "../../components/suggerClientList/suggerClientList";
 
 export const PanelPedidos = () => {
   const [screenShow, setScreenShow] = useState("list");
@@ -25,11 +26,12 @@ export const PanelPedidos = () => {
   );
   const [orderView, setOrderView] = useState(1);
   const [pedidosListMostrar, setPedidosListMostrar] = useState([]);
+  const [direccionText, setDireccionText] = useState('');
+  const [clientDetails, setClientDetails] = useState({} as ClientType);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     getOrderList();
-    console.log("inicio");
   }, []);
 
   useEffect(() => {
@@ -54,12 +56,10 @@ export const PanelPedidos = () => {
       toast.error("Algo paso mal");
       toast.error(resOrder.errorMessage);
     }
+    setDireccionText('');
+    setClientDetails({} as ClientType)
   };
-  const arrayPed = [
-    { ubicacionPedido: { lat: 20.661844, lng: -103.704351 } },
-    { ubicacionPedido: { lat: 20.661844, lng: -103.47215320422521 } },
-    { ubicacionPedido: { lat: 20.57171803720562, lng: -103.47215320422521 } }
-  ];
+
 
   return (
     <PanelDeControl currentSection='/panel/pedidos'>
@@ -95,10 +95,17 @@ export const PanelPedidos = () => {
               }
             />
           ) : (
-            <NuevoPedido loading={loading} handleSubmit={newOrderClient} />
+            <NuevoPedido clientDetails={clientDetails} setDireccionText={setDireccionText} loading={loading} handleSubmit={newOrderClient} />
           )}
         </div>
-        <div className="mapa_container">
+        <div className={
+          screenShow == 'new'
+          ? "mapa_container contracted"
+          : "mapa_container"
+        }>
+          <div className='order_list_float_right'>
+            <SuggerClientList direccionText={direccionText} setClientDetails={setClientDetails} />
+          </div>
           <MapView
             points={
               orderView == 1 ? orderList : orderView == 2 ? orderListRate : []

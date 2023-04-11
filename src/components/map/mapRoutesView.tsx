@@ -7,6 +7,9 @@ import { RootState } from "../../redux/reducers/mainReducer";
 import { useDispatch, useSelector } from "react-redux";
 import "./MapView.css";
 import Colors from "../../utils/colors";
+import { SvgIcon } from "@mui/material";
+import { DirectionsCar } from "@mui/icons-material";
+import { getLastUpdate } from "../../utils/dateAndTime";
 
 let generalMap;
 let generalMaps;
@@ -16,16 +19,26 @@ const Marker = ({ color, lat, lng }) => (
   <div
     style={{
       backgroundColor: color,
-      width: "1.5rem",
-      height: "1.5rem",
+      width: "1rem",
+      height: "1rem",
       borderRadius: "50%"
     }}
-  >
-    {" "}
+  ></div>
+);
+
+const MarkerUser = ({ color, kmh,lastUpdate, lat, lng }) => (
+  <div className="deliveryMarker">
+    <div className="kmh-indicator">{parseInt(kmh)} km/h <br/> hace {getLastUpdate(lastUpdate)}</div>
+
+    <SvgIcon
+      component={DirectionsCar}
+      fontSize="small"
+      htmlColor={Colors().texotli300}
+    />
   </div>
 );
 
-function MapViewRoutes({ points }: typeMapView) {
+function MapViewRoutes({ points, repartidorUbicacion }: typeMapView) {
   const [puntosArray, setPuntosArray] = useState<PointType[]>([]);
   const newPedido = useSelector(
     (state: RootState) => state.pedidos.newPedidoUbicacion as any
@@ -43,7 +56,7 @@ function MapViewRoutes({ points }: typeMapView) {
   useEffect(() => {
     setPuntosArray(points);
     if (points.length > 0) {
-      if(directionsDisplay){
+      if (directionsDisplay) {
         directionsDisplay.setMap(null);
       }
       apiIsLoaded(generalMap, generalMaps, points);
@@ -51,42 +64,40 @@ function MapViewRoutes({ points }: typeMapView) {
   }, [points]);
 
   const apiIsLoaded = (map, maps, points) => {
-    generalMap =  map;
+    generalMap = map;
     generalMaps = maps;
     generalPoints = points;
     if (maps) {
       let bounds = new maps.LatLngBounds();
-      let waypoints=[];
+      let waypoints = [] as any;
       if (points.length > 0) {
-        console.log(points)
-        points.forEach((marker,key) => {
-          
-          if(key!=0 && key!=points.length-1){
+        points.forEach((marker, key) => {
+          if (key != 0 && key != points.length - 1) {
             waypoints.push({
-              location:marker.ubicacionPedido,
-              stopover: true,
-            })
+              location: marker.ubicacionPedido,
+              stopover: true
+            });
           }
           bounds.extend(marker.ubicacionPedido);
         });
         map.fitBounds(bounds);
         const DirectionsService = new generalMaps.DirectionsService();
 
-         directionsDisplay = new generalMaps.DirectionsRenderer({
+        directionsDisplay = new generalMaps.DirectionsRenderer({
           suppressMarkers: false,
           suppressBicyclingLayer: true
         });
 
         directionsDisplay.setOptions({
           polylineOptions: {
-            strokeColor: "#ff85a2",
+            strokeColor: points[0] ? points[0].color : Colors().chalchihuitl400,
             strokeWeight: "5",
             strokeOpacity: "0.7"
           }
         });
 
         directionsDisplay.setMap(generalMap);
-        
+
         DirectionsService.route(
           {
             origin: new generalMaps.LatLng(
@@ -94,10 +105,9 @@ function MapViewRoutes({ points }: typeMapView) {
               points[0].ubicacionPedido.lng
             ),
 
-
             destination: new generalMaps.LatLng(
-              points[points.length-1].ubicacionPedido.lat,
-              points[points.length-1].ubicacionPedido.lng
+              points[points.length - 1].ubicacionPedido.lat,
+              points[points.length - 1].ubicacionPedido.lng
             ),
             waypoints: waypoints,
             optimizeWaypoints: true,
@@ -105,7 +115,6 @@ function MapViewRoutes({ points }: typeMapView) {
           },
           (result, status) => {
             if (status === generalMaps.DirectionsStatus.OK) {
-              console.log(result);
               directionsDisplay.setDirections(result);
             } else {
               console.error(`error fetching directions ${result}`);
@@ -138,6 +147,15 @@ function MapViewRoutes({ points }: typeMapView) {
             />
           );
         })}
+        {repartidorUbicacion?.latitude ? (
+          <MarkerUser
+            lat={repartidorUbicacion.latitude}
+            lng={repartidorUbicacion.longitude}
+            color={Colors().chalchihuitl400}
+            kmh={repartidorUbicacion.speed}
+            lastUpdate={repartidorUbicacion.lastUpdate}
+          />
+        ) : null}
       </GoogleMapReact>
     </div>
   );

@@ -26,8 +26,6 @@ export const PanelRepartidores = () => {
   );
 
   useEffect(() => {
-    console.log("entro a repartidores");
-    
     getRepartidorList();
   }, []);
 
