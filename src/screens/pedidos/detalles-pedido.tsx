@@ -6,9 +6,11 @@ import { Buttons } from "../../components/atoms/buttons";
 import Colors from "../../utils/colors";
 import MapView from '../../components/map/MapView';
 import { PointType } from '../../types/typesMap';
+import { editOrder } from '../../api/ordersQuerys';
 
 type DetallesPedidosInterface = {
-    datosPedidos?: DatosPedidos;
+    datosPedidos: DatosPedidos;
+    cerrarDrawer: any;
 }
 
 type DatosPedidos = {
@@ -26,12 +28,51 @@ type DatosPedidos = {
 
 }
 
-export const DetallesPedidos = ({datosPedidos} : DetallesPedidosInterface) => {
+export const DetallesPedidos = ({datosPedidos, cerrarDrawer} : DetallesPedidosInterface) => {
+
+    const [direccionPedido, setDireccionPedido] = useState(datosPedidos?.direccionPedido);
+    const [nombreCliente, setNombreCliente] = useState(datosPedidos?.nombreCliente);
+    const [notaDePedido, setNotaDePedido] = useState(datosPedidos?.notaDePedido);
+    const [telefonoPedido, setTelefonoPedido] = useState(datosPedidos?.telefonoPedido);
+    const [ubicacionPedido, setUbicacionPedido] = useState(datosPedidos?.ubicacionPedido);
+    const [disabledInput, setDisableInput] = useState(true);
+    const [showBotonera, setShowBotonera] = useState(datosPedidos?.status || 'pending')
+
+    const [datosPedidosEdit, setDatosPedidosEdit] = useState(datosPedidos)
+
+    const editarPedido = () => {
+        setDisableInput(false);
+        setShowBotonera('editar');
+    };
+    
+    const guardarPedido = () => {
+        console.log(datosPedidosEdit)
+        console.log(editOrder(datosPedidosEdit))
+        cerrarDrawer();
+
+    }
+
+    const handleChangeNombreCliente = (e) =>{
+        setNombreCliente(e);
+        setDatosPedidosEdit({... datosPedidosEdit, nombreCliente: e})
+    }
+    const handleChangeTelefono = (e) =>{
+        setTelefonoPedido(e);
+        setDatosPedidosEdit({... datosPedidosEdit, telefonoPedido: e})
+
+    }
+    const handleChangeNota = (e) =>{
+        setNotaDePedido(e);
+        setDatosPedidosEdit({... datosPedidosEdit, notaDePedido: e})
+
+    }
 
     const botonera =
 {       
-    pending: <BotoneraSinruta />,
+    pending: <BotoneraSinruta EditarPedido={editarPedido} />,
+    editar: <BotoneraEditar GuardarPedido={guardarPedido} CancelarEditar={cerrarDrawer} />
 }
+
 
     return(
         <div className='detalles-container'>
@@ -42,37 +83,42 @@ export const DetallesPedidos = ({datosPedidos} : DetallesPedidosInterface) => {
             <div>
                 <div className='row-information-client'>
                 <LabelInput 
-                inputProps={{ disabled: true }}
-                value={datosPedidos?.nombreCliente}
-                onChange={() => null}
+                inputProps={{ disabled: disabledInput}}
+                value={nombreCliente}
+                onChange={handleChangeNombreCliente}
                 label="Nombre"
                 />
             <LabelInput 
-                inputProps={{ disabled: true }}
-                value={datosPedidos?.telefonoPedido}
-                onChange={() => null}
+                inputProps={{ disabled: disabledInput }}
+                value={telefonoPedido}
+                onChange={handleChangeTelefono}
                 label="Telefono"
                 />
                 </div>
             <LabelInput 
                 inputProps={{ disabled: true }}
-                value={datosPedidos?.direccionPedido}
-            onChange={() => null}
+                value={direccionPedido}
+            onChange={handleChangeNota}
             label="Direccion"
             />
             <LabelInput 
-                inputProps={{ disabled: true }}
-                value={datosPedidos?.notaDePedido}
+                inputProps={{ disabled: disabledInput }}
+                value={notaDePedido}
             onChange={() => null}
             label="Notas"
             />
             </div>
             <div>
+                {
+                    datosPedidos ? 
                 <MapView points={[datosPedidos]} />
+                :
+                <div/>
+                }
             </div>
             <div className='bottom-section'>
                 <div className='botonera'>
-                    {botonera[datosPedidos ? datosPedidos.status : 'pendiente' ]}
+                    {botonera[ showBotonera ]}
                 </div>
 
             </div>
@@ -80,7 +126,7 @@ export const DetallesPedidos = ({datosPedidos} : DetallesPedidosInterface) => {
     );
 }
 
-const BotoneraSinruta = () =>(
+const BotoneraSinruta = ({EditarPedido}) =>(
     <div className='botonera-container'>
         <Buttons
         textColor={Colors().tliltik}
@@ -101,7 +147,7 @@ const BotoneraSinruta = () =>(
         color={Colors().zacatazcalli300}
         text="Editar"
         type="primary"
-        action={() => null}
+        action={EditarPedido}
         width='95%'/>
         <Buttons
         textColor={Colors().iztac}
@@ -113,5 +159,25 @@ const BotoneraSinruta = () =>(
         </div>
         </div>
         
+    </div>
+);
+const BotoneraEditar = ({GuardarPedido, CancelarEditar}) =>(
+    <div>
+         <div className='segunda-fila'>
+        <Buttons
+        textColor={Colors().iztac}
+        color={Colors().chalchihuitl400}
+        text="Guardar"
+        type="primary"
+        action={GuardarPedido}
+        width='95%'/>
+        <Buttons
+        textColor={Colors().iztac}
+        color={Colors().xochipaltic400}
+        text="Cancelar"
+        type="primary"
+        action={CancelarEditar}
+        width='95%'/>
+        </div>
     </div>
 );

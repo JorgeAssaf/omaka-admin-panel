@@ -98,6 +98,21 @@
     background: #F2E6CF;
   }
 
+  .detalles-container .item-input {
+    width:100% ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    align-items: flex-start;
+  }
+
+  .detalles-container .item-label {
+    margin-bottom: 10px;
+    color: #292929;
+
+  }
+
   .row-information{
     display: flex;
     flex-direction: row;

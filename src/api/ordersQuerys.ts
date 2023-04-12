@@ -61,3 +61,31 @@ export const preparateOrdersToTransfer = (ordersList? : Array<any>) => {
 
   return(newArrayOrders)
 }
+
+export const editOrder = async (datos : any)=>{
+  try{
+    if(datos){
+      let respuestaBack=await axios.post(`${env.serverUrl}/editar-pedido`,{datos})
+      return (respuestaBack.data);
+      
+    }
+  }
+    catch(err){
+      console.error("error en EditarPedido",err);
+    }
+}
+
+export const deleteOrder = async (datos, idUsuario?:string, isAdmin?:boolean)=>{
+  try{
+    if (idUsuario) {
+      
+      let respuestaBack=await axios.post(`${env.serverUrl}/eliminar-pedido`,{datos,idUsuario,isAdmin})
+      return respuestaBack.data;
+    }else{
+      return (false);
+    } 
+  }
+  catch(err){
+    console.error("error en eliminar Pedido",err);
+  }
+}

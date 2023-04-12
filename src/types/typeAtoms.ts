@@ -15,6 +15,7 @@ export interface LabelInputProps {
   type?: string;
   required? : boolean;
   inputProps?: any;
+  ref?: any;
 }
 
 export interface SelectInputProps {
