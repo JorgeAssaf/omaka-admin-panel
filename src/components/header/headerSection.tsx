@@ -25,9 +25,9 @@ function HeaderSection({
   lengths
 }: Avatarprops) {
   return (
-    <div className="headerSectionContainer">
+    <div className="headerSectionContainer '">
       <div className="containerHeaderFirst">
-        <div className="superior">
+        <div className="superior  onboarding-header-add">
         {actionBack && (
         <div onClick={() => actionBack()} className="btnBack">
           <ArrowLeft fill={Colors().tizatl600} />
@@ -43,7 +43,7 @@ function HeaderSection({
         </div>
 
         {pedidos && typeOrderSet ? (
-          <div className="inferior">
+          <div className="inferior onboarding-header-filter">
             <ButtonRounded
               text={"sin ruta"}
               type={typeOrder == 1 ? "complete" : "margin"}

@@ -1,10 +1,9 @@
-import { SvgIcon } from "@mui/material";
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Phone, Mail } from "@mui/icons-material";
 import { InformationChip } from "../atoms/information-chip";
 import "./styles.css";
-import { stringCutting } from "../../utils/stringModifier";
 import { cardPropsType } from "../../types/typesCards";
 import Colors from "../../utils/colors";
 import { RepartidorType } from "../../types/typeRepartidor";
@@ -17,9 +16,10 @@ type CardPropsTypes = {
   data: RepartidorType;
   onClick?: (item: RepartidorType) => void;
   cardProps?: cardPropsType;
+  activeItem?: string;
 };
 
-const CardRepartidor = ({ data, onClick, cardProps }: CardPropsTypes) => {
+const CardRepartidor = ({ data, onClick, cardProps, activeItem }: CardPropsTypes) => {
   const { DatosPersonales, Ubicacion } = data;
   const { nombre, apellido, correo, telefono, foto, idUsuario } = DatosPersonales;
   const [isSelect, setIsSelect] = useState(false);
@@ -31,9 +31,11 @@ const CardRepartidor = ({ data, onClick, cardProps }: CardPropsTypes) => {
     inactive: Colors().xochipaltic400,
   }
   
+  useEffect(() => {
+    setIsSelect(activeItem === data.DatosPersonales.idUsuario);
+  }, [activeItem])
 
   const onClickItem = () => {
-    setIsSelect(!isSelect);
     if (onClick) onClick(data);
   };
 
@@ -54,7 +56,6 @@ const CardRepartidor = ({ data, onClick, cardProps }: CardPropsTypes) => {
             variant="cardTitle"
           >{`${nombre} ${apellido}`}</Typography>
           </div>
-          <InformationChip text={statusRepartidor(Ubicacion?.status)} color={Ubicacion?.status? statusColor[Ubicacion.status]: Colors().chalchihuitl400} />
         </div>
        
         <IconText

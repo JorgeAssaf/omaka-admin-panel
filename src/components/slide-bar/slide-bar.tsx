@@ -11,6 +11,7 @@ const CONDUCTORES = '/panel/repartidores'
 const REPORTES = '/panel/reportes'
 
 
+
 export const SlideBar = ({currentSection}: {currentSection: string}) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const navigate = useNavigate();
@@ -62,7 +63,8 @@ export const SlideBar = ({currentSection}: {currentSection: string}) => {
     );
   }
   return (
-    <StyledDrawer contracted onMouseOver={() => setIsDrawerOpen(!isDrawerOpen)}>
+    <>
+    <StyledDrawer className='slide-bar-onboarding' contracted onMouseOver={() => setIsDrawerOpen(!isDrawerOpen)}>
 
       <GeneralItemDrawer
         activeIteam={currentSection === PEDIDOS}
@@ -92,6 +94,8 @@ export const SlideBar = ({currentSection}: {currentSection: string}) => {
         />
       </ContentSettings>
     </StyledDrawer>
+      
+    </>
   );
 };
 

@@ -30,8 +30,13 @@
     width: 40%;
     height: 100%;
     flex:1;
+    position: relative;
 }
-
+.withoutLocation{
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+}
 .mapa_container .contracted{
     width: 60%;
     height: 100%;

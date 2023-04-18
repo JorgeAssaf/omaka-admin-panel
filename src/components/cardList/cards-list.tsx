@@ -41,9 +41,9 @@ export const CardList = ({ data, tipo, cardProps, onClickItem, variant, loading,
       break;
     case 'repartidor':
       return (
-        <div className='listContainer'>
+        <div className='listContainer onboarding-item-repartidor'>
           {data.map((item) => {
-            return <CardRepartidor cardProps={cardProps} onClick={(item)=>onClickItem && onClickItem(item)} data={item} />;
+            return <CardRepartidor activeItem={activeItem} cardProps={cardProps} onClick={(item)=>onClickItem && onClickItem(item)} data={item} />;
           })}
         </div>
       )

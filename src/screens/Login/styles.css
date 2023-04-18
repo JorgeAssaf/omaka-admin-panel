@@ -129,4 +129,16 @@
     cursor: pointer;
     margin-left: 10px;
   }
+
+
+  @media only screen and (max-width: 768px) {
+    .login-container form {width: 90%;}
+ }
   
+
+
+ @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .login-container form {width: 60%;}
+}
+
+

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { GetOrders } from "../../api/ordersQuerys";
 import { GetRepartidores } from "../../api/repartidorQuery";
@@ -7,7 +7,7 @@ import { Buttons } from "../../components/atoms/buttons";
 import HeaderSection from "../../components/header/headerSection";
 import { RootState } from "../../redux/reducers/mainReducer";
 import { OrderType } from "../../types/typeOrders";
-import { RateTypeFormSimple } from "../../types/typeRate";
+import { RateType, RateTypeFormSimple } from "../../types/typeRate";
 import { RepartidorType } from "../../types/typeRepartidor";
 import Colors from "../../utils/colors";
 import { getIdPedidos } from "../../utils/pedidos";
@@ -16,6 +16,8 @@ import FormularioDatos from "./formulario-datos";
 import { FormularioPedidos } from "./formulario-pedidos";
 import { FormularioRepartidores } from "./formulario-repartidores";
 import './styles.css';
+import { getListaRepartidores } from "../../redux/actions";
+import { AppDispatch } from "../../redux/store";
 
 type NuevaRutaProps = {
   handleSubmit: (ruta: RateTypeFormSimple) => void;
@@ -30,11 +32,11 @@ const NuevoRuta = ({ handleSubmit,setScreenShow, fetching, }: NuevaRutaProps) =>
   const [screenLocal, setScreenLocal] = useState("data");
   const [loading, setLoading] = useState(false);
   const [allPedidosList, setAllPedidosList ] = useState<OrderType[]> ([]);
-  const [allRepartidoresList, setAllRepartidoresList ] = useState<RepartidorType[]> ([]);
   const [pedidosInRate, setPedidosInRate ] = useState<OrderType[]> ([]);
-  const [dataForm, setDataForm] = useState({} as RateTypeFormSimple);
+  const [dataForm, setDataForm] = useState <RateType & RateTypeFormSimple >({} as RateType & RateTypeFormSimple );
   const {DatosPersonales} = useSelector((state: RootState) => state.user.userData as any);
-
+  const allRepartidoresList = useSelector((state: RootState) => state.repartidores.repartidorList);
+  const dispatch = useDispatch<AppDispatch>();
   const callBackRate = () => {
     if(dataForm.nombreRuta && dataForm.fechaEntrega){
       handleSubmit(dataForm);
@@ -63,12 +65,7 @@ const NuevoRuta = ({ handleSubmit,setScreenShow, fetching, }: NuevaRutaProps) =>
 
     const getRepartidoresList = async () => {
     setLoading(true);
-    const resOrder = await GetRepartidores(DatosPersonales.idUsuario);
-    if (resOrder) {
-      setAllRepartidoresList(resOrder);
-    } else {
-      console.error('Error en getRepartidoresList');
-    }
+    dispatch(getListaRepartidores(DatosPersonales.idUsuario));
     setLoading(false);
   };
 

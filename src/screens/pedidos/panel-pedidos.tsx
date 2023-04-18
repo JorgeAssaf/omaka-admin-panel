@@ -13,6 +13,7 @@ import { PanelDeControl } from "../panel-de-control/panel-de-control";
 import NuevoPedido from "./nuevo-pedido";
 import "./styles.css";
 import SuggerClientList from "../../components/suggerClientList/suggerClientList";
+import { OnboradingPedidos } from "../../components/onboarding/onboarding-pedidos";
 
 export const PanelPedidos = () => {
   const [screenShow, setScreenShow] = useState("list");
@@ -26,13 +27,19 @@ export const PanelPedidos = () => {
   );
   const [orderView, setOrderView] = useState(1);
   const [pedidosListMostrar, setPedidosListMostrar] = useState([]);
-  const [direccionText, setDireccionText] = useState('');
+  const [direccionText, setDireccionText] = useState("");
   const [clientDetails, setClientDetails] = useState({} as ClientType);
+  const [initOnboarding, setInitOnboarding] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     getOrderList();
+    getOnboardingData();
   }, []);
+
+  const getOnboardingData = () => {
+    setInitOnboarding(true);
+  }
 
   useEffect(() => {
     setPedidosListMostrar(
@@ -56,19 +63,19 @@ export const PanelPedidos = () => {
       toast.error("Algo paso mal");
       toast.error(resOrder.errorMessage);
     }
-    setDireccionText('');
-    setClientDetails({} as ClientType)
+    setDireccionText("");
+    setClientDetails({} as ClientType);
   };
-
+ 
 
   return (
-    <PanelDeControl currentSection='/panel/pedidos'>
+    <PanelDeControl currentSection="/panel/pedidos">
       <div className="pedidos_container">
         <div
           className={
             screenShow == "new"
               ? " lista_container contracted"
-              : "lista_container"
+              : "lista_container onboarding-pedido-list"
           }
         >
           <div className="header_container">
@@ -95,16 +102,24 @@ export const PanelPedidos = () => {
               }
             />
           ) : (
-            <NuevoPedido clientDetails={clientDetails} setDireccionText={setDireccionText} loading={loading} handleSubmit={newOrderClient} />
+            <NuevoPedido
+              clientDetails={clientDetails}
+              setDireccionText={setDireccionText}
+              loading={loading}
+              handleSubmit={newOrderClient}
+            />
           )}
         </div>
-        <div className={
-          screenShow == 'new'
-          ? "mapa_container contracted"
-          : "mapa_container"
-        }>
-          <div className='order_list_float_right'>
-            <SuggerClientList direccionText={direccionText} setClientDetails={setClientDetails} />
+        <div
+          className={
+            screenShow == "new" ? "mapa_container contracted" : "mapa_container onboarding-mapa"
+          }
+        >
+          <div className="order_list_float_right">
+            <SuggerClientList
+              direccionText={direccionText}
+              setClientDetails={setClientDetails}
+            />
           </div>
           <MapView
             points={
@@ -120,6 +135,7 @@ export const PanelPedidos = () => {
           toastClassName="toast"
         />
       </div>
+      <OnboradingPedidos isOpen={initOnboarding} onCloseTour={()=>setInitOnboarding(false)}/>
     </PanelDeControl>
   );
 };

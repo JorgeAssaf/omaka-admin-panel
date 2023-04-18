@@ -6,16 +6,13 @@ import { PointType } from "../../types/typesMap";
 
 type DetallesRutaProps = {
   repartidor :  RepartidorType | RepartidorTypeForm | any;
-  pointList: PointType[]
 }
 
-export const DetallesRepartidor = ({repartidor,pointList}:DetallesRutaProps) => {
-
-  const points = repartidor?repartidor.Ubicacion:pointList;
+export const DetallesRepartidor = ({repartidor}:DetallesRutaProps) => {
   
   return(
     <div style={{ display: "flex", flexDirection: "column", width:'100%' }}>
-      <DetallesRepartidorCard goBack={()=>null} editProfileAction={()=>null} dataRepartidor={{DatosPersonales:{...repartidor}}} />
+      <DetallesRepartidorCard goBack={()=>null} editProfileAction={()=>null} dataRepartidor={repartidor} />
     </div>
   );
 };

@@ -1,9 +1,7 @@
 import { differenceInHours, differenceInMinutes, differenceInSeconds } from "date-fns";
 
 export const getDateAndHour = (dateCreation: any) => {
-  const convertedDate = new Date(
-    dateCreation._seconds * 1000 + dateCreation._nanoseconds / 1000000
-  );
+  const convertedDate = convertDateFormFirebase(dateCreation)
   let day =
     convertedDate.getDate() <= 9
       ? "0" + convertedDate.getDate()
@@ -31,8 +29,8 @@ export const getDateAndHour = (dateCreation: any) => {
 
 export const getTimeDifference = (fechaInicio : any, fechaEntrega: any) =>  {
   if(fechaInicio && fechaEntrega){
-      const convertedInicio = new Date(fechaInicio._seconds * 1000 + fechaInicio._nanoseconds / 1000000);
-      const convertedEntrega = new Date(fechaEntrega._seconds * 1000 + fechaEntrega._nanoseconds / 1000000);
+      const convertedInicio = convertDateFormFirebase(fechaInicio);
+      const convertedEntrega = convertDateFormFirebase(fechaEntrega);
       if(differenceInHours(convertedEntrega,convertedInicio) < 1 ){
           return(differenceInMinutes(convertedEntrega,convertedInicio) + ' min(s)');
       }else{
@@ -44,9 +42,9 @@ export const getTimeDifference = (fechaInicio : any, fechaEntrega: any) =>  {
 
 }
 
-export const getLastUpdate = (fechaInicio : any,) =>  {
+export const getLastUpdate = (fechaInicio : any) =>  {
   if(fechaInicio ){
-      const convertedInicio = new Date(fechaInicio.seconds * 1000 + fechaInicio.nanoseconds / 1000000);
+      const convertedInicio = convertDateFormFirebase(fechaInicio);
       const convertedCurrent = new Date();
       if(differenceInHours(convertedCurrent,convertedInicio) < 1 ){
           if(differenceInMinutes(convertedCurrent,convertedInicio) < 1){
@@ -61,5 +59,28 @@ export const getLastUpdate = (fechaInicio : any,) =>  {
   }else{
       return('N/A')
   }
+}
 
+export const convertDateFormFirebase = (fecha: any) => {
+  if(fecha.seconds){
+    return(new Date(fecha.seconds * 1000 + fecha.nanoseconds / 1000000));
+  }
+  else if(fecha._seconds){
+    return(new Date(fecha._seconds * 1000 + fecha._nanoseconds / 1000000));
+  }else{
+    return(new Date())
+  }
+}
+
+export function esMayorDeEdad(fechaNacimiento : any) {
+  const hoy = new Date();
+  const nacimiento = new Date(fechaNacimiento);
+  let edad = hoy.getFullYear() - nacimiento.getFullYear();
+  const mes = hoy.getMonth() - nacimiento.getMonth();
+
+  if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
+    edad--;
+  }
+
+  return edad >= 18;
 }

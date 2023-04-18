@@ -1,45 +1,55 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
-import { newRate } from "../../api/rateQuerys";
 import { GetRepartidores, newRepartidor } from "../../api/repartidorQuery";
 import { CardList } from "../../components/cardList/cards-list";
 import HeaderSection from "../../components/header/headerSection";
 import MapView from "../../components/map/MapView";
 import { RootState } from "../../redux/reducers/mainReducer";
-import { RateType, RateTypeForm } from "../../types/typeRate";
 import { RepartidorType, RepartidorTypeForm } from "../../types/typeRepartidor";
-import NuevaRuta from "../nuevaRuta/nueva-ruta";
 import NuevoRepartidor from "../nuevoRepartidor/nuevo-repartidor";
 import { PanelDeControl } from "../panel-de-control/panel-de-control";
 
 import "./styles.css";
+import { DetallesRepartidor } from "./detallesRepartidor";
+import { PointType } from "../../types/typesMap";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../../utils/firebase";
+import { AppDispatch } from "../../redux/store";
+import { getListaRepartidores } from "../../redux/actions";
+import { OnboradingRepartidor } from "../../components/onboarding/onboarding-repartidor";
 export const PanelRepartidores = () => {
   const [screenShow, setScreenShow] = useState("list");
-  const [repartidorList, setRepartidorList] = useState<RepartidorType[]>([]);
   const [loading, setLoading] = useState(false);
+  const [initOnboarding, setInitOnboarding] = useState(false);
   const [repartidor, setRepartidor] = useState<RepartidorType>(
     {} as RepartidorType
   );
   const { DatosPersonales } = useSelector(
     (state: RootState) => state.user.userData as any
   );
+  const repartidorList = useSelector(
+    (state: RootState) => state.repartidores.repartidorList
+  );
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     getRepartidorList();
+    getOnboardingData();
   }, []);
+
+  const getOnboardingData = ( ) => {
+    //hacer la peticion a las reducer y actualizar cuando lo cierre a la DB
+    if(repartidorList.length > 0){
+      setInitOnboarding(true);
+    }
+  }
 
   const getRepartidorList = async () => {
     setLoading(true);
-    const resBack = await GetRepartidores(DatosPersonales.idUsuario);
-    if (resBack) {
-      setRepartidorList(resBack);
-    } else {
-      console.error('Error en getOrderList');
-    }
+    dispatch(getListaRepartidores(DatosPersonales.idUsuario));
     setLoading(false);
   };
- 
 
   const newRepartidorClient = async (repartidorData: RepartidorTypeForm) => {
     setLoading(true);
@@ -59,8 +69,19 @@ export const PanelRepartidores = () => {
     }
   };
 
+  useEffect(() => {
+    let unsub = null as any;
+    if(repartidor?.DatosPersonales?.idUsuario){
+      unsub = onSnapshot(doc(db, "Repartidores",repartidor.DatosPersonales.idUsuario), (doc) => {
+        const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        setRepartidor(doc.data() as RepartidorType)
+      });
+    }
+    return unsub;
+  }, [repartidor]);
+
   return (
-    <PanelDeControl currentSection='/panel/repartidores'>
+    <PanelDeControl currentSection="/panel/repartidores">
       <>
         {screenShow == "list" ? (
           <div className="repartidor_container">
@@ -73,13 +94,30 @@ export const PanelRepartidores = () => {
                   />
                 </div>
                 <CardList
-                  onClickItem={() => null}
+                  onClickItem={setRepartidor}
                   tipo="repartidor"
                   data={repartidorList}
+                  activeItem={repartidor?.DatosPersonales?.idUsuario}
                 />
               </div>
               <div className="mapa_container">
-                <MapView points={[]} />
+                <div className="card_detalles_ruta_float">
+                  {repartidor?.DatosPersonales?.idUsuario && (
+                    <div className="relative">
+                      <DetallesRepartidor repartidor={repartidor} />
+                    </div>
+                  )}
+                </div>
+                {repartidor && !repartidor.Ubicacion?.latitude ?(
+                  <div className='overflow full'>
+                    <div className='withoutLocation'> Sin ubicacion</div>
+                  </div>
+                ):null}
+                <MapView
+                  points={[]}
+                  repartidorFocus
+                  repartidorUbicacion={repartidor?.Ubicacion}
+                />
               </div>
             </div>
           </div>
@@ -99,6 +137,7 @@ export const PanelRepartidores = () => {
           toastClassName="toast"
         />
       </>
+    <OnboradingRepartidor isOpen={initOnboarding} onCloseTour={()=>setInitOnboarding(false)}/>
     </PanelDeControl>
   );
 };

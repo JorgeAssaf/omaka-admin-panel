@@ -1,5 +1,5 @@
 import { ArrowDropDown, Close, MoveDown } from "@mui/icons-material";
-import { SvgIcon } from "@mui/material";
+import { Alert, SvgIcon } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
@@ -20,14 +20,14 @@ import { PanelDeControl } from "../panel-de-control/panel-de-control";
 import Firestore, { doc, onSnapshot } from 'firebase/firestore';
 import "./styles.css";
 import ModalDetallesPedido from "../../components/modalDetallesPedido/modal-detalles-pedido";
-import { getListaPedidos } from "../../redux/actions";
+import { getListaPedidos, getListaRepartidores } from "../../redux/actions";
 import { AppDispatch } from "../../redux/store";
 import { db } from "../../utils/firebase";
 export function PanelRutas(){
   const [screenShow, setScreenShow] = useState("list");
   const [activeRateList, setActiveRateList] = useState<RateType[]>([]);
   const [historyRateList, setHistoryRateList] = useState<RateType[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);  
   const [rateSelected, setRateSelected] = useState({} as RateType);
   const [poinstRates, setPoinstRates] = useState([] as PointType[]);
   const [orderSelected, setOrderSelected] = useState({} as OrderType);
@@ -35,6 +35,8 @@ export function PanelRutas(){
   const { DatosPersonales } = useSelector((state: RootState) => state.user.userData as any);
   const orderWithRate = useSelector((state: RootState) => state.pedidos.orderListWithRate);
   const orderList = useSelector((state: RootState) => state.pedidos.orderList);
+  const repartidorList = useSelector((state: RootState) => state.repartidores.repartidorList);
+
   const dispatch = useDispatch<AppDispatch>();
 
   const getRateList = async () => {
@@ -57,8 +59,11 @@ export function PanelRutas(){
     }
   },[])
 
+ 
+
   const getPedidos = () => {
     dispatch(getListaPedidos(DatosPersonales.idUsuario));
+    dispatch(getListaRepartidores(DatosPersonales.idUsuario));
   }
 
   useEffect(()=>{
@@ -118,6 +123,18 @@ export function PanelRutas(){
     setPoinstRates(points);
   };
 
+
+  const addNewRateBtn = () => {
+   if(orderList.length == 0 &&orderWithRate.length === 0 ){
+    toast.warning("Necesitas crear primero un pedido");
+   }else if(repartidorList.length == 0) {
+    toast.warning("Necesitas crear por lo menos un repartidor");
+   }
+   else{
+    setScreenShow("new")
+   }
+  }
+
   return (
     <PanelDeControl currentSection='/panel/rutas'>
     <>
@@ -128,7 +145,7 @@ export function PanelRutas(){
               <div className="header_container">
                 <HeaderSection
                   title={"Rutas"}
-                  actionBtnAdd={() => setScreenShow("new")}
+                  actionBtnAdd={() => addNewRateBtn()}
                   typeOrderSet={() => null}
                 />
               </div>
@@ -138,7 +155,7 @@ export function PanelRutas(){
                 activeItem={rateSelected.idRuta}
                 cardProps={{ fullWidth: true }}
                 tipo="rutas"
-                data={[...activeRateList,...activeRateList]}
+                data={[...activeRateList]}
               />
             </div>
             <div className="mapa_container">

@@ -1,59 +1,71 @@
-import React from 'react';
-import { Modal, Box } from '@mui/material';
-import { Buttons } from '../../components/atoms/buttons';
+import React, {useRef} from "react";
+import { Buttons } from "../../components/atoms/buttons";
 import Colors from "../../utils/colors";
-import { DescripcionPlan } from './descripcion-plan';
+import { DescripcionPlan } from "./descripcion-plan";
+import { Close } from "@mui/icons-material";
+import { SvgIcon } from "@mui/material";
 
 type ModalContrataInterface = {
-    open: boolean,
-    onClose: any,
-    nivel: string,
-
-}
+  onClose: any;
+  nivel: string;
+};
 
 const styleModal = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '45rem',
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 4,
-    borderRadius: 2,
-    outline:0,
-}
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "45rem",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: 2,
+  outline: 0
+};
 
-export const ModalContrata = ({open, onClose, nivel}: ModalContrataInterface) => {
-    
-    return(
-    <div>
-<Modal
-  open={open}
-  onClose={onClose}
-  aria-labelledby="Contrata plan"
-  aria-describedby="Contrata otro plan distinto al tuyo"
->
-  <Box sx={styleModal}>
-    <div className='modal-contrata'>
-        <div className='content-modal'>
-          <div className='encabezado-modal'>
-            Cambiate a Omaka
-           { nivel === 'basic' ? ' Premium ' : ' Basic '}
-           y obten nuevos beneficios
-          </div>
-        <DescripcionPlan nivel='Premium' />
+export const ModalContrata = ({
+  onClose,
+  nivel
+}: ModalContrataInterface) => {
+  const modalRef = useRef<HTMLDivElement>(null);
 
-        <Buttons
-          action={() => onClose(false)}
-          text='Contrata Premium'
-          type="primary"
-          color={Colors().chalchihuitl200}
-          textColor={Colors().tizatl600}
+  const handleOverlayClick = (e: any) => {
+    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+      onClose();
+    }
+  };
+
+  return (
+    <div className="modal-overlay" onClick={(e) => handleOverlayClick(e)}>
+      <div className="modal-wrapper" ref={modalRef}>
+        <button className="modal-close-button" onClick={() => onClose()}>
+          <SvgIcon
+            component={Close}
+            fontSize="small"
+            htmlColor={Colors().tizatl600}
           />
+        </button>
+        <div className="modal-content">
+          <div className="modal-contrata">
+            <div className="content-modal">
+              <div className="encabezado-modal">
+                Cambiate a Omaka
+                {nivel === "basic" ? " Premium " : " Basic "}y obten nuevos
+                beneficios
+              </div>
+              <DescripcionPlan nivel="Premium" />
+
+              <Buttons
+                action={() => onClose(false)}
+                text="Contrata Premium"
+                type="primary"
+                color={Colors().chalchihuitl200}
+                textColor={Colors().tizatl600}
+              />
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-  </Box>
-</Modal>
-</div>)
-}
+  );
+};

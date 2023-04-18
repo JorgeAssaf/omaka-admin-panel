@@ -21,8 +21,13 @@ const PublicWrapper = ({ children, isAuthenticated }) => {
 const AppRouter = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showModalMobile, setShowModalMobile] = useState(false);
   const dispatch = useDispatch();
   const inicializeFirebase = app;
+
+
+
+
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -50,6 +55,8 @@ const AppRouter = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
+
 
   return (
     <BrowserRouter>

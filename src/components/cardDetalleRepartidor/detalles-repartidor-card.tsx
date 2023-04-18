@@ -41,17 +41,10 @@ export const DetallesRepartidorCard = ({
     }
   };
 
-  return DatosPersonales.nombre ? (
+  return DatosPersonales?.nombre ? (
     <div className="header_detalles_container">
       <div className="header_container">
         <div className="header_left">
-          <div onClick={() => goBack()} className="back_button">
-            <SvgIcon
-              component={KeyboardArrowLeftRounded}
-              fontSize="large"
-              htmlColor={Colors().iztac}
-            />
-          </div>
           <div className="data_container">
             <div className="title_container">
               <div className="avatar_container">
@@ -65,10 +58,6 @@ export const DetallesRepartidorCard = ({
                 color={Colors().akostik200}
                 variant="cardTitle"
               >{`${DatosPersonales.nombre} ${DatosPersonales.apellido?DatosPersonales.apellido:''}`}</Typography>
-              <InformationChip
-                text={Ubicacion?.status}
-                color={getColorStatus()}
-              />
             </div>
             <div className="extra_data_container">
               {DatosPersonales.fechaNacimiento && (

@@ -10,11 +10,10 @@ type Item = {
   onClick?: () => void;
   index?: number;
 
-
 }
 
-const GeneralItemDrawer = ({ text = "", imgIcon, activeIteam = false, onClick, index=0 }: Item) =>(
-  <DrawerItem onClick={onClick} type={activeIteam} text={text} index={index}>
+const GeneralItemDrawer = ({ text = "", imgIcon, activeIteam = false, onClick, index=0}: Item) =>(
+  <DrawerItem  onClick={onClick} type={activeIteam} text={text} index={index}>
     <SvgIconStyle component={imgIcon} fontSize={'large'} type={activeIteam} htmlColor='#FBF7EF' inheritViewBox />
     <ContentText text={!!text}>{text}</ContentText>
   </DrawerItem>
@@ -27,6 +26,7 @@ type DrawerItemProps = {
   index: number;
   text: string;
 }
+
 
 type ContentTextProps = {
   text: boolean;

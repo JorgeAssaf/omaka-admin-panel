@@ -9,6 +9,7 @@ import Colors from "../../utils/colors";
 import { DetallesRepartidor } from "../repartidores/detallesRepartidor";
 import FormularioDatos from "./formulario-datos";
 import './styles.css';
+import { esMayorDeEdad } from "../../utils/dateAndTime";
 
 type NuevoRepartidorProps = {
   handleSubmit: (repartidor: RepartidorTypeForm) => void;
@@ -31,17 +32,20 @@ const NuevoRepartidor = ({ handleSubmit,setScreenShow, loading, }: NuevoRepartid
       dataForm.nombre &&
       dataForm.password &&
       dataForm.telefono){
-        dataForm.creador = {
-          name:DatosPersonales.nombre,
-          id:DatosPersonales.idUsuario
+        if(esMayorDeEdad(dataForm.fechaNacimiento)){
+          dataForm.creador = {
+            name:DatosPersonales.nombre,
+            id:DatosPersonales.idUsuario
+          }
+          handleSubmit(dataForm);
+        }else{
+          toast.warning('Necesita ser mayor de edad')
         }
-        handleSubmit(dataForm);
+       
     }else{
       toast.error('Llena todos los campos')
     }
   }
-  
-
 
 
   const navigationBack = () => {
@@ -77,7 +81,7 @@ const NuevoRepartidor = ({ handleSubmit,setScreenShow, loading, }: NuevoRepartid
       }
       </div>
       <div className="detalle-ruta-container">
-        <DetallesRepartidor  repartidor={dataForm}  pointList={[]} />
+        <DetallesRepartidor  repartidor={dataForm} />
         <div className="btn_nueva_repartidor">
           <Buttons
             textColor={Colors().iztac}

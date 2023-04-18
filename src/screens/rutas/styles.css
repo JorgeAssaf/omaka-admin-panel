@@ -45,7 +45,7 @@
   position: relative;
 }
 
-.mapa_container .contracted {
+.mapa_container.contracted {
   width: 70%;
   position: relative;
 }
@@ -101,4 +101,21 @@
   100% {
     transform: translatey(0);
   }
+}
+
+
+
+  @media only screen and (max-width: 600px) {
+    .rutas_container .lista_container {width: 100%;}
+    .rutas_container .mapa_container {width: 0%;}
+
+ }
+  
+
+
+ @media only screen and (min-width: 601px) and (max-width: 1024px) and (orientation: landscape) {
+    .rutas_container .lista_container {width: 60%;}
+    .rutas_container .lista_container.contracted {width: 50%;}
+    .rutas_container .mapa_container {width: 40%;}
+    .rutas_container .mapa_container.contracted {width: 50%;}
 }

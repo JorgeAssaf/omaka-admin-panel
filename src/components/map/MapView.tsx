@@ -6,6 +6,9 @@ import { RootState } from "../../redux/reducers/mainReducer";
 import { useDispatch, useSelector } from "react-redux";
 import "./MapView.css";
 import Colors from "../../utils/colors";
+import { SvgIcon } from "@mui/material";
+import { DirectionsCar } from "@mui/icons-material";
+import { getLastUpdate } from "../../utils/dateAndTime";
 
 let generalMap;
 let generalMaps;
@@ -16,16 +19,32 @@ const Marker = ({ color, lat, lng }) => (
   <div
     style={{
       backgroundColor: color,
-      width: "1.5rem",
-      height: "1.5rem",
+      width: "1rem",
+      height: "1rem",
       borderRadius: "50%"
     }}
-  >
-    {" "}
+  ></div>
+);
+
+const MarkerUser = ({ color, kmh, lastUpdate, lat, lng }) => (
+  <div className="deliveryMarker">
+    <div className="kmh-indicator">
+      {parseInt(kmh)} km/h <br /> hace {getLastUpdate(lastUpdate)}
+    </div>
+    <SvgIcon
+      component={DirectionsCar}
+      fontSize="small"
+      htmlColor={Colors().texotli300}
+    />
   </div>
 );
 
-function MapView({ points, screenShow }: typeMapView) {
+function MapView({
+  points,
+  screenShow,
+  repartidorUbicacion,
+  repartidorFocus
+}: typeMapView) {
   const [puntosArray, setPuntosArray] = useState<PointType[]>([]);
   const newPedido = useSelector(
     (state: RootState) => state.pedidos.newPedidoUbicacion as any
@@ -39,18 +58,23 @@ function MapView({ points, screenShow }: typeMapView) {
     },
     zoom: 15
   };
-  
 
   useEffect(() => {
     setPuntosArray(points);
-    if(points.length>0){
+    if (points.length > 0) {
       apiIsLoaded(generalMap, generalMaps, points);
     }
   }, [points]);
 
   useEffect(() => {
+    if (repartidorFocus) {
+      apiIsLoaded(generalMap, generalMaps, [repartidorUbicacion]);
+    }
+  }, [repartidorUbicacion]);
+
+  useEffect(() => {
     if (screenShow == "new") {
-       setPuntosArray([]);
+      setPuntosArray([]);
     } else {
       setPuntosArray(points);
       if (ban) {
@@ -72,11 +96,20 @@ function MapView({ points, screenShow }: typeMapView) {
     generalMap = map;
     generalMaps = maps;
     generalPoints = points;
-    if(maps){
+    if (maps) {
       let bounds = new maps.LatLngBounds();
-      if(points.length>0){
+      console.log(repartidorFocus && repartidorUbicacion);
+      
+      if (points.length > 0) {
         points.forEach((marker) => {
-          bounds.extend(marker.ubicacionPedido);
+          const ubicacion =
+            repartidorFocus && repartidorUbicacion
+              ? {
+                  lat: marker.latitude,
+                  lng: marker.longitude
+                }
+              : marker?.ubicacionPedido;
+         if(ubicacion)bounds.extend(ubicacion);
         });
         map.fitBounds(bounds);
       }
@@ -107,17 +140,25 @@ function MapView({ points, screenShow }: typeMapView) {
         onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, points)}
         onClick={addPoint}
       >
-
-        {puntosArray.length > 0 && puntosArray.map((it) => {
-          return (
-            <Marker
-              lat={it.ubicacionPedido.lat}
-              lng={it.ubicacionPedido.lng}
-              color={it.color?it.color:Colors().zacatazcalli300}
-            />
-          );
-        })}
-
+        {puntosArray.length > 0 &&
+          puntosArray.map((it) => {
+            return (
+              <Marker
+                lat={it.ubicacionPedido.lat}
+                lng={it.ubicacionPedido.lng}
+                color={it.color ? it.color : Colors().zacatazcalli300}
+              />
+            );
+          })}
+        {repartidorUbicacion?.latitude ? (
+          <MarkerUser
+            lat={repartidorUbicacion.latitude}
+            lng={repartidorUbicacion.longitude}
+            color={Colors().chalchihuitl400}
+            kmh={repartidorUbicacion.speed}
+            lastUpdate={repartidorUbicacion.lastUpdate}
+          />
+        ) : null}
       </GoogleMapReact>
     </div>
   );

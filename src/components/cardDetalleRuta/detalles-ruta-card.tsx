@@ -10,7 +10,7 @@ import Typography from "../atoms/typography";
 import Avatar from "../atoms/avatar/avatarUser";
 import { getDateAndHour, getTimeDifference } from "../../utils/dateAndTime";
 
-export const DetallesRutaCard = (props: RateTypeFormSimple & RateType) => {
+export const DetallesRutaCard = (props: RateType & RateTypeFormSimple) => {
   const { nombreRuta, fechaEntrega, Pedidos, repartidor,fechaCreacion, fechaInicio, fechaTermino } = props;
 
   const [isSelect, setIsSelect] = useState(true);

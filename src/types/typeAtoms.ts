@@ -52,3 +52,9 @@ export interface SuggerClientListProps {
   setClientDetails: (cliente: ClientType)=> void;
 }
 
+export interface ModalTypes {
+  title: string;
+  subtitle: string;
+  onClose: ()=> void;
+}
+

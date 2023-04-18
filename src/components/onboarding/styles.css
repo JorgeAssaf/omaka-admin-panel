@@ -1,0 +1,14 @@
+.onboard-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+.onboard-top {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.onboard-image {
+    width: 90%;
+    object-fit: cover;
+}

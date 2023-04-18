@@ -17,7 +17,7 @@ export interface RepartidorType {
         name: string;
         id: string;  
     };
-    Ubicacion?: PointType
+    Ubicacion?: any
     Pedidos?:Array<string>
     Productos?:Array<string>
     Rutas?:Array<string>
