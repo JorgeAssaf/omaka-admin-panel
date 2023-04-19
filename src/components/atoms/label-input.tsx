@@ -2,7 +2,7 @@ import { LabelInputProps } from "../../types/typeAtoms";
 import './styles.css';
 
 
-export default function LabelInput({ label='',placeholder='', value='', onChange,type = 'text',required = false, inputProps={} }:LabelInputProps) {  
+export default function LabelInput({ label='',placeholder='', value='', onChange,type = 'text',required = false, ref, inputProps={} }:LabelInputProps) {  
     return (
       <label className='atom_label'>
           {label}
@@ -12,6 +12,7 @@ export default function LabelInput({ label='',placeholder='', value='', onChange
             placeholder={placeholder}
             type={type}
             value={value}
+            ref={ref}
             onChange={(event) =>
               onChange((event.target as HTMLInputElement).value)
             }

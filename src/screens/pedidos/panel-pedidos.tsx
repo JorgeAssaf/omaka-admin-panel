@@ -10,6 +10,8 @@ import { RootState } from "../../redux/reducers/mainReducer";
 import { AppDispatch } from "../../redux/store";
 import { ClientType, OrderType, OrderTypeForm } from "../../types/typeOrders";
 import { PanelDeControl } from "../panel-de-control/panel-de-control";
+import { DetallesPedidos } from './detalles-pedido';
+import { Drawer } from '@mui/material';
 import NuevoPedido from "./nuevo-pedido";
 import "./styles.css";
 import SuggerClientList from "../../components/suggerClientList/suggerClientList";
@@ -30,6 +32,8 @@ export const PanelPedidos = () => {
   const [direccionText, setDireccionText] = useState("");
   const [clientDetails, setClientDetails] = useState({} as ClientType);
   const [initOnboarding, setInitOnboarding] = useState(false);
+  const [datosPedidos, setDatosPedidos] = useState();
+  const [openDrawer, setOpenDrawer] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -60,13 +64,24 @@ export const PanelPedidos = () => {
     if (resOrder.status == "OK") {
       toast.success("Pedido creado exitosamente!!");
     } else {
-      toast.error("Algo paso mal");
+      toast.error("Algo salio mal");
       toast.error(resOrder.errorMessage);
     }
     setDireccionText("");
     setClientDetails({} as ClientType);
   };
  
+
+  const onClickPedido = (e) =>{
+    setDatosPedidos(e);
+    setOpenDrawer(true);
+  }
+
+  const arrayPed = [
+    { ubicacionPedido: { lat: 20.661844, lng: -103.704351 } },
+    { ubicacionPedido: { lat: 20.661844, lng: -103.47215320422521 } },
+    { ubicacionPedido: { lat: 20.57171803720562, lng: -103.47215320422521 } }
+  ];
 
   return (
     <PanelDeControl currentSection="/panel/pedidos">
@@ -95,7 +110,7 @@ export const PanelPedidos = () => {
           </div>
           {screenShow == "list" ? (
             <CardList
-              onClickItem={() => null}
+              onClickItem={onClickPedido}
               tipo="pedidos"
               data={
                 orderView == 1 ? orderList : orderView == 2 ? orderListRate : []
@@ -128,6 +143,15 @@ export const PanelPedidos = () => {
             screenShow={screenShow}
           />
         </div>
+
+        <Drawer 
+          anchor='right'
+          open={openDrawer}
+          onClose={() => setOpenDrawer(false)}
+          >
+          <DetallesPedidos datosPedidos={datosPedidos}  cerrarDrawer={() => setOpenDrawer(false)} refreshOrders={()=>getOrderList()}/>
+          </Drawer>
+
         <ToastContainer
           limit={1}
           position="bottom-center"

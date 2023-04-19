@@ -27,6 +27,8 @@
 }
 
 
+
+
 /************NUEVO PEDIDO**************/
 
   .nuevo-pedido-form  {
@@ -90,6 +92,19 @@
     margin: 20px 0px;
   }
 
+  .map-wrap{
+    position: relative;
+    z-index: 0;  
+    height: 100%;
+    width: 100%; 
+    min-height: 32rem;
+  }
+  .bottom-section{
+    position: absolute;
+    bottom: 2rem;
+    right: 1rem;
+  }
+
 
   @media only screen and (max-width: 600px) {
     .pedidos_container .lista_container {width: 100%;}
@@ -108,3 +123,62 @@
     .pedidos_container .mapa_container.contracted {width: 40%;}
 
 }
+  .detalles-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background: #F2E6CF;
+  }
+
+  .detalles-container .item-input {
+    width:100% ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    align-items: flex-start;
+  }
+
+  .detalles-container .item-label {
+    margin-bottom: 10px;
+    color: #292929;
+
+  }
+
+  .row-information{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+  }
+
+  .row-information-client{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .MuiDrawer-paper{
+    width: 50%;
+    background: #F2E6CF;
+  }
+
+  .botonera-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: flex-end;
+  }
+
+  .botones-principales{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .segunda-fila{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: .5rem;
+  }
