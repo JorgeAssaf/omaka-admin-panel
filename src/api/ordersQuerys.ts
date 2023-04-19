@@ -64,8 +64,9 @@ export const preparateOrdersToTransfer = (ordersList? : Array<any>) => {
 
 export const editOrder = async (datos : any)=>{
   try{
+
     if(datos){
-      let respuestaBack=await axios.post(`${env.serverUrl}/editar-pedido`,{datos})
+      let respuestaBack=await axios.post(`${env.serverUrl}/editar-pedido`,datos)
       return (respuestaBack.data);
       
     }

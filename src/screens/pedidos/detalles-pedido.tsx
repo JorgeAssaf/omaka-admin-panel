@@ -11,6 +11,7 @@ import { editOrder } from '../../api/ordersQuerys';
 type DetallesPedidosInterface = {
     datosPedidos: DatosPedidos;
     cerrarDrawer: any;
+    refreshOrders:any;
 }
 
 type DatosPedidos = {
@@ -28,7 +29,7 @@ type DatosPedidos = {
 
 }
 
-export const DetallesPedidos = ({datosPedidos, cerrarDrawer} : DetallesPedidosInterface) => {
+export const DetallesPedidos = ({datosPedidos, cerrarDrawer,refreshOrders} : DetallesPedidosInterface) => {
 
     const [direccionPedido, setDireccionPedido] = useState(datosPedidos?.direccionPedido);
     const [nombreCliente, setNombreCliente] = useState(datosPedidos?.nombreCliente);
@@ -49,7 +50,7 @@ export const DetallesPedidos = ({datosPedidos, cerrarDrawer} : DetallesPedidosIn
         console.log(datosPedidosEdit)
         console.log(editOrder(datosPedidosEdit))
         cerrarDrawer();
-
+        refreshOrders();
     }
 
     const handleChangeNombreCliente = (e) =>{
@@ -72,7 +73,6 @@ export const DetallesPedidos = ({datosPedidos, cerrarDrawer} : DetallesPedidosIn
     pending: <BotoneraSinruta EditarPedido={editarPedido} />,
     editar: <BotoneraEditar GuardarPedido={guardarPedido} CancelarEditar={cerrarDrawer} />
 }
-
 
     return(
         <div className='detalles-container'>
@@ -98,14 +98,14 @@ export const DetallesPedidos = ({datosPedidos, cerrarDrawer} : DetallesPedidosIn
             <LabelInput 
                 inputProps={{ disabled: true }}
                 value={direccionPedido}
-            onChange={handleChangeNota}
-            label="Direccion"
+                onChange={handleChangeNota}
+                label="Direccion"
             />
             <LabelInput 
                 inputProps={{ disabled: disabledInput }}
                 value={notaDePedido}
-            onChange={() => null}
-            label="Notas"
+                onChange={handleChangeNota}
+                label="Notas"
             />
             </div>
             <div>

@@ -122,7 +122,7 @@ export const PanelPedidos = () => {
           open={openDrawer}
           onClose={() => setOpenDrawer(false)}
           >
-          <DetallesPedidos datosPedidos={datosPedidos}  cerrarDrawer={() => setOpenDrawer(false)}/>
+          <DetallesPedidos datosPedidos={datosPedidos}  cerrarDrawer={() => setOpenDrawer(false)} refreshOrders={()=>getOrderList()}/>
           </Drawer>
 
         <ToastContainer
