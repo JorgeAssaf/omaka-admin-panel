@@ -28,3 +28,21 @@ export const registrarUsuario = async (userData : any)  =>{
     console.log('error registrarUsuario',err);
   }
 }
+
+export const getOnBoardingData =async (uid?:string,type?:string) => {
+  try{
+    if(uid){
+      let respuestaBack = await axios.post(env.serverUrl+`/getOnBoardingData`,{idUsuario:uid,type:type})
+      if(respuestaBack.data.status=='OK'){
+        return(respuestaBack.data);
+      }
+    }
+
+  }catch(err){
+
+    console.log('error getOnBoardingData',err);
+
+  }
+
+  
+}

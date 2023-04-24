@@ -112,8 +112,9 @@ export const editOrder = async (datos : any)=>{
 export const deleteOrder = async (datos, idUsuario?:string, isAdmin?:boolean)=>{
   try{
     if (idUsuario) {
-      
-      let respuestaBack=await axios.post(`${env.serverUrl}/eliminar-pedido`,{datos,idUsuario,isAdmin})
+      let idPedido=datos.idPedido;
+      let idRuta=datos.idRuta;
+      let respuestaBack=await axios.post(`${env.serverUrl}/eliminar-pedido`,{datos,idPedido,idRuta,idUsuario,isAdmin})
       return respuestaBack.data;
     }else{
       return (false);

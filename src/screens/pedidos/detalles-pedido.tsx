@@ -6,7 +6,8 @@ import { Buttons } from "../../components/atoms/buttons";
 import Colors from "../../utils/colors";
 import MapView from '../../components/map/MapView';
 import { PointType } from '../../types/typesMap';
-import { editOrder } from '../../api/ordersQuerys';
+import { editOrder,deleteOrder } from '../../api/ordersQuerys';
+import { toast } from "react-toastify";
 
 type DetallesPedidosInterface = {
     datosPedidos: DatosPedidos;
@@ -45,10 +46,27 @@ export const DetallesPedidos = ({ datosPedidos, cerrarDrawer, refreshOrders }: D
         setDisableInput(false);
         setShowBotonera('editar');
     };
+    const eliminarPedido  = async() => {
+        try {
+            let respuesta= await deleteOrder(datosPedidosEdit,datosPedidosEdit.idUsuario,true)
+            console.log(respuesta);
+            if(respuesta.status =='OK'){
+                toast.success('Pedido eliminado');
+                cerrarDrawer();
+                refreshOrders();
+            }
+            else{
+                toast.success('Ocurrió un error');
+            }
+        } catch (err) {
+            toast.success('Ocurrió un error');
+            console.log(err);
+        }
+
+    }
 
     const guardarPedido = () => {
-        console.log(datosPedidosEdit)
-        console.log(editOrder(datosPedidosEdit))
+        editOrder(datosPedidosEdit)
         cerrarDrawer();
         refreshOrders();
     }
@@ -70,7 +88,7 @@ export const DetallesPedidos = ({ datosPedidos, cerrarDrawer, refreshOrders }: D
 
     const botonera =
     {
-        pending: <BotoneraSinruta EditarPedido={editarPedido} />,
+        pending: <BotoneraSinruta EditarPedido={editarPedido} EliminarPedido={eliminarPedido} />,
         editar: <BotoneraEditar GuardarPedido={guardarPedido} CancelarEditar={cerrarDrawer} />
     }
 
@@ -126,7 +144,7 @@ export const DetallesPedidos = ({ datosPedidos, cerrarDrawer, refreshOrders }: D
     );
 }
 
-const BotoneraSinruta = ({ EditarPedido }) => (
+const BotoneraSinruta = ({ EditarPedido, EliminarPedido }) => (
     <div className='botonera-container'>
         <Buttons
             textColor={Colors().tliltik}
@@ -152,9 +170,9 @@ const BotoneraSinruta = ({ EditarPedido }) => (
                 <Buttons
                     textColor={Colors().iztac}
                     color={Colors().xochipaltic400}
-                    text="Eliminar"
+                    text="Eliminar11"
                     type="primary"
-                    action={() => null}
+                    action={EliminarPedido}
                     width='95%' />
             </div>
         </div>
