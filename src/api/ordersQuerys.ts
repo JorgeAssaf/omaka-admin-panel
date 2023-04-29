@@ -5,8 +5,6 @@ import { OrderType } from "../types/typeOrders";
 export const newOrder = async (datos : any, idUsuario?:string, isAdmin?:boolean,orderSaved?:boolean)=>{
     try{
       if (idUsuario) {
-        console.log("orderSaved",orderSaved);
-        
         let respuestaBack=await axios.post(`${env.serverUrl}/crear-pedido`,{datos,idUsuario,isAdmin,orderSaved})
         return respuestaBack.data;
       }else{
@@ -95,17 +93,16 @@ export const getClientByUser = async (idUsuario? : string)  =>{
     return (false);
   }
 } 
-export const editOrder = async (datos : any)=>{
+export const editOrder = async (datos : any, idPedido?:string, idUsuario?:string, isAdmin?:boolean)=>{
   try{
-
     if(datos){
-      let respuestaBack=await axios.post(`${env.serverUrl}/editar-pedido`,datos)
+      let respuestaBack=await axios.post(`${env.serverUrl}/editar-pedido`,{datos,idPedido,idUsuario,isAdmin})
       return (respuestaBack.data);
-      
     }
   }
     catch(err){
       console.error("error en EditarPedido",err);
+      return (false);
     }
 }
 

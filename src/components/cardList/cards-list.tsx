@@ -25,7 +25,7 @@ export const CardList = ({ data, tipo, cardProps, onClickItem, variant, loading,
       return (
         <div className='listContainer'>
           {data.map((item) => {
-            return <CardPedidos variant={variant} cardProps={cardProps} onClick={(item)=>onClickItem && onClickItem(item)} data={item} />;
+            return <CardPedidos activeItem={activeItem} variant={variant} cardProps={cardProps} onClick={(item)=>onClickItem && onClickItem(item)} data={item} />;
           })}
         </div>
       )

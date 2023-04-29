@@ -3,11 +3,11 @@
 const Colors=()=>{
     return{
         tizatl100:'#E0E0E0',
-        tizatl600:'#3D3D3D',
+        tizatl600:'#3D3D3D', //negro
         tliltik:'#292929',
         nextic:'#666666',
         iztac:'#FFFFFF',
-        akostik200:'#F2E6CF',
+        akostik200:'#F2E6CF', //crema
         akostik050:'#FBF7EF',
         chalchihuitl200:'#8BDBB0',
         chalchihuitl400:'#40C980',

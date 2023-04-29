@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
-import { GetOrders, newOrder } from "../../api/ordersQuerys";
+import { GetOrders, deleteOrder, editOrder, newOrder } from "../../api/ordersQuerys";
 import { CardList } from "../../components/cardList/cards-list";
 import HeaderSection from "../../components/header/headerSection";
 import MapView from "../../components/map/MapView";
@@ -10,12 +10,16 @@ import { RootState } from "../../redux/reducers/mainReducer";
 import { AppDispatch } from "../../redux/store";
 import { ClientType, OrderType, OrderTypeForm } from "../../types/typeOrders";
 import { PanelDeControl } from "../panel-de-control/panel-de-control";
-import { DetallesPedidos } from './detalles-pedido';
-import { Drawer } from '@mui/material';
+import { DetallesPedidos } from "./detalles-pedido";
+import { Drawer, SvgIcon } from "@mui/material";
 import NuevoPedido from "./nuevo-pedido";
 import "./styles.css";
 import SuggerClientList from "../../components/suggerClientList/suggerClientList";
 import { OnboradingPedidos } from "../../components/onboarding/onboarding-pedidos";
+import { Close } from "@mui/icons-material";
+import DetallesPedidoCard from "../../components/cardDetallesPedido/detalles-pedido-card";
+import Colors from "../../utils/colors";
+import { Buttons } from "../../components/atoms/buttons";
 
 export const PanelPedidos = () => {
   const [screenShow, setScreenShow] = useState("list");
@@ -32,8 +36,10 @@ export const PanelPedidos = () => {
   const [direccionText, setDireccionText] = useState("");
   const [clientDetails, setClientDetails] = useState({} as ClientType);
   const [initOnboarding, setInitOnboarding] = useState(false);
-  const [datosPedidos, setDatosPedidos] = useState();
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const [datosPedido, setDatosPedido] = useState({} as OrderType);
+  const [isEditPedido, setIsEditPedido] = useState(false);
+  const [showDetalles, setShowDetalles] = useState(false);
+  
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -43,7 +49,7 @@ export const PanelPedidos = () => {
 
   const getOnboardingData = () => {
     setInitOnboarding(true);
-  }
+  };
 
   useEffect(() => {
     setPedidosListMostrar(
@@ -70,18 +76,75 @@ export const PanelPedidos = () => {
     setDireccionText("");
     setClientDetails({} as ClientType);
   };
- 
 
-  const onClickPedido = (e) =>{
-    setDatosPedidos(e);
-    setOpenDrawer(true);
+  const editOrderClient = async (orderData: OrderTypeForm) => {
+    setLoading(true);
+    const resOrder = await editOrder(orderData,datosPedido.idPedido, DatosPersonales.idUsuario, true);
+    getOrderList();
+    setLoading(false);
+    setScreenShow("list");
+    if (resOrder.status == "OK") {
+      toast.success("Pedido editado exitosamente!!");
+    } else {
+      toast.error("Algo salio mal");
+      console.log(resOrder);
+    }
+    setDireccionText("");
+    setClientDetails({} as ClientType);
+  };
+
+  const eliminarPedido = async () => {
+    try {
+      let respuesta = await deleteOrder(
+        datosPedido,
+        DatosPersonales.idUsuario,
+        true
+      );
+      console.log(respuesta);
+      if (respuesta.status == "OK") {
+        toast.success("Pedido eliminado");
+        getOrderList();
+      } else {
+        toast.success("Ocurrió un error");
+      }
+      setIsEditPedido(false);
+      setDatosPedido({} as OrderType);
+      setClientDetails({} as ClientType);
+      setDireccionText("");
+      setClientDetails({} as ClientType);
+    } catch (err) {
+      toast.success("Ocurrió un error");
+      console.log(err);
+    }
+  };
+
+  const onClickPedido = (e) => {
+    setDatosPedido(e);
+    setShowDetalles(true);
+  };
+
+  const editPedido = () => {
+    setIsEditPedido(true);
+    setShowDetalles(false);
+    setScreenShow("new");
+  };
+
+
+  const getPoints = () => {
+    if (datosPedido.idPedido) {
+      return [{ubicacionPedido:datosPedido.ubicacionPedido}];
+    } else {
+      return orderView == 1 ? orderList : orderView == 2 ? orderListRate : [];
+    }
+  };
+
+  const backToList = () => {
+    setScreenShow("list");
+    setIsEditPedido(false);
+    setDatosPedido({} as OrderType);
+    setClientDetails({} as ClientType);
+    setDireccionText("");
   }
-
-  const arrayPed = [
-    { ubicacionPedido: { lat: 20.661844, lng: -103.704351 } },
-    { ubicacionPedido: { lat: 20.661844, lng: -103.47215320422521 } },
-    { ubicacionPedido: { lat: 20.57171803720562, lng: -103.47215320422521 } }
-  ];
 
   return (
     <PanelDeControl currentSection="/panel/pedidos">
@@ -95,9 +158,7 @@ export const PanelPedidos = () => {
         >
           <div className="header_container">
             <HeaderSection
-              actionBack={
-                screenShow != "list" ? () => setScreenShow("list") : undefined
-              }
+              actionBack={screenShow != "list" ? backToList : undefined}
               title={screenShow == "list" ? "Pedidos" : "Nuevo pedido"}
               actionBtnAdd={
                 screenShow == "list" ? () => setScreenShow("new") : undefined
@@ -112,6 +173,7 @@ export const PanelPedidos = () => {
             <CardList
               onClickItem={onClickPedido}
               tipo="pedidos"
+              activeItem={datosPedido.idPedido}
               data={
                 orderView == 1 ? orderList : orderView == 2 ? orderListRate : []
               }
@@ -121,13 +183,23 @@ export const PanelPedidos = () => {
               clientDetails={clientDetails}
               setDireccionText={setDireccionText}
               loading={loading}
-              handleSubmit={newOrderClient}
+              handleSubmit={(pedido, isEditPedido)=>{
+                if(isEditPedido){
+                  editOrderClient(pedido);
+                }else{
+                  newOrderClient(pedido)
+                }
+              }}
+              datosPedido={datosPedido}
+              isEditPedido={isEditPedido}
             />
           )}
         </div>
         <div
           className={
-            screenShow == "new" ? "mapa_container contracted" : "mapa_container onboarding-mapa"
+            screenShow == "new"
+              ? "mapa_container contracted"
+              : "mapa_container onboarding-mapa"
           }
         >
           <div className="order_list_float_right">
@@ -136,21 +208,18 @@ export const PanelPedidos = () => {
               setClientDetails={setClientDetails}
             />
           </div>
-          <MapView
-            points={
-              orderView == 1 ? orderList : orderView == 2 ? orderListRate : []
-            }
-            screenShow={screenShow}
-          />
+          <div className="card_detalles_ruta_float">
+            {!!datosPedido.idPedido && showDetalles ? (
+              <DetallesPedidos
+              datosPedido={datosPedido}
+                onClose={() => setDatosPedido({} as OrderType)}
+                eliminateAction={() => eliminarPedido()}
+                editarAction={editPedido}
+              />
+            ) : null}
+          </div>
+          <MapView points={getPoints()} screenShow={screenShow} />
         </div>
-
-        <Drawer 
-          anchor='right'
-          open={openDrawer}
-          onClose={() => setOpenDrawer(false)}
-          >
-          <DetallesPedidos datosPedidos={datosPedidos}  cerrarDrawer={() => setOpenDrawer(false)} refreshOrders={()=>getOrderList()}/>
-          </Drawer>
 
         <ToastContainer
           limit={1}
@@ -159,7 +228,10 @@ export const PanelPedidos = () => {
           toastClassName="toast"
         />
       </div>
-      <OnboradingPedidos isOpen={initOnboarding} onCloseTour={()=>setInitOnboarding(false)}/>
+      <OnboradingPedidos
+        isOpen={initOnboarding}
+        onCloseTour={() => setInitOnboarding(false)}
+      />
     </PanelDeControl>
   );
 };

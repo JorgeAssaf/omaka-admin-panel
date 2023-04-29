@@ -12,6 +12,7 @@ export interface OrderType {
     nombreCliente : string;
     notaDePedido : string;
     status : string;
+    orderSaved: boolean;
     telefonoPedido : string;
     ubicacionPedido : {
         lat: number;

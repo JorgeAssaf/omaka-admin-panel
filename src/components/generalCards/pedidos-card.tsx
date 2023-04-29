@@ -1,5 +1,5 @@
 import { SvgIcon } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Place, Person, KeyboardArrowRightRounded, KeyboardArrowLeftRounded } from "@mui/icons-material";
 import { ProgressRute } from "../atoms/progressCircle/progress-circle";
@@ -15,9 +15,10 @@ type CardProps = {
   onClick?: (item:OrderType) => void;
   cardProps?: cardPropsType;
   variant? : string;
+  activeItem?: string;
 };
 
-const CardPedidos = ({ data, onClick, cardProps, variant }: CardProps) => {
+const CardPedidos = ({ data, onClick, cardProps, variant, activeItem }: CardProps) => {
   const {
     idPedido,
     direccionPedido,
@@ -28,9 +29,16 @@ const CardPedidos = ({ data, onClick, cardProps, variant }: CardProps) => {
   const [isSelect, setIsSelect] = useState(false);
   const colorStatus = variant?.includes('positive')? Colors().chalchihuitl400 : Colors().xochipaltic400;
   const onClickItem = () => {
-    !variant?.includes('newRate') && setIsSelect(!isSelect);
     if(onClick) onClick(data);
   };
+
+  useEffect(() => {
+    console.log('====================================');
+    console.log(activeItem);
+    console.log('====================================');
+    setIsSelect(activeItem === data.idPedido);
+  }, [activeItem])
+
   const textChip = data.report?'Reportado':getStatusOrder(data.status);
 
   const colorChip =  data.report

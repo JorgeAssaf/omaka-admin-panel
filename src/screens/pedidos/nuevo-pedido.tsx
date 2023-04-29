@@ -2,7 +2,7 @@ import React, { useState,useEffect } from "react";
 import { toast } from "react-toastify";
 import { Buttons } from "../../components/atoms/buttons";
 import CheckBox from "../../components/atoms/checkBox/checkbox";
-import { ClientType, OrderTypeForm } from "../../types/typeOrders";
+import { ClientType, OrderType, OrderTypeForm } from "../../types/typeOrders";
 import Colors from "../../utils/colors";
 import { usePlacesWidget } from "react-google-autocomplete";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,13 +10,15 @@ import { RootState } from "../../redux/reducers/mainReducer";
 import Geocode from "react-geocode";
 
 type NuevoPedidoProps = {
-  handleSubmit: (pedido: OrderTypeForm) => void;
+  handleSubmit: (pedido: OrderTypeForm, isEditPedido: boolean) => void;
   loading: boolean;
   setDireccionText: (direccion: string) => void;
-  clientDetails: ClientType
+  clientDetails: ClientType;
+  datosPedido: OrderType;
+  isEditPedido: boolean;
 };
 
-const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails }: NuevoPedidoProps) => {
+const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails,isEditPedido,datosPedido }: NuevoPedidoProps) => {
   const [nombreCliente, setNombreCliente] = useState('');
   const [direccionPedido, setDireccionPedido] = useState('');
   const [ubicacionPedido, setUbicacionPedido] = useState({
@@ -37,11 +39,25 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails }:
   }, [])
 
   useEffect(()=>{
+    if(isEditPedido){
+      setNombreCliente(datosPedido.nombreCliente);
+      setDireccionPedido(datosPedido.direccionPedido);
+      setUbicacionPedido(datosPedido.ubicacionPedido);
+      setTelefonoPedido(datosPedido.telefonoPedido);
+      setNotaDePedido(datosPedido.notaDePedido);
+      setOrderSaved(datosPedido.orderSaved);
+      dispatch({ type: "setNewBound", payload: {ubicacionPedido:datosPedido.ubicacionPedido} });
+
+    }
+  },[isEditPedido])
+
+  useEffect(()=>{
     if(clientDetails?.idCliente){
       setDireccionPedido(clientDetails.direccionPedido);
       setUbicacionPedido(clientDetails.ubicacionPedido);
       setTelefonoPedido(clientDetails.telefonoPedido);
       setNombreCliente(clientDetails.nombreCliente);
+      dispatch({ type: "setNewBound", payload: {ubicacionPedido:clientDetails.ubicacionPedido} });
     }
   },[clientDetails])
   
@@ -97,7 +113,7 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails }:
         telefonoPedido,
         notaDePedido,
         orderSaved
-      });
+      },isEditPedido);
     }else{
       toast.error('Llena todos los campos :D')
     }
@@ -162,7 +178,7 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails }:
         <Buttons
           textColor={Colors().iztac}
           color={Colors().texotli300}
-          text="Crear Pedido"
+          text={isEditPedido ? "Actualizar" : "Crear Pedido"}
           loading={loading}
           type="primary"
           action={() => callBackPedido()}

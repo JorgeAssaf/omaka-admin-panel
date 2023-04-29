@@ -9,6 +9,8 @@
     width: 60%;
     border-right: 1px solid #d8d8d8;
     padding: 16px 32px;
+    overflow: scroll;
+    height: 90vh;
     -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;
 }
 .pedidos_container .lista_container.contracted {
@@ -20,12 +22,21 @@
 }
 .pedidos_container .mapa_container {
     width: 40%;
+  position: relative;
 }
 
 .pedidos_container .mapa_container.contracted{
     width: 60%;
+  position: relative;
 }
 
+
+.optios_detalles_pedido{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: cente;
+}
 
 
 
@@ -128,7 +139,7 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
-    background: #F2E6CF;
+    background: #fff;
   }
 
   .detalles-container .item-input {
@@ -149,8 +160,10 @@
   .row-information{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 50%;
+    justify-content: flex-start;
+  }
+  .chip-container{
+    margin-left: 20px;
   }
 
   .row-information-client{
