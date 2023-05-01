@@ -228,10 +228,10 @@ export const PanelPedidos = () => {
           toastClassName="toast"
         />
       </div>
-      <OnboradingPedidos
+      {/* <OnboradingPedidos
         isOpen={initOnboarding}
         onCloseTour={() => setInitOnboarding(false)}
-      />
+      /> */}
     </PanelDeControl>
   );
 };

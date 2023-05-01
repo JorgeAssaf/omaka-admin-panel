@@ -137,7 +137,7 @@ export const PanelRepartidores = () => {
           toastClassName="toast"
         />
       </>
-    <OnboradingRepartidor isOpen={initOnboarding} onCloseTour={()=>setInitOnboarding(false)}/>
+    {/* <OnboradingRepartidor isOpen={initOnboarding} onCloseTour={()=>setInitOnboarding(false)}/> */}
     </PanelDeControl>
   );
 };

@@ -13,7 +13,8 @@ const firebaseConfig = {
   projectId: "omaka-app",
   storageBucket: "omaka-app.appspot.com",
   messagingSenderId: "358970131793",
-  appId: "1:358970131793:web:a3147789ac7b4488783f70"
+  appId: "1:358970131793:web:a3147789ac7b4488783f70",
+  measurementId: "G-HKT710JYT6",
 };
 
 // Initialize Firebase

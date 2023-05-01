@@ -21,9 +21,7 @@ interface OnboradingProps {
   ];
   
   export const OnboradingRepartidor = ({ isOpen, onCloseTour }: OnboradingProps) => {
-    console.log('====================================');
-    console.log(isOpen);
-    console.log('====================================');
+
     return (
       <Tour
         onRequestClose={onCloseTour}
