@@ -1,5 +1,16 @@
 import { differenceInHours, differenceInMinutes, differenceInSeconds } from "date-fns";
 
+export const convertDateFormFirebase = (fecha: any) => {
+  if(fecha.seconds){
+    return(new Date(fecha.seconds * 1000 + fecha.nanoseconds / 1000000));
+  }
+  else if(fecha._seconds){
+    return(new Date(fecha._seconds * 1000 + fecha._nanoseconds / 1000000));
+  }else{
+    return(new Date())
+  }
+}
+
 export const getDateAndHour = (dateCreation: any) => {
   const convertedDate = convertDateFormFirebase(dateCreation)
   let day =
@@ -61,16 +72,7 @@ export const getLastUpdate = (fechaInicio : any) =>  {
   }
 }
 
-export const convertDateFormFirebase = (fecha: any) => {
-  if(fecha.seconds){
-    return(new Date(fecha.seconds * 1000 + fecha.nanoseconds / 1000000));
-  }
-  else if(fecha._seconds){
-    return(new Date(fecha._seconds * 1000 + fecha._nanoseconds / 1000000));
-  }else{
-    return(new Date())
-  }
-}
+
 
 export function esMayorDeEdad(fechaNacimiento : any) {
   const hoy = new Date();
@@ -83,4 +85,20 @@ export function esMayorDeEdad(fechaNacimiento : any) {
   }
 
   return edad >= 18;
+}
+
+//metodo regresa si el usuario esta en periodo de prueba
+export const isFreePeriod = (fechaCreacion : any, trialEndDate: any) =>  {
+  if(fechaCreacion && trialEndDate){
+      const convertedInicio = convertDateFormFirebase(fechaCreacion);
+      const convertedEntrega = convertDateFormFirebase(trialEndDate);
+      if(differenceInHours(convertedEntrega,convertedInicio) <= 0){
+          return(false);
+      }else{
+       return(true);
+      }
+  }else{
+      return(false)
+  }
+
 }

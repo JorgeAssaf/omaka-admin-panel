@@ -53,7 +53,7 @@ const NuevoRuta = ({ handleSubmit,setScreenShow, fetching, }: NuevaRutaProps) =>
 
   const getOrderList = async () => {
     setLoading(true);
-    const resOrder = await GetOrders(DatosPersonales.idUsuario);
+    const resOrder = await GetOrders(DatosPersonales?.idUsuario);
     if (resOrder) {
       setAllPedidosList(resOrder.pedidosSinRuta);
     } else {
@@ -65,7 +65,7 @@ const NuevoRuta = ({ handleSubmit,setScreenShow, fetching, }: NuevaRutaProps) =>
 
     const getRepartidoresList = async () => {
     setLoading(true);
-    dispatch(getListaRepartidores(DatosPersonales.idUsuario));
+    dispatch(getListaRepartidores(DatosPersonales?.idUsuario));
     setLoading(false);
   };
 

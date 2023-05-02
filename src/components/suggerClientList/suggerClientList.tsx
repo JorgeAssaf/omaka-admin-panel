@@ -58,7 +58,7 @@ const SuggerClientList = ({
   }
   
   const getOrderToSearch = async () => {
-    let busquedaRes = await getClientByUser(DatosPersonales.idUsuario);
+    let busquedaRes = await getClientByUser(DatosPersonales?.idUsuario);
     setClientsFromDB(busquedaRes ? busquedaRes : []);
   };
 

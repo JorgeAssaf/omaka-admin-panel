@@ -35,7 +35,7 @@ const NuevoRepartidor = ({ handleSubmit,setScreenShow, loading, }: NuevoRepartid
         if(esMayorDeEdad(dataForm.fechaNacimiento)){
           dataForm.creador = {
             name:DatosPersonales.nombre,
-            id:DatosPersonales.idUsuario
+            id:DatosPersonales?.idUsuario
           }
           handleSubmit(dataForm);
         }else{

@@ -56,6 +56,30 @@ export default function Typography({
           {children}
         </div>
       );
+      case 'title':
+        return (
+          <div
+            style={{
+              fontFamily: 'Nunito',
+              fontWeight:600,
+              fontSize: '1.3em',
+              color:color
+            }}>
+            {children}
+          </div>
+        );
+        case 'subTitle':
+          return (
+            <div
+              style={{
+                fontFamily: 'Nunito',
+                fontWeight:600,
+                fontSize: '1em',
+                color:color
+              }}>
+              {children}
+            </div>
+          );
     default:
       return (
         <div

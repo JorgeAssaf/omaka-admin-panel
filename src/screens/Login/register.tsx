@@ -42,9 +42,10 @@ function RegistrationForm({ setScreenShow }: LoginProps) {
   };
 
   return (
-    <div className="login-container">
+    <div className="register-container">
       <form onSubmit={handleSubmit} className="registration-form">
         <h2>Registro</h2>
+        <div className="item-row-register">
         <label>
           Correo electrónico:
           <input
@@ -118,7 +119,7 @@ function RegistrationForm({ setScreenShow }: LoginProps) {
           <SelectInput options={IndustriasJson.industrias} onSelect={(value) => setIndustriaEmpresa(IndustriasJson.industrias[value-1]?.name)} textPlaceholder="Selecciona una industria"/>
          </div>
         </label>
-        
+        </div>
 
         <button type="submit">Registrarse</button>
         <p>

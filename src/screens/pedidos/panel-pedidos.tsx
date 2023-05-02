@@ -58,12 +58,12 @@ export const PanelPedidos = () => {
   }, [orderView, orderList, orderListRate]);
 
   const getOrderList = async () => {
-    dispatch(getListaPedidos(DatosPersonales.idUsuario));
+    dispatch(getListaPedidos(DatosPersonales?.idUsuario));
   };
 
   const newOrderClient = async (orderData: OrderTypeForm) => {
     setLoading(true);
-    const resOrder = await newOrder(orderData, DatosPersonales.idUsuario, true);
+    const resOrder = await newOrder(orderData, DatosPersonales?.idUsuario, true);
     getOrderList();
     setLoading(false);
     setScreenShow("list");
@@ -79,7 +79,7 @@ export const PanelPedidos = () => {
 
   const editOrderClient = async (orderData: OrderTypeForm) => {
     setLoading(true);
-    const resOrder = await editOrder(orderData,datosPedido.idPedido, DatosPersonales.idUsuario, true);
+    const resOrder = await editOrder(orderData,datosPedido.idPedido, DatosPersonales?.idUsuario, true);
     getOrderList();
     setLoading(false);
     setScreenShow("list");
@@ -87,7 +87,6 @@ export const PanelPedidos = () => {
       toast.success("Pedido editado exitosamente!!");
     } else {
       toast.error("Algo salio mal");
-      console.log(resOrder);
     }
     setDireccionText("");
     setClientDetails({} as ClientType);
@@ -97,10 +96,9 @@ export const PanelPedidos = () => {
     try {
       let respuesta = await deleteOrder(
         datosPedido,
-        DatosPersonales.idUsuario,
+        DatosPersonales?.idUsuario,
         true
       );
-      console.log(respuesta);
       if (respuesta.status == "OK") {
         toast.success("Pedido eliminado");
         getOrderList();

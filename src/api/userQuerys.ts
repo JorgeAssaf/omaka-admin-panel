@@ -41,8 +41,20 @@ export const getOnBoardingData =async (uid?:string,type?:string) => {
   }catch(err){
 
     console.log('error getOnBoardingData',err);
-
   }
 
-  
+}
+
+export const setFreeTrial = async (idUsuario : string | undefined)=>{
+  try{
+    if(idUsuario){
+      let respuestaBack=await axios.post(`${env?.serverUrl}/set-free-trial`,{idUsuario,isAdmin:true})
+      return respuestaBack.data;
+    }
+  }
+  catch(err){
+    console.log(err);
+    return {status:'500',error:err};
+
+  }
 }

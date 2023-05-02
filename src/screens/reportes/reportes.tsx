@@ -39,7 +39,7 @@ const Reportes = () => {
   const dispatch = useDispatch<AppDispatch>();
   const getRateList = async () => {
     setLoading(true);
-    const reqBack = await tomarRutas(DatosPersonales.idUsuario, true);
+    const reqBack = await tomarRutas(DatosPersonales?.idUsuario, true);
     if (reqBack.status == "OK") {
       setHistoryRateList(reqBack.historyRates);
       setFilteredRates(
@@ -57,7 +57,7 @@ const Reportes = () => {
   };
 
   const getOrderList = async () => {
-    dispatch(getListaPedidos(DatosPersonales.idUsuario));
+    dispatch(getListaPedidos(DatosPersonales?.idUsuario));
   };
 
   useEffect(() => {
@@ -71,13 +71,7 @@ const Reportes = () => {
     setFilteredRates(historyRateList.slice(offset, ratesForPage));
   };
 
-  if (loading) {
-    return (
-      <div className="full-container center absolute">
-        <Loading />
-      </div>
-    );
-  }
+ 
 
   return (
     <PanelDeControl currentSection="/panel/reportes">

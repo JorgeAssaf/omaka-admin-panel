@@ -97,9 +97,7 @@ function MapView({
     generalMaps = maps;
     generalPoints = points;
     if (maps) {
-      let bounds = new maps.LatLngBounds();
-      console.log(repartidorFocus && repartidorUbicacion);
-      
+      let bounds = new maps.LatLngBounds();      
       if (points.length > 0) {
         points.forEach((marker) => {
           const ubicacion =

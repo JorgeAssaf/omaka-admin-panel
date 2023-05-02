@@ -27,7 +27,6 @@ export const DetallesPedidos = ({
   eliminateAction,
   editarAction
 }: DetallesPedidosInterface) => {
-  console.log(datosPedido);
   return (
     <div className="relative">
       <div onClick={() => onClose()} className="closeBtn float circle">

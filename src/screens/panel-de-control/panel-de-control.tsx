@@ -4,8 +4,8 @@ import { UserBar } from "../../components/topBar/topBar";
 
 import "./styles.css";
 
+
 export const PanelDeControl = ({ children, currentSection }) => {
- 
   return (
     <div className="panel-container">
      

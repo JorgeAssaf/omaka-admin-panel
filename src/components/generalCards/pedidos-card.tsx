@@ -33,9 +33,6 @@ const CardPedidos = ({ data, onClick, cardProps, variant, activeItem }: CardProp
   };
 
   useEffect(() => {
-    console.log('====================================');
-    console.log(activeItem);
-    console.log('====================================');
     setIsSelect(activeItem === data.idPedido);
   }, [activeItem])
 

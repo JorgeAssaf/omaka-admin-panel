@@ -2,7 +2,7 @@ import { ClientType, OrderType } from "./typeOrders";
 import { RateType } from "./typeRate";
 
 export interface TypographyProps {
-    variant: 'section' | 'cardTitle' | 'cardInfo' | 'button' | 'chip' | 'label';
+    variant: 'title' | 'subTitle' | 'section' | 'cardTitle' | 'cardInfo' | 'button' | 'chip' | 'label';
     color?: string;
     customedStyles?: Object;
     children: string;

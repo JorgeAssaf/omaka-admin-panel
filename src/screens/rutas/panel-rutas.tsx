@@ -23,6 +23,10 @@ import ModalDetallesPedido from "../../components/modalDetallesPedido/modal-deta
 import { getListaPedidos, getListaRepartidores } from "../../redux/actions";
 import { AppDispatch } from "../../redux/store";
 import { db } from "../../utils/firebase";
+import { isFreePeriod } from "../../utils/dateAndTime";
+import { getUser } from "../../api/userQuerys";
+import { getAuth, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 export function PanelRutas(){
   const [screenShow, setScreenShow] = useState("list");
   const [activeRateList, setActiveRateList] = useState<RateType[]>([]);
@@ -36,12 +40,12 @@ export function PanelRutas(){
   const orderWithRate = useSelector((state: RootState) => state.pedidos.orderListWithRate);
   const orderList = useSelector((state: RootState) => state.pedidos.orderList);
   const repartidorList = useSelector((state: RootState) => state.repartidores.repartidorList);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
   const getRateList = async () => {
     setLoading(true);
-    const reqBack = await tomarRutas(DatosPersonales.idUsuario, true);
+    const reqBack = await tomarRutas(DatosPersonales?.idUsuario, true);
     if (reqBack.status == "OK") {
       setActiveRateList(reqBack.activeRates);
       setHistoryRateList(reqBack.historyRates);
@@ -51,6 +55,7 @@ export function PanelRutas(){
 
   useEffect(() => {   
       getRateList();
+      checkFreeTrial();
   },[]);
 
   useEffect(()=> {
@@ -62,8 +67,8 @@ export function PanelRutas(){
  
 
   const getPedidos = () => {
-    dispatch(getListaPedidos(DatosPersonales.idUsuario));
-    dispatch(getListaRepartidores(DatosPersonales.idUsuario));
+    dispatch(getListaPedidos(DatosPersonales?.idUsuario));
+    dispatch(getListaRepartidores(DatosPersonales?.idUsuario));
   }
 
   useEffect(()=>{
@@ -83,6 +88,21 @@ export function PanelRutas(){
     }
   }
 
+  const checkFreeTrial = async() => {
+    const userData = await getUser(getAuth().currentUser?.uid);
+    if(userData){
+      if(userData.DatosPersonales.status == 0){
+        if(!isFreePeriod(userData.DatosPersonales.fechaCreacion,userData.DatosPersonales.trialEndDate)){
+          toast.error('Tu periodo de prueba ah vencido');
+          setTimeout(() => {
+            signOut(getAuth());
+            navigate('/');
+          }, 4000);
+        }
+      }
+    }
+  }
+
   useEffect(() => {
     let unsub = null as any;
     if(rateSelected.idRuta){
@@ -97,8 +117,8 @@ export function PanelRutas(){
   const newRateClient = async (rateData: RateTypeFormSimple) => {
     // setLoading(true);
     const creador = {
-      name: DatosPersonales.nombre,
-      id: DatosPersonales.idUsuario
+      name: DatosPersonales?.nombre,
+      id: DatosPersonales?.idUsuario
     };
     const resRate = await newRate(rateData, creador, rateData.repartidor);
     getPedidos();

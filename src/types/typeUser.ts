@@ -3,7 +3,7 @@ export interface UserType {
     DatosPersonales:{
         apellido: string;
         correo: string;
-        fechaCreacion?: string;
+        fechaCreacion?: any;
         nombreEmpresa: string;
         direccionEmpresa: string;
         industriaEmpresa: string;
@@ -13,7 +13,7 @@ export interface UserType {
         password: string;
         status?: number;
         telefono: string;
-
+        trialEndDate?: any
     };
     creador?:{
         name: string;
