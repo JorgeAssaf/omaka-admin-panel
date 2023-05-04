@@ -4,6 +4,8 @@ import { registrarUsuario } from "../../api/userQuerys";
 import SelectInput from "../../components/atoms/select-input";
 import IndustriasJson from '../../utils/industrias.json'
 import "./styles.css";
+import { Buttons } from "../../components/atoms/buttons";
+import Colors from "../../utils/colors";
 
 type LoginProps = {
   setScreenShow: (screen: string) => void;
@@ -17,11 +19,10 @@ function RegistrationForm({ setScreenShow }: LoginProps) {
   const [telefono, setTelefono] = useState("");
   const [nombreEmpresa, setNombreEmpresa] = useState("");
   const [industriaEmpresa,setIndustriaEmpresa] = useState("");
-  const [login, setLogin] = useState(false);
+  const [loading, setLoading] = useState(false);
   
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setLogin(true);
+  const handleSubmit = async () => {
+    setLoading(true);
     const resApi = await registrarUsuario({
       correo,
       password,
@@ -31,7 +32,7 @@ function RegistrationForm({ setScreenShow }: LoginProps) {
       nombreEmpresa,
       industriaEmpresa
     });
-    setLogin(false);
+    setLoading(false);
     
     if(resApi.status == 'OK'){
         setScreenShow("login");
@@ -121,7 +122,9 @@ function RegistrationForm({ setScreenShow }: LoginProps) {
         </label>
         </div>
 
-        <button type="submit">Registrarse</button>
+        <div className='btns-container'>
+          <Buttons text='Registrarse' action={handleSubmit}  loading={loading} type='primary' color={Colors().akostik200} />
+        </div>
         <p>
           ¿Ya tienes cuenta?{" "}
           <div onClick={() => setScreenShow("login")} type="button">

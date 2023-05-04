@@ -75,24 +75,7 @@ export const orderOrdersPerDistance = async(pedidos :OrderType[],ubicacionInicia
   }
 }
 
-export const getClientByUser = async (idUsuario? : string)  =>{
-  try{
-    if (idUsuario) {
-      let respuestaBack = await axios.post(env?.serverUrl+`/get-client-by-user`,{idUsuario:idUsuario})        
-        if(respuestaBack.data.status=='OK'){
-          return(respuestaBack.data.arrayBusqueda);
-        }
-        else{
-          return (false);
-        }
-    }else{
-      return (false);
-    }
-  }catch(err){
-    console.error(err);
-    return (false);
-  }
-} 
+
 export const editOrder = async (datos : any, idPedido?:string, idUsuario?:string, isAdmin?:boolean)=>{
   try{
     if(datos){

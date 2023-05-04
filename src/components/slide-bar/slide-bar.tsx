@@ -5,7 +5,8 @@ import {
   FmdGood,
   Person,
   Settings,
-  Inventory2
+  Inventory2,
+  PersonPin
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import Colors from "../../utils/colors";
@@ -16,6 +17,7 @@ const CONFIGURACION = "/perfil";
 const RUTAS = "/panel/rutas";
 const CONDUCTORES = "/panel/repartidores";
 const REPORTES = "/panel/reportes";
+const CLIENTES = "/panel/clientes";
 
 export const SlideBar = ({ currentSection }: { currentSection: string }) => {
   const [hovered, setHovered] = useState(false);
@@ -30,7 +32,8 @@ export const SlideBar = ({ currentSection }: { currentSection: string }) => {
     { name: "Pedidos", iconSrc: TextSnippet, path:PEDIDOS },
     { name: "Rutas", iconSrc: FmdGood, path:RUTAS },
     { name: "Conductores", iconSrc: Person, path:CONDUCTORES },
-    { name: "Reportes", iconSrc: Inventory2, path:REPORTES }
+    { name: "Clientes", iconSrc: PersonPin, path:CLIENTES },
+    { name: "Reportes", iconSrc: Inventory2, path:REPORTES },
   ];
 
   return (

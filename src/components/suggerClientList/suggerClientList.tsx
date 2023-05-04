@@ -9,10 +9,10 @@ import { InformationChip } from "../atoms/information-chip";
 import { getDateAndHour } from "../../utils/dateAndTime";
 import { SuggerClientListProps } from "../../types/typeAtoms";
 import { CardList } from "../cardList/cards-list";
-import { getClientByUser } from "../../api/ordersQuerys";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/reducers/mainReducer";
 import { removeAccentsMarks } from "../../utils/stringModifier";
+import { getClientByUser } from "../../api/clientsQuerys";
 
 const SuggerClientList = ({
   direccionText,

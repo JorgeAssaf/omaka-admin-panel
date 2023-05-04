@@ -17,6 +17,7 @@
 }
 .title_card {
     margin-right: 10px;
+    display: flex;
 }
 
 /******** Card pedidos ********/

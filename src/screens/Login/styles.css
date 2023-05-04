@@ -71,17 +71,6 @@
     width: 100%;
   }
   
-  .login-form button {
-    background-color: #F2E6CF;
-    color: #292929;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin: 0px auto;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-  }
   
   .error {
     color: red;
@@ -108,6 +97,7 @@
     margin-bottom: 0.5rem;
     text-align: left;
     width: 48%;
+    color: #F2E6CF;
   }
   
   .registration-form input {
@@ -127,19 +117,10 @@
     flex-wrap: wrap;
   }
   
-  .registration-form button {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 0.5rem;
-    background-color: #F2E6CF;
-    color: #292929;
-    cursor: pointer;
+  .btns-container{
     width: 100%;
+    margin-top: 10px;
   }
-  
-
   .registration-form p {
     margin-top: 1rem;
     text-align: center;

@@ -51,6 +51,14 @@ export interface ClientType {
         lat: number;
         lng: number;
     }
-    Reports? : [];
+    Reports? : ReportType[];
+}
+
+export interface ReportType {
+    report? : {
+        dateReport: any;
+        messageReport: string;
+        reportFor: string;
+    }
 }
 

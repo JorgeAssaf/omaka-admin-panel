@@ -17,13 +17,11 @@ export const UserBar = () => {
   const navigate = useNavigate();
   const signOutUser = () => {
     signOut(auth);
-    navigate('/');
     dispatch({ type: "setUserData", payload: {} });
   };
   useEffect(() => {
     if (!DatosPersonales) {
       signOut(auth);
-      navigate('/');
     }
   }, []);
 

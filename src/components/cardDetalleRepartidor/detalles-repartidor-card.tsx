@@ -1,7 +1,6 @@
 import { SvgIcon } from "@mui/material";
 import { useState } from "react";
 import {
-  KeyboardArrowLeftRounded,
   Email,
   Phone,
   CalendarMonth
@@ -11,20 +10,15 @@ import "./styles.css";
 import { RepartidorType } from "../../types/typeRepartidor";
 import Avatar from "../atoms/avatar/avatarUser";
 import Typography from "../atoms/typography";
-import { InformationChip } from "../atoms/information-chip";
 import Colors, { repartidorColor } from "../../utils/colors";
 import { Buttons } from "../atoms/buttons";
 
 type DetallesRepartidorCard = {
   dataRepartidor: RepartidorType;
-  goBack: () => void;
-  editProfileAction: () => void;
 };
 
 export const DetallesRepartidorCard = ({
   dataRepartidor,
-  goBack,
-  editProfileAction
 }: DetallesRepartidorCard) => {
   const { DatosPersonales, Ubicacion } = dataRepartidor;
 
@@ -81,7 +75,6 @@ export const DetallesRepartidorCard = ({
                   />
                 </div>
               )}
-
               {DatosPersonales.telefono && (
                 <div className="data_item">
                   <IconText
@@ -95,17 +88,6 @@ export const DetallesRepartidorCard = ({
             </div>
           </div>
         </div>
-        {editProfileAction && (
-          <div className="header_right">
-            <Buttons
-              text="Editar"
-              color={Colors().zacatazcalli300}
-              textColor={Colors().iztac}
-              type="primary"
-              action={() => editProfileAction()}
-            />
-          </div>
-        )}
       </div>
     </div>
   ):(<></>);

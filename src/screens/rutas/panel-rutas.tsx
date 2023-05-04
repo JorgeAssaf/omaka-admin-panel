@@ -96,7 +96,6 @@ export function PanelRutas(){
           toast.error('Tu periodo de prueba ah vencido');
           setTimeout(() => {
             signOut(getAuth());
-            navigate('/');
           }, 4000);
         }
       }

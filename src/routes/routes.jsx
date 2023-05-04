@@ -11,6 +11,7 @@ import PanelFreeTrial from "../screens/freeTrial/freeTrial";
 import { EditarPerfilUsuario } from "../screens/perfil-usuario/editar-perfil";
 import { PanelRepartidores } from "../screens/repartidores/panel-repartidores";
 import PanelReportes from "../screens/reportes/reportes";
+import { PanelClientes } from "../screens/clientes/panel-cliente";
 import { isFreePeriod } from "../utils/dateAndTime";
 import Loading from "../components/atoms/loading";
 
@@ -79,14 +80,16 @@ const AppRouter = () => {
   };
 
   const getFreeTrialData = (DatosPersonales) => {
-    if (DatosPersonales.trialEndDate) {
-      const isOnFree = isFreePeriod(
-        DatosPersonales.fechaCreacion,
-        DatosPersonales.trialEndDate
-      );
-      setIsOnFreePeriod(isOnFree);
-    } else {
-      setIsOnFreePeriod(false);
+    if(DatosPersonales){
+      if (DatosPersonales.trialEndDate) {
+        const isOnFree = isFreePeriod(
+          DatosPersonales.fechaCreacion,
+          DatosPersonales.trialEndDate
+        );
+        setIsOnFreePeriod(isOnFree);
+      } else {
+        setIsOnFreePeriod(false);
+      }
     }
   };
 
@@ -157,6 +160,19 @@ const AppRouter = () => {
             </PrivateWrapper>
           }
         />
+          <Route
+          path="/panel/clientes"
+          element={
+            <PrivateWrapper
+              isAuthenticated={isAuthenticated}
+              status={statusUser}
+              isOnFreePeriod={isOnFreePeriod}
+            >
+              <PanelClientes />
+            </PrivateWrapper>
+          }
+        />
+        
         <Route
           path="/panel/reportes"
           element={

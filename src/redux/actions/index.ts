@@ -1,3 +1,4 @@
+import { getClientByUser } from "../../api/clientsQuerys";
 import { GetOrders } from "../../api/ordersQuerys";
 import { GetRepartidores } from "../../api/repartidorQuery";
 
@@ -31,4 +32,20 @@ export const getListaRepartidores = (idUsuario?: string) => async (dispatch : an
 
   };
 
+
+    //Clientes
+export const getListClients = (idUsuario?: string) => async (dispatch : any) => {  
+    try {
+        const resBack = await getClientByUser(idUsuario);
+        if (resBack) {
+            dispatch({type: 'setClientsList', payload:resBack});
+        }
+    } catch (error) {
+        console.log('Error en getListClients',error);
+    }
+
+  };
+
+
+  
   

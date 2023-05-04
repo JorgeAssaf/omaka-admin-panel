@@ -12,7 +12,7 @@ export const DetallesRepartidor = ({repartidor}:DetallesRutaProps) => {
   
   return(
     <div style={{ display: "flex", flexDirection: "column", width:'100%' }}>
-      <DetallesRepartidorCard goBack={()=>null} editProfileAction={()=>null} dataRepartidor={repartidor} />
+      <DetallesRepartidorCard  dataRepartidor={repartidor} />
     </div>
   );
 };
