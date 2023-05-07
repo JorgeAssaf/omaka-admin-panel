@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import './styles.css'
 import { Buttons } from "../../components/atoms/buttons";
 import Colors from "../../utils/colors";
+import { obtenerMensajeErrorFirebaseAuth } from "../../utils/firebase";
 
 type LoginProps = {
   setScreenShow: (screen: string) => void;
@@ -21,11 +22,9 @@ const Login = ({setScreenShow}:LoginProps)  => {
       const auth = getAuth();
       const userCredential = await signInWithEmailAndPassword(auth, username, password);      
       setError("");
-      toast.success('Bienvenido!!');
       setLoading(false);
-    } catch (error) {
-      console.log(error);
-      toast.error(`Algo paso mal!:  ${error}`);
+    } catch (error : any) {
+      toast.error(`${obtenerMensajeErrorFirebaseAuth(error.code)}`);
       setError("Usuario o contraseña incorrectos");
       setLoading(false);
     }

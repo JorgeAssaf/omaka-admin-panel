@@ -38,7 +38,7 @@ function RegistrationForm({ setScreenShow }: LoginProps) {
         setScreenShow("login");
         toast.success('Registro exitoso');
     }else{
-        toast.error('Error al registrar, intente de nuevo!');
+        toast.error(`Error, ${resApi.errorMessage}`);
     }
   };
 

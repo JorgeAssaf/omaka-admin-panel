@@ -53,20 +53,19 @@ export const PanelRepartidores = () => {
 
   const newRepartidorClient = async (repartidorData: RepartidorTypeForm) => {
     setLoading(true);
-
     const resRate = await newRepartidor(
       repartidorData,
       DatosPersonales.idUsuario
     );
-    getRepartidorList();
-    setLoading(false);
-    setScreenShow("list");
+  
     if (resRate.status == "OK") {
       toast.success("Repartidor creado exitosamente!!");
-    } else {
-      toast.error("Algo paso mal");
+      getRepartidorList();
+      setScreenShow("list");
+    } else {      
       toast.error(resRate.errorMessage);
     }
+    setLoading(false);
   };
 
   useEffect(() => {

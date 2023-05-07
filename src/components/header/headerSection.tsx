@@ -67,7 +67,7 @@ function HeaderSection({
             <ButtonRounded
               text={"Entregados"}
               type={typeOrder == 3 ? "complete" : "margin"}
-              tagValue={2}
+              tagValue={lengths.tres}
               action={() => typeOrderSet(3)}
               color={Colors().chalchihuitl200}
               textColor={Colors().tliltik}
@@ -75,9 +75,9 @@ function HeaderSection({
               tagTextColor={Colors().tliltik}
             />
             <ButtonRounded
-              text={"Omitidos"}
+              text={"Reportados"}
               type={typeOrder == 4 ? "complete" : "margin"}
-              tagValue={2}
+              tagValue={lengths.cuatro}
               action={() => typeOrderSet(4)}
               color={Colors().xochipaltic400}
               textColor={Colors().tliltik}

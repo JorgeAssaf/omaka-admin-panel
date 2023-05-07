@@ -6,6 +6,8 @@ export const getUser = async (uid? : string )  =>{
     try{
       if (uid) {
         let respuestaBack = await axios.post(env.serverUrl+`/get-profile`,{idUsuario:uid,isAdmin:true})
+      console.log(respuestaBack.data);
+
           if(respuestaBack.data.status=='OK'){
             return(respuestaBack.data.user);
           }

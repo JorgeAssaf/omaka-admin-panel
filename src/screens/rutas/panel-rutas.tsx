@@ -127,7 +127,7 @@ export function PanelRutas(){
     if (resRate.status == "OK") {
       toast.success("Ruta creada exitosamente!!");
     } else {
-      toast.error("Algo paso mal");
+      toast.error("Ha ocurrido un error, intente de nuevo");
       toast.error(resRate.errorMessage);
     }
   };

@@ -20,7 +20,10 @@ export const newOrder = async (datos : any, idUsuario?:string, isAdmin?:boolean,
 export const GetOrders = async (idUsuario? : string, idRuta? : string)  =>{
   try{
     if (idUsuario) {
-      let respuestaBack = await axios.post(env?.serverUrl+`/get-pedidos`,{idUsuario:idUsuario,isAdmin: true,idRuta:idRuta})        
+      let respuestaBack = await axios.post(env?.serverUrl+`/get-pedidos`,{idUsuario:idUsuario,isAdmin: true,idRuta:idRuta})       
+      console.log('====================================');
+      console.log('pedidosSinRuta',respuestaBack.data);
+      console.log('===================================='); 
         if(respuestaBack.data.status=='OK'){
           return({pedidosSinRuta:respuestaBack.data.pedidosSinRuta,pedidosConRuta:respuestaBack.data.pedidosConRuta});
         }

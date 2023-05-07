@@ -26,12 +26,7 @@ export const GetRepartidores = async (idAdmin? : string)  =>{
     try{
       if(repartidorData && idAdmin){
         let respuestaBack = await axios.post(env?.serverUrl+`/crear-usuario`,{userData:repartidorData,isAdmin:false,idAdmin:idAdmin})
-        if(respuestaBack.data.status=='OK'){
-          return(respuestaBack.data.repartidores);
-        }
-        else{
-          return (false);
-        }
+        return(respuestaBack.data)
       }else{
           return({status:505})
       }

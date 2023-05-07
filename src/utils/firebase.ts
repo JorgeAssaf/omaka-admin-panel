@@ -21,3 +21,22 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
+
+export function obtenerMensajeErrorFirebaseAuth(codigoError) {
+  switch (codigoError) {
+    case "auth/user-not-found":
+      return "No se encontró ningún usuario con esta dirección de correo electrónico.";
+    case "auth/wrong-password":
+      return "La contraseña es incorrecta.";
+    case "auth/email-already-in-use":
+      return "Ya existe una cuenta con esta dirección de correo electrónico.";
+    case "auth/invalid-email":
+      return "La dirección de correo electrónico no es válida.";
+    case "auth/weak-password":
+      return "La contraseña es demasiado débil. Debe tener al menos 6 caracteres.";
+    case "auth/too-many-requests":
+      return "Se han enviado demasiadas solicitudes en un corto período de tiempo. Por favor, inténtalo de nuevo más tarde.";
+    default:
+      return "Ha ocurrido un error. Por favor, inténtalo de nuevo.";
+  }
+}

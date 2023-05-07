@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
-import { GetOrders, deleteOrder, editOrder, newOrder } from "../../api/ordersQuerys";
+import {
+  GetOrders,
+  deleteOrder,
+  editOrder,
+  newOrder
+} from "../../api/ordersQuerys";
 import { CardList } from "../../components/cardList/cards-list";
 import HeaderSection from "../../components/header/headerSection";
 import MapView from "../../components/map/MapView";
@@ -39,7 +44,9 @@ export const PanelPedidos = () => {
   const [datosPedido, setDatosPedido] = useState({} as OrderType);
   const [isEditPedido, setIsEditPedido] = useState(false);
   const [showDetalles, setShowDetalles] = useState(false);
-  
+  const [legthFinishOrders, setLegthFinishOrders] = useState(0);
+  const [legthStoppedOrders, setLegthStoppedOrders] = useState(0);
+
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -52,10 +59,33 @@ export const PanelPedidos = () => {
   };
 
   useEffect(() => {
-    setPedidosListMostrar(
-      orderView == 1 ? orderList : orderView == 2 ? orderListRate : []
-    );
+    const ordersToShow = getOrderToShow();
+    setPedidosListMostrar(ordersToShow);
+
   }, [orderView, orderList, orderListRate]);
+
+  const getOrderToShow = () => {
+    let listToShow = [];
+    switch (orderView) {
+      case 1:
+        listToShow = orderList;
+        break;
+      case 2:
+        listToShow = orderListRate;
+        break;
+      case 3:
+        listToShow = orderListRate.filter((order) => order.status == "finish");
+        break;
+      case 4:
+        listToShow = orderListRate.filter((order) => order.report);
+        break;
+      default:
+        break;
+    }
+    setLegthFinishOrders(orderListRate.filter((order) => order.status == "finish").length);
+    setLegthStoppedOrders(orderListRate.filter((order) => order.report).length);
+    return(listToShow);
+  }
 
   const getOrderList = async () => {
     dispatch(getListaPedidos(DatosPersonales?.idUsuario));
@@ -63,7 +93,11 @@ export const PanelPedidos = () => {
 
   const newOrderClient = async (orderData: OrderTypeForm) => {
     setLoading(true);
-    const resOrder = await newOrder(orderData, DatosPersonales?.idUsuario, true);
+    const resOrder = await newOrder(
+      orderData,
+      DatosPersonales?.idUsuario,
+      true
+    );
     getOrderList();
     setLoading(false);
     setScreenShow("list");
@@ -79,7 +113,12 @@ export const PanelPedidos = () => {
 
   const editOrderClient = async (orderData: OrderTypeForm) => {
     setLoading(true);
-    const resOrder = await editOrder(orderData,datosPedido.idPedido, DatosPersonales?.idUsuario, true);
+    const resOrder = await editOrder(
+      orderData,
+      datosPedido.idPedido,
+      DatosPersonales?.idUsuario,
+      true
+    );
     getOrderList();
     setLoading(false);
     setScreenShow("list");
@@ -127,12 +166,12 @@ export const PanelPedidos = () => {
     setScreenShow("new");
   };
 
-
   const getPoints = () => {
     if (datosPedido.idPedido) {
-      return [{ubicacionPedido:datosPedido.ubicacionPedido}];
+      return [{ ubicacionPedido: datosPedido.ubicacionPedido }];
     } else {
-      return orderView == 1 ? orderList : orderView == 2 ? orderListRate : [];
+      const ordersToShow = getOrderToShow();
+      return ordersToShow? ordersToShow : [];
     }
   };
 
@@ -142,7 +181,7 @@ export const PanelPedidos = () => {
     setDatosPedido({} as OrderType);
     setClientDetails({} as ClientType);
     setDireccionText("");
-  }
+  };
 
   return (
     <PanelDeControl currentSection="/panel/pedidos">
@@ -164,7 +203,7 @@ export const PanelPedidos = () => {
               pedidos={screenShow === "list"}
               typeOrder={orderView}
               typeOrderSet={setOrderView}
-              lengths={{ uno: orderList.length, dos: orderListRate.length }}
+              lengths={{ uno: orderList.length, dos: orderListRate.length, tres:legthFinishOrders,cuatro:legthStoppedOrders }}
             />
           </div>
           {screenShow == "list" ? (
@@ -172,20 +211,18 @@ export const PanelPedidos = () => {
               onClickItem={onClickPedido}
               tipo="pedidos"
               activeItem={datosPedido.idPedido}
-              data={
-                orderView == 1 ? orderList : orderView == 2 ? orderListRate : []
-              }
+              data={pedidosListMostrar}
             />
           ) : (
             <NuevoPedido
               clientDetails={clientDetails}
               setDireccionText={setDireccionText}
               loading={loading}
-              handleSubmit={(pedido, isEditPedido)=>{
-                if(isEditPedido){
+              handleSubmit={(pedido, isEditPedido) => {
+                if (isEditPedido) {
                   editOrderClient(pedido);
-                }else{
-                  newOrderClient(pedido)
+                } else {
+                  newOrderClient(pedido);
                 }
               }}
               datosPedido={datosPedido}
@@ -209,7 +246,7 @@ export const PanelPedidos = () => {
           <div className="card_detalles_ruta_float">
             {!!datosPedido.idPedido && showDetalles ? (
               <DetallesPedidos
-              datosPedido={datosPedido}
+                datosPedido={datosPedido}
                 onClose={() => setDatosPedido({} as OrderType)}
                 eliminateAction={() => eliminarPedido()}
                 editarAction={editPedido}

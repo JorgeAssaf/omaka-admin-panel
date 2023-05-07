@@ -16,6 +16,7 @@ import { isFreePeriod } from "../utils/dateAndTime";
 import Loading from "../components/atoms/loading";
 
 const PrivateWrapper = ({ children, isAuthenticated, status,isOnFreePeriod }) => {
+
   if ((isAuthenticated && status === 1) || (isAuthenticated && status === 0 && isOnFreePeriod)) {
     return children;
   } else if (isAuthenticated && status == 0 && !isOnFreePeriod) {
@@ -58,13 +59,20 @@ const AppRouter = () => {
   }, []);
 
   useEffect(()=>{
-    getFreeTrialData(DatosPersonales);
-    setStatusUser(DatosPersonales.status);
+    if(DatosPersonales){
+      getFreeTrialData(DatosPersonales);
+      setStatusUser(DatosPersonales.status);
+    }
   },[DatosPersonales])
 
   const getUserData = async (uid) => {
     if (uid) {
+      console.log('====================================');
+      console.log(uid);
+      console.log('====================================');
       const userData = await getUser(uid);
+      console.log(userData);
+
       if (userData) {
         dispatch({ type: "setUserData", payload: userData });
         getFreeTrialData(userData.DatosPersonales);
@@ -92,6 +100,9 @@ const AppRouter = () => {
       }
     }
   };
+  console.log(isAuthenticated
+    ,statusUser
+    ,isOnFreePeriod);
 
   if (isLoading) {
     return (

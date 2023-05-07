@@ -54,6 +54,8 @@ const NuevoRuta = ({ handleSubmit,setScreenShow, fetching, }: NuevaRutaProps) =>
   const getOrderList = async () => {
     setLoading(true);
     const resOrder = await GetOrders(DatosPersonales?.idUsuario);
+    console.log('resOrder.pedidosSinRuta',resOrder.pedidosSinRuta);
+    
     if (resOrder) {
       setAllPedidosList(resOrder.pedidosSinRuta);
     } else {
