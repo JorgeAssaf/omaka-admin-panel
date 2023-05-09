@@ -56,6 +56,7 @@ export function PanelRutas(){
   useEffect(() => {   
       getRateList();
       checkFreeTrial();
+      getRepartidorList();
   },[]);
 
   useEffect(()=> {
@@ -65,10 +66,12 @@ export function PanelRutas(){
   },[])
 
  
+  const getRepartidorList = async () => {
+    dispatch(getListaRepartidores(DatosPersonales?.idUsuario));
+  };
 
   const getPedidos = () => {
     dispatch(getListaPedidos(DatosPersonales?.idUsuario));
-    dispatch(getListaRepartidores(DatosPersonales?.idUsuario));
   }
 
   useEffect(()=>{
@@ -215,7 +218,7 @@ export function PanelRutas(){
                 <div className='scroll-icon float down'>
                     <SvgIcon component={ArrowDropDown} fontSize="large" />
                 </div>
-                <MapViewRoutes points={poinstRates} repartidorUbicacion={repartidor?.Ubicacion}/>
+                <MapViewRoutes points={poinstRates} repartidorUbicaciones={[repartidor?.Ubicacion]}/>
             </div>
           </div>
         </div>

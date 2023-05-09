@@ -1,11 +1,18 @@
 
 import axios from 'axios';
 import { env } from '../env/envDev';
+import { getAuth } from 'firebase/auth';
+const auth = getAuth();
 
 export const getUser = async (uid? : string )  =>{
     try{
       if (uid) {
-        let respuestaBack = await axios.post(env.serverUrl+`/get-profile`,{idUsuario:uid,isAdmin:true})
+        const idToken = await auth.currentUser?.getIdToken();
+        let respuestaBack = await axios.post(env.serverUrl+`/get-profile`,{idUsuario:uid,isAdmin:true},{
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        })
       console.log(respuestaBack.data);
 
           if(respuestaBack.data.status=='OK'){

@@ -46,18 +46,19 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails,is
       setTelefonoPedido(datosPedido.telefonoPedido);
       setNotaDePedido(datosPedido.notaDePedido);
       setOrderSaved(datosPedido.orderSaved);
-      dispatch({ type: "setNewBound", payload: {ubicacionPedido:datosPedido.ubicacionPedido} });
+      dispatch({ type: 'setNewPedido', payload: [{ubicacionPedido:datosPedido.ubicacionPedido}] });
 
     }
   },[isEditPedido])
 
   useEffect(()=>{
     if(clientDetails?.idCliente){
+      setNombreCliente(clientDetails.nombreCliente);
       setDireccionPedido(clientDetails.direccionPedido);
       setUbicacionPedido(clientDetails.ubicacionPedido);
       setTelefonoPedido(clientDetails.telefonoPedido);
-      setNombreCliente(clientDetails.nombreCliente);
-      dispatch({ type: "setNewBound", payload: {ubicacionPedido:clientDetails.ubicacionPedido} });
+      dispatch({ type: 'setNewPedido', payload: [{ubicacionPedido:clientDetails.ubicacionPedido}] });
+
     }
   },[clientDetails])
   

@@ -6,7 +6,9 @@ import {
   Person,
   Settings,
   Inventory2,
-  PersonPin
+  PersonPin,
+  ChevronRight,
+  ChevronLeft
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import Colors from "../../utils/colors";
@@ -36,12 +38,18 @@ export const SlideBar = ({ currentSection }: { currentSection: string }) => {
     { name: "Reportes", iconSrc: Inventory2, path:REPORTES },
   ];
 
+
   return (
     <div
       className={!hovered ? "slide-bar slide-bar-onboarding" : "slide-bar slide-bar-hovered slide-bar-onboarding"}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
     >
+      <div className='iconSlide' onClick={()=> setHovered(!hovered)} >
+          <SvgIcon
+            component={hovered ? ChevronLeft : ChevronRight}
+            fontSize="large"
+            htmlColor={Colors().tizatl600}
+          />
+      </div>
       <div  className="icons">
         {sections.map((section) => (
           <div onClick={()=>onClickItem(section.path)} key={section.name} className={section.path === currentSection? "icon-container active" : "icon-container"}>

@@ -59,3 +59,12 @@ export interface ModalTypes {
   onClose: ()=> void;
 }
 
+
+export interface MarkerUserProps {
+  lat: number;
+  lng:  number;
+  color: string;
+  kmh: string;
+  lastUpdate: any;
+  title: string;
+}

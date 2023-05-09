@@ -9,6 +9,7 @@ import Colors from "../../utils/colors";
 import { SvgIcon } from "@mui/material";
 import { DirectionsCar } from "@mui/icons-material";
 import { getLastUpdate } from "../../utils/dateAndTime";
+import DeliveryManMarker from "../atoms/mapsMarkers/deliveryManMarker";
 
 let generalMap;
 let generalMaps;
@@ -26,23 +27,11 @@ const Marker = ({ color, lat, lng }) => (
   ></div>
 );
 
-const MarkerUser = ({ color, kmh, lastUpdate, lat, lng }) => (
-  <div className="deliveryMarker">
-    <div className="kmh-indicator">
-      {parseInt(kmh)} km/h <br /> hace {getLastUpdate(lastUpdate)}
-    </div>
-    <SvgIcon
-      component={DirectionsCar}
-      fontSize="small"
-      htmlColor={Colors().texotli300}
-    />
-  </div>
-);
 
 function MapView({
   points,
   screenShow,
-  repartidorUbicacion,
+  repartidorUbicaciones=[],
   repartidorFocus
 }: typeMapView) {
   const [puntosArray, setPuntosArray] = useState<PointType[]>([]);
@@ -68,9 +57,9 @@ function MapView({
 
   useEffect(() => {
     if (repartidorFocus) {
-      apiIsLoaded(generalMap, generalMaps, [repartidorUbicacion]);
+      apiIsLoaded(generalMap, generalMaps, repartidorUbicaciones);
     }
-  }, [repartidorUbicacion]);
+  }, [repartidorUbicaciones]);
 
   useEffect(() => {
     if (screenShow == "new") {
@@ -86,6 +75,8 @@ function MapView({
   }, [screenShow]);
 
   useEffect(() => {
+    console.log("aquio enasd",newPedido);
+    
     if (screenShow == "new") {
       setPuntosArray(newPedido);
       apiIsLoaded(generalMap, generalMaps, newPedido);
@@ -97,17 +88,17 @@ function MapView({
     generalMaps = maps;
     generalPoints = points;
     if (maps) {
-      let bounds = new maps.LatLngBounds();      
+      let bounds = new maps.LatLngBounds();
       if (points.length > 0) {
         points.forEach((marker) => {
           const ubicacion =
-            repartidorFocus && repartidorUbicacion
+            repartidorFocus && repartidorUbicaciones
               ? {
                   lat: marker.latitude,
                   lng: marker.longitude
                 }
               : marker?.ubicacionPedido;
-         if(ubicacion)bounds.extend(ubicacion);
+          if (ubicacion) bounds.extend(ubicacion);
         });
         map.fitBounds(bounds);
       }
@@ -148,15 +139,20 @@ function MapView({
               />
             );
           })}
-        {repartidorUbicacion?.latitude ? (
-          <MarkerUser
-            lat={repartidorUbicacion.latitude}
-            lng={repartidorUbicacion.longitude}
-            color={Colors().chalchihuitl400}
-            kmh={repartidorUbicacion.speed}
-            lastUpdate={repartidorUbicacion.lastUpdate}
-          />
-        ) : null}
+        {repartidorUbicaciones.length > 0
+          ? repartidorUbicaciones.map((it) => {
+              return (
+                <DeliveryManMarker
+                  lat={it.latitude}
+                  lng={it.longitude}
+                  color={it.color}
+                  kmh={it.speed}
+                  lastUpdate={it.lastUpdate}
+                  title={it.title}
+                />
+              );
+            })
+          : null}
       </GoogleMapReact>
     </div>
   );

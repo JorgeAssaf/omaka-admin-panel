@@ -18,6 +18,9 @@ import { db } from "../../utils/firebase";
 import { AppDispatch } from "../../redux/store";
 import { getListaRepartidores } from "../../redux/actions";
 import { OnboradingRepartidor } from "../../components/onboarding/onboarding-repartidor";
+import { SvgIcon } from "@mui/material";
+import { Close } from "@mui/icons-material";
+import { converRepartidorToLocation } from "../../utils/locations";
 export const PanelRepartidores = () => {
   const [screenShow, setScreenShow] = useState("list");
   const [loading, setLoading] = useState(false);
@@ -25,6 +28,7 @@ export const PanelRepartidores = () => {
   const [repartidor, setRepartidor] = useState<RepartidorType>(
     {} as RepartidorType
   );
+  const [allLocations, setAllLocations] = useState([] as any);
   const { DatosPersonales } = useSelector(
     (state: RootState) => state.user.userData as any
   );
@@ -32,7 +36,6 @@ export const PanelRepartidores = () => {
     (state: RootState) => state.repartidores.repartidorList
   );
   const dispatch = useDispatch<AppDispatch>();
-
   useEffect(() => {
     getRepartidorList();
     getOnboardingData();
@@ -44,6 +47,8 @@ export const PanelRepartidores = () => {
       setInitOnboarding(true);
     }
   }
+
+
 
   const getRepartidorList = async () => {
     setLoading(true);
@@ -77,7 +82,15 @@ export const PanelRepartidores = () => {
       });
     }
     return unsub;
-  }, [repartidor]);
+  }, []);
+
+  useEffect(()=>{
+    if(!repartidor.DatosPersonales){
+      setAllLocations(converRepartidorToLocation(repartidorList));
+    }else{
+      setAllLocations(converRepartidorToLocation([repartidor]));
+    }
+  },[repartidor])
 
   return (
     <PanelDeControl currentSection="/panel/repartidores">
@@ -103,11 +116,19 @@ export const PanelRepartidores = () => {
                 <div className="card_detalles_ruta_float">
                   {repartidor?.DatosPersonales?.idUsuario && (
                     <div className="relative">
+                    <div
+                      onClick={() => {
+                        setRepartidor({} as RepartidorType);
+                      }}
+                      className="closeBtn float circle"
+                    >
+                      <SvgIcon component={Close} fontSize="small" />
+                    </div>
                       <DetallesRepartidor repartidor={repartidor} />
                     </div>
                   )}
                 </div>
-                {repartidor && !repartidor.Ubicacion?.latitude ?(
+                {allLocations.length <= 0 ?(
                   <div className='overflow full'>
                     <div className='withoutLocation'> Sin ubicacion</div>
                   </div>
@@ -115,7 +136,7 @@ export const PanelRepartidores = () => {
                 <MapView
                   points={[]}
                   repartidorFocus
-                  repartidorUbicacion={repartidor?.Ubicacion}
+                  repartidorUbicaciones={allLocations}
                 />
               </div>
             </div>

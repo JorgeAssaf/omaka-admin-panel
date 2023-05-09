@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { DetallesRutaCard } from "../../components/cardDetalleRuta/detalles-ruta-card";
 import { CardList } from "../../components/cardList/cards-list";
 import { OrderType } from "../../types/typeOrders";
-import { RateType, RateTypeFormSimple } from "../../types/typeRate";
+import { RateType, RateTypeForm, RateTypeFormSimple } from "../../types/typeRate";
 
 type DetallesRutaProps = {
-  rateData : RateType & RateTypeFormSimple;
-  pedidosList?: OrderType[];
-  addOrRemoveOrder?:(item: OrderType) => void
+  rateData : RateType & RateTypeForm;
+  pedidosList: OrderType[];
+  addOrRemoveOrder:(item: OrderType) => void
 }
 
 export const DetallesRuta = ({rateData,pedidosList, addOrRemoveOrder}:DetallesRutaProps) => {
+  console.log("pedidosList",pedidosList);
   
   return(
     <div style={{ display: "flex", flexDirection: "column", width:'100%' }}>

@@ -1,4 +1,4 @@
-import Colors from "../../../utils/colors";
+import Colors, { avatarPalette } from "../../../utils/colors";
 import "./styles.css";
 type Avatarprops = {
   src?: string;
@@ -19,33 +19,12 @@ export default function Avatar({
   editable,
   fontColor = Colors().tizatl600
 }: Avatarprops) {
-  const palette = [
-    "#E0E0E0",
-    "#FBF7EF",
-    "#F2E6CF",
-    "#CFF2DF",
-    "#B2B2FE",
-    "#C9C9FE",
-    "#E3E3FE",
-    "#F6CD79",
-    "#FAE2B1",
-    "#FFEBEB",
-    "#FECFCF",
-    "#FFB9B9",
-    "#F57A7A",
-    "#F2E38E",
-    "#EBFBAF",
-    "#D2A5FA",
-    "#FAA5C9",
-    "#85EBB7",
-    "#65EEA8"
-  ];
-
+ 
   const generateAvatar = (uuid='', name='') => {
     const randomIndex = Math.floor(
-      Math.abs(parseInt(uuid, 36)) % palette.length
+      Math.abs(parseInt(uuid, 36)) % avatarPalette.length
     );
-    const color = palette[randomIndex];
+    const color = avatarPalette[randomIndex];
     const initials = name.substring(0, 2).toUpperCase();
 
     let circleSize = 54;

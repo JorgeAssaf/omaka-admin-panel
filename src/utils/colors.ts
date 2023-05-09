@@ -27,6 +27,29 @@ export const repartidorColor = {
     renovar:Colors().zacatazcalli300,
     'en ruta': Colors().texotli200,
     inactivo:Colors().xochipaltic400,
-   }
+}
+
+export const avatarPalette = [
+    "#E0E0E0",
+    "#FBF7EF",
+    "#F2E6CF",
+    "#CFF2DF",
+    "#B2B2FE",
+    "#C9C9FE",
+    "#E3E3FE",
+    "#F6CD79",
+    "#FAE2B1",
+    "#FFEBEB",
+    "#FECFCF",
+    "#FFB9B9",
+    "#F57A7A",
+    "#F2E38E",
+    "#EBFBAF",
+    "#D2A5FA",
+    "#FAA5C9",
+    "#85EBB7",
+    "#65EEA8"
+  ];
+
 
 export default Colors;
