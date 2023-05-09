@@ -75,7 +75,7 @@ function MapView({
   }, [screenShow]);
 
   useEffect(() => {
-    console.log("aquio enasd",newPedido);
+    console.log("aquio enasd",screenShow);
     
     if (screenShow == "new") {
       setPuntosArray(newPedido);

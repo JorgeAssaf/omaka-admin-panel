@@ -10,6 +10,7 @@ import Colors from "../../utils/colors";
 import { SvgIcon } from "@mui/material";
 import { DirectionsCar } from "@mui/icons-material";
 import { getLastUpdate } from "../../utils/dateAndTime";
+import DeliveryManMarker from "../atoms/mapsMarkers/deliveryManMarker";
 
 let generalMap;
 let generalMaps;
@@ -38,7 +39,7 @@ const MarkerUser = ({ color, kmh,lastUpdate, lat, lng }) => (
   </div>
 );
 
-function MapViewRoutes({ points, repartidorUbicacion }: typeMapView) {
+function MapViewRoutes({ points, repartidorUbicaciones }: typeMapView) {
   const [puntosArray, setPuntosArray] = useState<PointType[]>([]);
   const newPedido = useSelector(
     (state: RootState) => state.pedidos.newPedidoUbicacion as any
@@ -147,15 +148,20 @@ function MapViewRoutes({ points, repartidorUbicacion }: typeMapView) {
             />
           );
         })}
-        {repartidorUbicacion?.latitude ? (
-          <MarkerUser
-            lat={repartidorUbicacion.latitude}
-            lng={repartidorUbicacion.longitude}
-            color={Colors().chalchihuitl400}
-            kmh={repartidorUbicacion.speed}
-            lastUpdate={repartidorUbicacion.lastUpdate}
-          />
-        ) : null}
+         {repartidorUbicaciones.length > 0
+          ? repartidorUbicaciones.map((it) => {
+              return (
+                <DeliveryManMarker
+                  lat={it.latitude}
+                  lng={it.longitude}
+                  color={it.color}
+                  kmh={it.speed}
+                  lastUpdate={it.lastUpdate}
+                  title={it.title}
+                />
+              );
+            })
+          : null}
       </GoogleMapReact>
     </div>
   );

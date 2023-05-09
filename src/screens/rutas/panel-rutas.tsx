@@ -27,6 +27,7 @@ import { isFreePeriod } from "../../utils/dateAndTime";
 import { getUser } from "../../api/userQuerys";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { converRepartidorToLocation } from "../../utils/locations";
 export function PanelRutas(){
   const [screenShow, setScreenShow] = useState("list");
   const [activeRateList, setActiveRateList] = useState<RateType[]>([]);
@@ -218,7 +219,7 @@ export function PanelRutas(){
                 <div className='scroll-icon float down'>
                     <SvgIcon component={ArrowDropDown} fontSize="large" />
                 </div>
-                <MapViewRoutes points={poinstRates} repartidorUbicaciones={[repartidor?.Ubicacion]}/>
+                <MapViewRoutes points={poinstRates} repartidorUbicaciones={converRepartidorToLocation([repartidor])}/>
             </div>
           </div>
         </div>
