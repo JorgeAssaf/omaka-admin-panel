@@ -149,7 +149,17 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails,is
       </div>
       <div className="item-input">
         <label>Telefono:</label>
-
+        <input
+          type="text"
+          value={telefonoPedido}
+          onChange={(event) =>
+            setTelefonoPedido((event.target as HTMLInputElement).value)
+          }
+          required
+        />
+      </div>
+      <div className="item-input">
+        <label>Entregar para el :</label>
         <input
           type="text"
           value={telefonoPedido}

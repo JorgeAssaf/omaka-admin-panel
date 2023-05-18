@@ -213,7 +213,7 @@ export function PanelRutas(){
                   <CardList
                     onClickItem={(item) => focusOrderMap(item)}
                     tipo="pedidos"
-                    data={getOderForID(rateSelected.Pedidos, orderWithRate)}
+                    data={getOderForID(rateSelected.Pedido-s, orderWithRate)}
                   />
                 </div>
                 <div className='scroll-icon float down'>
