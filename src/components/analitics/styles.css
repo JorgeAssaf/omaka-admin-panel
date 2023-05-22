@@ -1,0 +1,35 @@
+.analitics-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.item-anatilic-ruta {
+  margin-right: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.circle-status {
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+  background-color: #3d3d3d;
+  margin: 10px;
+}
+
+.circle-status.blue {
+  background-color: #5252f4;
+}
+
+.circle-status.green {
+  background-color: #8bdbb0;
+}
+
+.circle-status.red {
+  background-color: #fb4b4b;
+}
+
+.analitics-chart-container{
+    width: 100%;
+    display: flex;
+    flex:1
+}

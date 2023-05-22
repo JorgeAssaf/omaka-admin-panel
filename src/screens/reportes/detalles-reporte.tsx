@@ -1,15 +1,10 @@
-import { CalendarToday, Close, Person, Receipt } from "@mui/icons-material";
+import {Close} from "@mui/icons-material";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { tomarRutas } from "../../api/rateQuerys";
-import { IconText } from "../../components/atoms/iconText";
 import Loading from "../../components/atoms/loading";
 import HeaderSection from "../../components/header/headerSection";
 import { RootState } from "../../redux/reducers/mainReducer";
 import { RateType } from "../../types/typeRate";
-import Colors from "../../utils/colors";
-import { getDateAndHour } from "../../utils/dateAndTime";
-import rutaBanner from "../../assets/rutaBanner.png";
 
 import "./styles.css";
 import { PointType } from "../../types/typesMap";
@@ -17,7 +12,6 @@ import { getPointsRates } from "../../utils/rates";
 import MapView from "../../components/map/MapView";
 import { OrderType } from "../../types/typeOrders";
 import ItemOrderTable from "../../components/atoms/ItemOrderTable";
-import { getOderForID } from "../../utils/pedidos";
 import { DetallesRutaCard } from "../../components/cardDetalleRuta/detalles-ruta-card";
 import { SvgIcon } from "@mui/material";
 import DetallesPedidoCard from "../../components/cardDetallesPedido/detalles-pedido-card";

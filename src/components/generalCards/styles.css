@@ -47,3 +47,42 @@
 }
 
 
+
+/******** Card profile ********/
+
+.paper{
+    border-radius: 15px;
+    padding: 1rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: #c1c1c1 2px 3px 13px 0px;
+}
+.paper.datos{
+    background-color: rgb(49, 49, 49);
+    padding: 1rem 2rem;
+}
+.paper.suscription{
+    background-color: #FBF7EF;
+    padding: 1rem 2rem;
+}
+.paper.analitics{
+    background-color: #FFFFFF;
+    align-items: flex-start;
+}
+.paper.analitics-repartidor{
+    background-color: #FFFFFF;
+    align-items: center;
+}
+.item-datos{
+    margin-top: 10px;
+}
+.paper-header{
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

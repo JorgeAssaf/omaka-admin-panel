@@ -20,6 +20,9 @@
     width: 40%;
     overflow-y: auto;
   }
+  .modal-wrapper.full {
+    width: 100%;
+  }
   
   .modal-close-button {
     position: absolute;
@@ -30,7 +33,7 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-    z-index: 9;
+    z-index: 999;
   }
 
   .modal-content {

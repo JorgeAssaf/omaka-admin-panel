@@ -11,9 +11,14 @@ import { ModalContrata } from "./modal-contrata";
 import LabelInput from "../../components/atoms/label-input";
 import { UserType } from "../../types/typeUser";
 import Typography from "../../components/atoms/typography";
-import { DeliveryDining, PersonPin } from "@mui/icons-material";
+import { DeliveryDining, Email, PersonPin, Phone } from "@mui/icons-material";
 import { SvgIcon } from "@mui/material";
 import { PanelDeControl } from "../panel-de-control/panel-de-control";
+import { IconText } from "../../components/atoms/iconText";
+import DatosCard from "../../components/generalCards/profile-card";
+import SuscriptionCard from "../../components/generalCards/suscription-card";
+import AnaliticsContent from "../../components/analitics";
+import { ModalPerfil } from "./modal-perfil";
 
 export const EditarPerfilUsuario = () => {
   const { DatosPersonales, Nivel, Rutas, Repartidores } = useSelector(
@@ -25,8 +30,10 @@ export const EditarPerfilUsuario = () => {
   const [disableInput, setDisabledInput] = useState(true);
   const [textButton, settextButton] = useState("Editar Perfil");
   const [openModal, setOpenModal] = useState(false);
+  const [openModalPerfil, setOpenModalPerfil] = useState(false);
+
   const [dataProfile, setDataProfile] = useState(
-    {} as UserType["DatosPersonales"]
+    {} as  UserType["DatosPersonales"]
   );
   const [metricaDatos, setMetricaDatos] = useState({
     rutas: [],
@@ -53,128 +60,23 @@ export const EditarPerfilUsuario = () => {
     }
   };
 
+  const getAnalitics = () => {
+
+  }
+ 
+
   return (
     <PanelDeControl currentSection="/panel/profile">
       <div className="perfil-container">
-        <div className="column derecha">
-          <Avatar
-            fullName={dataProfile.nombre}
-            src={dataProfile.foto}
-            uuid={dataProfile.idUsuario}
-            size="large"
-          />
-          <div className="tipo-cuenta">
-            <Typography variant="cardTitle" color={Colors().chalchihuitl400}>
-              {Nivel.toLocaleUpperCase()}
-            </Typography>
-          </div>
-          <div className="text-container">
-            <LabelInput
-              inputProps={{ disabled: disableInput }}
-              value={dataProfile.nombre}
-              onChange={(value) =>
-                setDataProfile({ ...dataProfile, nombre: value })
-              }
-              label="Nombre"
-              placeholder="Cual es tu nombre?"
-            />
-            <LabelInput
-              inputProps={{ disabled: disableInput }}
-              value={dataProfile.apellido}
-              onChange={(value) =>
-                setDataProfile({ ...dataProfile, apellido: value })
-              }
-              label="Apellido"
-              placeholder="Cual es tu apellido?"
-            />
-            <LabelInput
-              inputProps={{ disabled: true }}
-              value={dataProfile.correo}
-              onChange={(value) =>
-                setDataProfile({ ...dataProfile, correo: value })
-              }
-              label="Correo"
-              placeholder="Cual es tu correo?"
-            />
-            <LabelInput
-              inputProps={{ disabled: true }}
-              value={dataProfile.nombreEmpresa}
-              onChange={(value) =>
-                setDataProfile({ ...dataProfile, nombreEmpresa: value })
-              }
-              label="Empresa"
-              placeholder="Como se llama tu negocio o empresa?"
-            />
-            <LabelInput
-              inputProps={{ disabled: disableInput }}
-              value={dataProfile.direccionEmpresa}
-              onChange={(value) =>
-                setDataProfile({ ...dataProfile, direccionEmpresa: value })
-              }
-              label="Direccion de empresa"
-              placeholder="Dirección de empresa"
-            />
-          </div>
-          <Buttons
-            action={() => editarCampo()}
-            text={textButton}
-            type="primary"
-            color={Colors().akostik200}
-            textColor={Colors().tizatl600}
-          />
+        <div className='perfil-section analitics'>
+        <AnaliticsContent/>
         </div>
-        <div className="column centro">
-          <div className="card_analitics">
-            <SvgIcon
-              component={DeliveryDining}
-              className="icon_card_analitic"
-              htmlColor={Colors().tizatl600}
-            />
-            <Typography variant="cardTitle">
-              {`${metricaDatos.rutas.length} Ruta${
-                metricaDatos.rutas.length > 1 || metricaDatos.rutas.length === 0
-                  ? `s`
-                  : ""
-              }`}
-            </Typography>
-          </div>
-          <div className="card_analitics">
-            <SvgIcon
-              component={PersonPin}
-              className="icon_card_analitic"
-              htmlColor={Colors().tizatl600}
-            />
-            <Typography variant="cardTitle">
-              {`${metricaDatos.repartidores.length} Conductor${
-                metricaDatos.repartidores.length > 1 ||
-                metricaDatos.repartidores.length === 0
-                  ? `es`
-                  : ""
-              } `}
-            </Typography>
-          </div>
+        <div className='perfil-section data'>
+          <DatosCard onClick={() => setOpenModalPerfil(true)} dataProfile={dataProfile} />
+          <SuscriptionCard onCallback={() => setOpenModal(true)} Nivel={Nivel} dataProfile={dataProfile} />
         </div>
-        <div className="column izquierda">
-          <div className="primer-elemento">
-            <img src="src\utils\icons\pin-omaka.svg" className="pin-image" />
-            <div className="titulo-nivel">
-              Omaka {Nivel.toLocaleUpperCase()}
-            </div>
-          </div>
-          <DescripcionPlan nivel={Nivel} />
-          <div className="boton-contrata">
-            <Buttons
-              action={() => setOpenModal(true)}
-              text="Contrata Premium"
-              type="primary"
-              color={Colors().chalchihuitl200}
-              textColor={Colors().tizatl600}
-            />
-          </div>
-        </div>
-        {openModal ? (
-          <ModalContrata onClose={() => setOpenModal(false)} nivel={Nivel} />
-        ) : null}
+        {openModal ? <ModalContrata onClose={() => setOpenModal(false)} nivel={Nivel} /> : null}
+        {openModalPerfil ? <ModalPerfil onClose={() => setOpenModalPerfil(false)} /> : null}
       </div>
     </PanelDeControl>
   );

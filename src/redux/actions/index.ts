@@ -1,5 +1,6 @@
 import { getClientByUser } from "../../api/clientsQuerys";
 import { GetOrders } from "../../api/ordersQuerys";
+import { tomarRutas } from "../../api/rateQuerys";
 import { GetRepartidores } from "../../api/repartidorQuery";
 
 //Pedidos
@@ -20,17 +21,30 @@ export const getListaPedidos = (idUsuario?: string) => async (dispatch : any) =>
 
 
   //Repartidores
-export const getListaRepartidores = (idUsuario?: string) => async (dispatch : any) => {  
+export const setListaRepartidores = (idUsuario?: string) => async (dispatch : any) => {  
     try {
         const resBack = await GetRepartidores(idUsuario);
         if (resBack) {
             dispatch({type: 'setRepartidorList', payload:resBack});
         }
     } catch (error) {
-        console.log('Error en getListaRepartidores',error);
+        console.log('Error en setListaRepartidores',error);
     }
-
   };
+
+  //Rutas
+  export const setListaRutas = (idUsuario?: string) => async (dispatch : any) => {  
+    try {
+        const reqBack = await tomarRutas(idUsuario, true);
+        if (reqBack.status == "OK") {
+            dispatch({type: 'setActiveRates', payload:reqBack.activeRates});
+            dispatch({type: 'setHistoryRates', payload:reqBack.historyRates});
+        }
+    } catch (error) {
+        console.log('Error en setListaRepartidores',error);
+    }
+  };
+
 
 
     //Clientes

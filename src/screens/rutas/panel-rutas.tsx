@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { orderOrdersPerDistance } from "../../api/ordersQuerys";
-import { newRate, tomarRutas } from "../../api/rateQuerys";
+import { newRate } from "../../api/rateQuerys";
 import { DetallesRutaCard } from "../../components/cardDetalleRuta/detalles-ruta-card";
 import { CardList } from "../../components/cardList/cards-list";
 import HeaderSection from "../../components/header/headerSection";
@@ -14,24 +14,21 @@ import { OrderType } from "../../types/typeOrders";
 import { RateType, RateTypeFormSimple } from "../../types/typeRate";
 import { PointType } from "../../types/typesMap";
 import { getOderForID, getPointsOrder } from "../../utils/pedidos";
-import { getPointsRates } from "../../utils/rates";
 import NuevaRuta from "../nuevaRuta/nueva-ruta";
 import { PanelDeControl } from "../panel-de-control/panel-de-control";
-import Firestore, { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 import "./styles.css";
 import ModalDetallesPedido from "../../components/modalDetallesPedido/modal-detalles-pedido";
-import { getListaPedidos, getListaRepartidores } from "../../redux/actions";
+import { getListaPedidos, setListaRepartidores, setListaRutas } from "../../redux/actions";
 import { AppDispatch } from "../../redux/store";
 import { db } from "../../utils/firebase";
 import { isFreePeriod } from "../../utils/dateAndTime";
 import { getUser } from "../../api/userQuerys";
 import { getAuth, signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { converRepartidorToLocation } from "../../utils/locations";
+
 export function PanelRutas(){
   const [screenShow, setScreenShow] = useState("list");
-  const [activeRateList, setActiveRateList] = useState<RateType[]>([]);
-  const [historyRateList, setHistoryRateList] = useState<RateType[]>([]);
   const [loading, setLoading] = useState(false);  
   const [rateSelected, setRateSelected] = useState({} as RateType);
   const [poinstRates, setPoinstRates] = useState([] as PointType[]);
@@ -41,16 +38,12 @@ export function PanelRutas(){
   const orderWithRate = useSelector((state: RootState) => state.pedidos.orderListWithRate);
   const orderList = useSelector((state: RootState) => state.pedidos.orderList);
   const repartidorList = useSelector((state: RootState) => state.repartidores.repartidorList);
-  const navigate = useNavigate();
+  const activeRateList = useSelector((state: RootState) => state.rutas.activeRates);
   const dispatch = useDispatch<AppDispatch>();
 
   const getRateList = async () => {
     setLoading(true);
-    const reqBack = await tomarRutas(DatosPersonales?.idUsuario, true);
-    if (reqBack.status == "OK") {
-      setActiveRateList(reqBack.activeRates);
-      setHistoryRateList(reqBack.historyRates);
-    }
+    dispatch(setListaRutas(DatosPersonales?.idUsuario));
     setLoading(false);
   };
 
@@ -68,7 +61,7 @@ export function PanelRutas(){
 
  
   const getRepartidorList = async () => {
-    dispatch(getListaRepartidores(DatosPersonales?.idUsuario));
+    dispatch(setListaRepartidores(DatosPersonales?.idUsuario));
   };
 
   const getPedidos = () => {
@@ -213,7 +206,7 @@ export function PanelRutas(){
                   <CardList
                     onClickItem={(item) => focusOrderMap(item)}
                     tipo="pedidos"
-                    data={getOderForID(rateSelected.Pedido-s, orderWithRate)}
+                    data={getOderForID(rateSelected.Pedidos, orderWithRate)}
                   />
                 </div>
                 <div className='scroll-icon float down'>

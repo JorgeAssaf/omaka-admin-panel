@@ -16,8 +16,7 @@ import { PointType } from "../../types/typesMap";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import { AppDispatch } from "../../redux/store";
-import { getListaRepartidores } from "../../redux/actions";
-import { OnboradingRepartidor } from "../../components/onboarding/onboarding-repartidor";
+import { setListaRepartidores } from "../../redux/actions";
 import { SvgIcon } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { converRepartidorToLocation } from "../../utils/locations";
@@ -52,7 +51,7 @@ export const PanelRepartidores = () => {
 
   const getRepartidorList = async () => {
     setLoading(true);
-    dispatch(getListaRepartidores(DatosPersonales.idUsuario));
+    dispatch(setListaRepartidores(DatosPersonales.idUsuario));
     setLoading(false);
   };
 

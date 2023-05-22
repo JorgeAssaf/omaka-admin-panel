@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PanelRutas } from "../screens/rutas/panel-rutas";
 import { PanelPedidos } from "../screens/pedidos/panel-pedidos";
 import PanelFreeTrial from "../screens/freeTrial/freeTrial";
+
 import { EditarPerfilUsuario } from "../screens/perfil-usuario/editar-perfil";
 import { PanelRepartidores } from "../screens/repartidores/panel-repartidores";
 import PanelReportes from "../screens/reportes/reportes";
@@ -40,6 +41,11 @@ const PublicWrapper = ({ children, isAuthenticated }) => {
   return !isAuthenticated ? children : <Navigate to="/panel/pedidos" replace />;
 };
 
+const OnlyAuthWrapper = ({ children, isAuthenticated }) => {
+  return isAuthenticated ? children : <Navigate to="/panel/pedidos" replace />;
+};
+
+
 const AppRouter = () => {
   const { DatosPersonales } = useSelector((state) => state.user.userData)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -67,12 +73,7 @@ const AppRouter = () => {
 
   const getUserData = async (uid) => {
     if (uid) {
-      console.log('====================================');
-      console.log(uid);
-      console.log('====================================');
       const userData = await getUser(uid);
-      console.log(userData);
-
       if (userData) {
         dispatch({ type: "setUserData", payload: userData });
         getFreeTrialData(userData.DatosPersonales);
@@ -196,6 +197,16 @@ const AppRouter = () => {
             </PrivateWrapper>
           }
         />
+          {/* <Route
+          path="/suscripcion"
+          element={
+            <OnlyAuthWrapper
+            isAuthenticated={isAuthenticated}
+            >
+              <Suscripcion />
+            </OnlyAuthWrapper>
+          }
+        /> */}
         <Route
           path="/perfil"
           element={

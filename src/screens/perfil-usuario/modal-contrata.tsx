@@ -1,9 +1,10 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 import { Buttons } from "../../components/atoms/buttons";
 import Colors from "../../utils/colors";
 import { DescripcionPlan } from "./descripcion-plan";
 import { Close } from "@mui/icons-material";
 import { SvgIcon } from "@mui/material";
+import StripePricingTable from './stripe-tables';
 
 type ModalContrataInterface = {
   onClose: any;
@@ -23,10 +24,7 @@ const styleModal = {
   outline: 0
 };
 
-export const ModalContrata = ({
-  onClose,
-  nivel
-}: ModalContrataInterface) => {
+export const ModalContrata = ({ onClose, nivel }: ModalContrataInterface) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleOverlayClick = (e: any) => {
@@ -35,9 +33,11 @@ export const ModalContrata = ({
     }
   };
 
+
+
   return (
     <div className="modal-overlay" onClick={(e) => handleOverlayClick(e)}>
-      <div className="modal-wrapper" ref={modalRef}>
+      <div className="modal-wrapper full" ref={modalRef}>
         <button className="modal-close-button" onClick={() => onClose()}>
           <SvgIcon
             component={Close}
@@ -47,22 +47,7 @@ export const ModalContrata = ({
         </button>
         <div className="modal-content">
           <div className="modal-contrata">
-            <div className="content-modal">
-              <div className="encabezado-modal">
-                Cambiate a Omaka
-                {nivel === "basic" ? " Premium " : " Basic "}y obten nuevos
-                beneficios
-              </div>
-              <DescripcionPlan nivel="Premium" />
-
-              <Buttons
-                action={() => onClose(false)}
-                text="Contrata Premium"
-                type="primary"
-                color={Colors().chalchihuitl200}
-                textColor={Colors().tizatl600}
-              />
-            </div>
+          <StripePricingTable />
           </div>
         </div>
       </div>

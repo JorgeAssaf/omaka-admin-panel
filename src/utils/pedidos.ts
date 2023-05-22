@@ -1,6 +1,5 @@
-import { RootState } from "../redux/reducers/mainReducer";
-import Store from "../redux/store";
 import { OrderType } from "../types/typeOrders";
+import { RateType } from "../types/typeRate";
 import Colors from "./colors";
 
 
@@ -51,3 +50,37 @@ export const getPointsOrder = (orderList : OrderType[]) => {
     });
     return(orderPoints);
 }
+
+
+export const getOrdersOfRepartidor = (allRates:RateType[],allOrders:OrderType[],idRepartidor?:string) => {
+    
+    const pedidosFinish = [] as OrderType[];
+    const pedidosPending = [] as OrderType[];
+    const pedidosReport = [] as OrderType[];
+    
+    for (const ruta of allRates) {
+      if (ruta.repartidor.id === idRepartidor) {
+        const pedidosRuta = ruta.Pedidos?ruta.Pedidos:[]
+        for (const idPedido of pedidosRuta) {
+          const pedido = allOrders.find(p => p.idPedido === idPedido);
+          if (pedido) {
+            if (pedido.status === "finish") {
+              pedidosFinish.push(pedido);
+            } else if (pedido.status === "pending") {
+              pedidosPending.push(pedido);
+            } else if (pedido.report) {
+              pedidosReport.push(pedido);
+            }
+          }
+        }
+      }
+    }
+    return({
+        pedidosFinish,
+        pedidosPending,
+        pedidosReport
+    })
+}
+
+
+

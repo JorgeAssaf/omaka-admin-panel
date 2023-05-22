@@ -16,7 +16,7 @@ import FormularioDatos from "./formulario-datos";
 import { FormularioPedidos } from "./formulario-pedidos";
 import { FormularioRepartidores } from "./formulario-repartidores";
 import './styles.css';
-import { getListaRepartidores } from "../../redux/actions";
+import { setListaRepartidores } from "../../redux/actions";
 import { AppDispatch } from "../../redux/store";
 
 type NuevaRutaProps = {
@@ -67,7 +67,7 @@ const NuevoRuta = ({ handleSubmit,setScreenShow, fetching, }: NuevaRutaProps) =>
 
     const getRepartidoresList = async () => {
     setLoading(true);
-    dispatch(getListaRepartidores(DatosPersonales?.idUsuario));
+    dispatch(setListaRepartidores(DatosPersonales?.idUsuario));
     setLoading(false);
   };
 

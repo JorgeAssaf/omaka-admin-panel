@@ -10,7 +10,7 @@ const Colors=()=>{
         akostik200:'#F2E6CF', //crema
         akostik050:'#FBF7EF',
         chalchihuitl200:'#8BDBB0',
-        chalchihuitl400:'#40C980',
+        chalchihuitl400:'#40C980',//vere
         chalchihuitl050:'#CFF2DF',
         texotli200:'#7B7BF7',
         texotli300:'#5252F4', //azul

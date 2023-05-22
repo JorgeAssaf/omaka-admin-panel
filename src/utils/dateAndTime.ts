@@ -55,9 +55,6 @@ export const getTimeDifference = (fechaInicio : any, fechaEntrega: any) =>  {
 
 export const getLastUpdate = (fechaInicio : any) =>  {
   if(fechaInicio ){
-    console.log('====================================');
-    console.log(fechaInicio);
-    console.log('====================================');
       const convertedInicio = convertDateFormFirebase(fechaInicio);
       const convertedCurrent = new Date();
       if(differenceInHours(convertedCurrent,convertedInicio) < 1 ){
