@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import styled from "styled-components";
 import "./app.css";
 //,{ubicacionPedido:{lat:24.141141,lng:-204.9012558}}
@@ -7,6 +7,7 @@ import AppRouter from "./routes/routes";
 import { Provider } from "react-redux";
 import Store from "./redux/store";
 import { useDeviceUser } from "./hooks/useMobile";
+import ModalSimple from "./components/Modal/modal";
 
 export function App() {
   const [showModalMobile, setShowModalMobile] = useState(false);
