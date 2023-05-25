@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import { getAuth, signOut } from "firebase/auth";
 import "./styles.css";
 import Typography from "../../components/atoms/typography";
@@ -25,14 +25,14 @@ const PanelFreeTrial = () => {
   const getTitleFreeTrial = isAvaibleFreePeriod
     ? "Nuestro periodo de pruebas es de 30 dias, disfruta de :"
     : !isAvaibleFreePeriod && isOnFreePeriod
-    ? "Ya estas en el periodo de prueba, disfruta de Omaka 🤩🚀"
-    : "Ya pasaron 30 días de prueba 😔,\nPero puedes probar nuestra app 📲";
+      ? "Ya estas en el periodo de prueba, disfruta de Omaka 🤩🚀"
+      : "Ya pasaron 30 días de prueba 😔,\nPero puedes probar nuestra app 📲";
 
   const getDescriptionFreeTrial = isAvaibleFreePeriod
     ? "Gracias por elegir Omaka Negocios, recuerda que en cualquier momento puedes acceder a soporte en tiempo real a travez de nuestro WhatsApp"
     : !isAvaibleFreePeriod && isOnFreePeriod
-    ? "tranquilo aun te quedan algunos dias mas para seguir disfrutando de Omaka Negocios"
-    : "  Para seguir usando Omaka Negocio es necesario realizar el pago, mediante Stripe, para obtener el link de pago envia un mensaje de WhatsApp presionando el boton de abajo, y escribe quiero link de pago";
+      ? "tranquilo aun te quedan algunos dias mas para seguir disfrutando de Omaka Negocios"
+      : "  Para seguir usando Omaka Negocio es necesario realizar el pago, mediante Stripe, para obtener el link de pago envia un mensaje de WhatsApp presionando el boton de abajo, y escribe quiero link de pago";
 
   useEffect(() => {
     getUserData(false);
@@ -133,30 +133,30 @@ const PanelFreeTrial = () => {
   return (
     <div className="free-container">
       <div className="paper-free-trial">
-        <img className="logo-free-trial" src={logoImg} />
+        <img className="logo-free-trial" src={logoImg} alt="Logo" />
         <h1 className="title-free-trial">¡Prueba Omaka ahora!</h1>
-       {loading?
-        <div>
-            <Loading/>
-        </div>
-        :
-        <div>
-        <div style={{ whiteSpace: "pre-line" }} className="header-free-trial">
-        <Typography color={Colors().akostik050} variant="title">
-            {getTitleFreeTrial}
-        </Typography>
-        <Typography color={Colors().akostik050} variant="title">
-            {`Omaka ${!isAvaibleFreePeriod && !isOnFreePeriod ? 'Individual' : 'Negocios' } 😊`}
-        </Typography>
-        </div>
-        <Typography color={Colors().akostik050} variant="subTitle">
-        {getDescriptionFreeTrial}
-        </Typography>
-        <div className="btn-container-free-trial">
-        {getBtnFreeTrial()}
-        </div>
-    </div>
-       }
+        {loading ?
+          <div>
+            <Loading />
+          </div>
+          :
+          <div>
+            <div style={{ whiteSpace: "pre-line" }} className="header-free-trial">
+              <Typography color={Colors().akostik050} variant="title">
+                {getTitleFreeTrial}
+              </Typography>
+              <Typography color={Colors().akostik050} variant="title">
+                {`Omaka ${!isAvaibleFreePeriod && !isOnFreePeriod ? 'Individual' : 'Negocios'} 😊`}
+              </Typography>
+            </div>
+            <Typography color={Colors().akostik050} variant="subTitle">
+              {getDescriptionFreeTrial}
+            </Typography>
+            <div className="btn-container-free-trial">
+              {getBtnFreeTrial()}
+            </div>
+          </div>
+        }
       </div>
     </div>
   );

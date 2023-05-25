@@ -1,5 +1,5 @@
 import { SvgIcon } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import styled, { css } from "styled-components";
 import { Receipt, CalendarMonth, Lock } from "@mui/icons-material";
 import { ProgressRute } from "../atoms/progressCircle/progress-circle";
@@ -13,7 +13,7 @@ import { getStatusOrder } from "../../utils/pedidos";
 type CardProps = {
   data: RateType;
   activeItem?: string;
-  onClick?: (item:RateType) => void;
+  onClick?: (item: RateType) => void;
   cardProps?: cardPropsType;
 };
 
@@ -27,13 +27,13 @@ const CardRutas = ({ data, onClick, cardProps, activeItem }: CardProps) => {
   const colorChip = data.status === 'finish'
     ? Colors().chalchihuitl400
     : data.status === 'inProgress'
-    ? Colors().texotli300
-    : Colors().tizatl600;
+      ? Colors().texotli300
+      : Colors().tizatl600;
 
   useEffect(() => {
     setIsSelect(activeItem === data.idRuta);
   }, [activeItem])
-  
+
   const onClickItem = () => {
     if (onClick) onClick(data);
   };
@@ -63,7 +63,7 @@ const CardRutas = ({ data, onClick, cardProps, activeItem }: CardProps) => {
           <SvgIconStyled component={Lock} fontSize="small" />
           {idRuta ? idRuta.slice(-8) : ""}
         </ContentText>
-        
+
       </div>
       <div className="progressContainer">
         <ProgressRute ruteStatus={status} progressRute={0.3} />
@@ -131,7 +131,7 @@ const ContentText = styled.div<ContentTextProps>`
   flex-direction: row;
 `;
 
-const SvgIconStyled = styled(SvgIcon)<SvgIconStyledProps>`
+const SvgIconStyled = styled(SvgIcon) <SvgIconStyledProps>`
   margin-top: auto;
   margin-bottom: auto;
   margin-right: 5px;

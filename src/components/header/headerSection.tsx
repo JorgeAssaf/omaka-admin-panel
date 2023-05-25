@@ -1,5 +1,5 @@
 import { listClasses } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import Colors from "../../utils/colors";
 import { ArrowLeft } from "../../utils/icons/arrowLeft";
 import ButtonRounded from "../atoms/button-rounded";
@@ -28,11 +28,11 @@ function HeaderSection({
     <div className="headerSectionContainer '">
       <div className="containerHeaderFirst">
         <div className="superior  onboarding-header-add">
-        {actionBack && (
-        <div onClick={() => actionBack()} className="btnBack">
-          <ArrowLeft fill={Colors().tizatl600} />
-        </div>
-      )}
+          {actionBack && (
+            <div onClick={() => actionBack()} className="btnBack">
+              <ArrowLeft fill={Colors().tizatl600} />
+            </div>
+          )}
           <p className="title">{title}</p>
           {actionBtnAdd && (
             <Buttons

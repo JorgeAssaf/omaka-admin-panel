@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import Avatar from "../../components/atoms/avatar/avatarUser";
 import { getAuth, signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,7 +33,7 @@ export const EditarPerfilUsuario = () => {
   const [openModalPerfil, setOpenModalPerfil] = useState(false);
 
   const [dataProfile, setDataProfile] = useState(
-    {} as  UserType["DatosPersonales"]
+    {} as UserType["DatosPersonales"]
   );
   const [metricaDatos, setMetricaDatos] = useState({
     rutas: [],
@@ -63,13 +63,13 @@ export const EditarPerfilUsuario = () => {
   const getAnalitics = () => {
 
   }
- 
+
 
   return (
     <PanelDeControl currentSection="/panel/profile">
       <div className="perfil-container">
         <div className='perfil-section analitics'>
-        <AnaliticsContent/>
+          <AnaliticsContent />
         </div>
         <div className='perfil-section data'>
           <DatosCard onClick={() => setOpenModalPerfil(true)} dataProfile={dataProfile} />

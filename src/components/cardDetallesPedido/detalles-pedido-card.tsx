@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "preact/hooks";
 import {
   Person,
   Receipt,
@@ -79,19 +79,19 @@ const DetallesPedidoCard = (props: OrderType) => {
       {report ? (
         <div className="report-detalles-card">
           <Typography variant="cardInfo" color={Colors().iztac}>Reporte</Typography>
-      <div className="item_detalles_pedidos">
-          <IconText
-            textColor={Colors().akostik200}
-            icon={Warning}
-            iconSize="small"
-            text={report?.messageReport}
-          />
-           <IconText
-            textColor={Colors().akostik200}
-            icon={CalendarToday}
-            iconSize="small"
-            text={getDateAndHour(report?.dateReport)}
-          />
+          <div className="item_detalles_pedidos">
+            <IconText
+              textColor={Colors().akostik200}
+              icon={Warning}
+              iconSize="small"
+              text={report?.messageReport}
+            />
+            <IconText
+              textColor={Colors().akostik200}
+              icon={CalendarToday}
+              iconSize="small"
+              text={getDateAndHour(report?.dateReport)}
+            />
           </div>
         </div>
       ) : null}

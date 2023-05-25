@@ -1,5 +1,5 @@
 import { SvgIcon } from "@mui/material";
-import { useState } from "react";
+import { useState } from "preact/hooks";
 import {
   Email,
   Phone,
@@ -51,7 +51,7 @@ export const DetallesRepartidorCard = ({
               <Typography
                 color={Colors().akostik200}
                 variant="cardTitle"
-              >{`${DatosPersonales.nombre} ${DatosPersonales.apellido?DatosPersonales.apellido:''}`}</Typography>
+              >{`${DatosPersonales.nombre} ${DatosPersonales.apellido ? DatosPersonales.apellido : ''}`}</Typography>
             </div>
             <div className="extra_data_container">
               {DatosPersonales.fechaNacimiento && (
@@ -90,5 +90,5 @@ export const DetallesRepartidorCard = ({
         </div>
       </div>
     </div>
-  ):(<></>);
+  ) : (<></>);
 };

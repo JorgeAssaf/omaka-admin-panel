@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "preact/compat";
 
 
 export const RecoverPassword = () => {
-  return(
+  return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-        Recover Password
+      Recover Password
     </div>
   );
 };

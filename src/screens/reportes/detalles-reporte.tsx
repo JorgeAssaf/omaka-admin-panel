@@ -1,5 +1,5 @@
-import {Close} from "@mui/icons-material";
-import React, { useState, useEffect } from "react";
+import { Close } from "@mui/icons-material";
+import { useState, useEffect } from "preact/hooks";
 import { useSelector } from "react-redux";
 import Loading from "../../components/atoms/loading";
 import HeaderSection from "../../components/header/headerSection";
@@ -51,11 +51,11 @@ const DetallesReporte = ({ rate, setRateDetails }: DetallesReporteProps) => {
     }
   };
 
-  const getOrders = () => {    
-    if(rate.Pedidos){
-        const newOrderList = orderWithRate.filter((item)=> rate.Pedidos?.includes(item.idPedido));
-        setOrders(newOrderList);
-    }else{
+  const getOrders = () => {
+    if (rate.Pedidos) {
+      const newOrderList = orderWithRate.filter((item) => rate.Pedidos?.includes(item.idPedido));
+      setOrders(newOrderList);
+    } else {
       setOrders([]);
     }
   }
@@ -81,10 +81,10 @@ const DetallesReporte = ({ rate, setRateDetails }: DetallesReporteProps) => {
         <Typography variant="cardTitle" >
           Lista de pedidos
         </Typography>
-        <OrderList rate={rate} orderList={orders}  setOrderDetails={setOrderDetails} />
+        <OrderList rate={rate} orderList={orders} setOrderDetails={setOrderDetails} />
       </div>
       <div className="detalles-reporte-maps">
-      <div className="card_detalles_ruta_float">
+        <div className="card_detalles_ruta_float">
           {rate.idRuta && (
             <div className="relative">
               <DetallesRutaCard {...rate} />
@@ -102,7 +102,7 @@ const DetallesReporte = ({ rate, setRateDetails }: DetallesReporteProps) => {
                 <DetallesPedidoCard {...orderDetails} />
               </div>
             </div>
-          )}  
+          )}
         </div>
         {poinstRates.length > 0 && <MapView points={poinstRates} />}
       </div>
@@ -110,8 +110,8 @@ const DetallesReporte = ({ rate, setRateDetails }: DetallesReporteProps) => {
   );
 };
 
-const OrderList = ({rate, orderList, setOrderDetails }: OrderListTypes) => {
-  
+const OrderList = ({ rate, orderList, setOrderDetails }: OrderListTypes) => {
+
   return (
     <div className="table-container">
       <div className="header-table-container">

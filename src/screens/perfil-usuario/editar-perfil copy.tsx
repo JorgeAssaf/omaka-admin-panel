@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import Avatar from "../../components/atoms/avatar/avatarUser";
 import { getAuth, signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -131,11 +131,10 @@ export const EditarPerfilUsuario = () => {
               htmlColor={Colors().tizatl600}
             />
             <Typography variant="cardTitle">
-              {`${metricaDatos.rutas.length} Ruta${
-                metricaDatos.rutas.length > 1 || metricaDatos.rutas.length === 0
-                  ? `s`
-                  : ""
-              }`}
+              {`${metricaDatos.rutas.length} Ruta${metricaDatos.rutas.length > 1 || metricaDatos.rutas.length === 0
+                ? `s`
+                : ""
+                }`}
             </Typography>
           </div>
           <div className="card_analitics">
@@ -145,18 +144,17 @@ export const EditarPerfilUsuario = () => {
               htmlColor={Colors().tizatl600}
             />
             <Typography variant="cardTitle">
-              {`${metricaDatos.repartidores.length} Conductor${
-                metricaDatos.repartidores.length > 1 ||
+              {`${metricaDatos.repartidores.length} Conductor${metricaDatos.repartidores.length > 1 ||
                 metricaDatos.repartidores.length === 0
-                  ? `es`
-                  : ""
-              } `}
+                ? `es`
+                : ""
+                } `}
             </Typography>
           </div>
         </div>
         <div className="column izquierda">
           <div className="primer-elemento">
-            <img src="src\utils\icons\pin-omaka.svg" className="pin-image" />
+            <img src="src\utils\icons\pin-omaka.svg" className="pin-image" alt='pin - omaka' />
             <div className="titulo-nivel">
               Omaka {Nivel.toLocaleUpperCase()}
             </div>

@@ -18,7 +18,7 @@ const SuscriptionCard = ({ dataProfile, Nivel, onCallback }: datosCardProps) =>
   dataProfile ? (
     <div className="paper suscription">
       <div className="paper-header">
-        <img src="src/assets/omakaNegocios.avif" className="pin-image" />
+        <img src="src/assets/omakaNegocios.avif" className="pin-image" alt='omakaNegocios' />
         <Typography variant="cardTitle">{`Omaka ${Nivel.toLocaleUpperCase()}`}</Typography>
       </div>
       {isFreePeriod(dataProfile.fechaCreacion, dataProfile.trialEndDate) ? (

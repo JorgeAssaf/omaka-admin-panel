@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import GoogleMapReact from "google-map-react";
 
 import mapsStyle from "./mapsStyle.json";
@@ -27,9 +27,9 @@ const Marker = ({ color, lat, lng }) => (
   ></div>
 );
 
-const MarkerUser = ({ color, kmh,lastUpdate, lat, lng }) => (
+const MarkerUser = ({ color, kmh, lastUpdate, lat, lng }) => (
   <div className="deliveryMarker">
-    <div className="kmh-indicator">{parseInt(kmh)} km/h <br/> hace {getLastUpdate(lastUpdate)}</div>
+    <div className="kmh-indicator">{parseInt(kmh)} km/h <br /> hace {getLastUpdate(lastUpdate)}</div>
 
     <SvgIcon
       component={DirectionsCar}
@@ -148,19 +148,19 @@ function MapViewRoutes({ points, repartidorUbicaciones }: typeMapView) {
             />
           );
         })}
-         {repartidorUbicaciones.length > 0
+        {repartidorUbicaciones.length > 0
           ? repartidorUbicaciones.map((it) => {
-              return (
-                <DeliveryManMarker
-                  lat={it.latitude}
-                  lng={it.longitude}
-                  color={it.color}
-                  kmh={it.speed}
-                  lastUpdate={it.lastUpdate}
-                  title={it.title}
-                />
-              );
-            })
+            return (
+              <DeliveryManMarker
+                lat={it.latitude}
+                lng={it.longitude}
+                color={it.color}
+                kmh={it.speed}
+                lastUpdate={it.lastUpdate}
+                title={it.title}
+              />
+            );
+          })
           : null}
       </GoogleMapReact>
     </div>

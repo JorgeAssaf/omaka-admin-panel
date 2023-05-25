@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import {
@@ -84,7 +84,7 @@ export const PanelPedidos = () => {
     }
     setLegthFinishOrders(orderListRate.filter((order) => order.status == "finish").length);
     setLegthStoppedOrders(orderListRate.filter((order) => order.report).length);
-    return(listToShow);
+    return (listToShow);
   }
 
   const getOrderList = async () => {
@@ -98,7 +98,7 @@ export const PanelPedidos = () => {
       DatosPersonales?.idUsuario,
       true
     );
-    getOrderList();
+
     setLoading(false);
     setScreenShow("list");
     if (resOrder.status == "OK") {
@@ -119,7 +119,7 @@ export const PanelPedidos = () => {
       DatosPersonales?.idUsuario,
       true
     );
-    getOrderList();
+
     setLoading(false);
     setScreenShow("list");
     if (resOrder.status == "OK") {
@@ -140,7 +140,7 @@ export const PanelPedidos = () => {
       );
       if (respuesta.status == "OK") {
         toast.success("Pedido eliminado");
-        getOrderList();
+
       } else {
         toast.success("Ocurrió un error");
       }
@@ -171,7 +171,7 @@ export const PanelPedidos = () => {
       return [{ ubicacionPedido: datosPedido.ubicacionPedido }];
     } else {
       const ordersToShow = getOrderToShow();
-      return ordersToShow? ordersToShow : [];
+      return ordersToShow ? ordersToShow : [];
     }
   };
 
@@ -203,7 +203,7 @@ export const PanelPedidos = () => {
               pedidos={screenShow === "list"}
               typeOrder={orderView}
               typeOrderSet={setOrderView}
-              lengths={{ uno: orderList.length, dos: orderListRate.length, tres:legthFinishOrders,cuatro:legthStoppedOrders }}
+              lengths={{ uno: orderList.length, dos: orderListRate.length, tres: legthFinishOrders, cuatro: legthStoppedOrders }}
             />
           </div>
           {screenShow == "list" ? (

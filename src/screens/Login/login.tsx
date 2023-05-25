@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "preact/hooks";
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { toast } from "react-toastify";
 import './styles.css'
@@ -10,20 +10,20 @@ type LoginProps = {
   setScreenShow: (screen: string) => void;
 }
 
-const Login = ({setScreenShow}:LoginProps)  => {
+const Login = ({ setScreenShow }: LoginProps) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => { 
+  const handleSubmit = async () => {
     try {
       setLoading(true);
       const auth = getAuth();
-      const userCredential = await signInWithEmailAndPassword(auth, username, password);      
+      const userCredential = await signInWithEmailAndPassword(auth, username, password);
       setError("");
       setLoading(false);
-    } catch (error : any) {
+    } catch (error: any) {
       toast.error(`${obtenerMensajeErrorFirebaseAuth(error.code)}`);
       setError("Usuario o contraseña incorrectos");
       setLoading(false);
@@ -54,10 +54,10 @@ const Login = ({setScreenShow}:LoginProps)  => {
         </div>
         {error && <p className="error">{error}</p>}
         <div className='btns-container'>
-          <Buttons text='Iniciar sesión' action={handleSubmit}  loading={loading} type='primary' color={Colors().akostik200} />
+          <Buttons text='Iniciar sesión' action={handleSubmit} loading={loading} type='primary' color={Colors().akostik200} />
         </div>
 
-        <div onClick={()=>setScreenShow('register')} className='registerText' >Registrarme</div>
+        <div onClick={() => setScreenShow('register')} className='registerText' >Registrarme</div>
       </form>
     </div>
   );

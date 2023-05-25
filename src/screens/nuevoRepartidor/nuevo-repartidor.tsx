@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Buttons } from "../../components/atoms/buttons";
@@ -14,35 +14,35 @@ import { esMayorDeEdad } from "../../utils/dateAndTime";
 type NuevoRepartidorProps = {
   handleSubmit: (repartidor: RepartidorTypeForm) => void;
   loading: boolean;
-  setScreenShow: (screen : string) => void
+  setScreenShow: (screen: string) => void
 };
 
 
 
 
-const NuevoRepartidor = ({ handleSubmit,setScreenShow, loading, }: NuevoRepartidorProps) => {
+const NuevoRepartidor = ({ handleSubmit, setScreenShow, loading, }: NuevoRepartidorProps) => {
   const [screenLocal, setScreenLocal] = useState("data");
   const [dataForm, setDataForm] = useState({} as RepartidorTypeForm);
-  const {DatosPersonales} = useSelector((state: RootState) => state.user.userData as any);
+  const { DatosPersonales } = useSelector((state: RootState) => state.user.userData as any);
 
   const callBackRepartidor = () => {
-    if(dataForm.apellido &&
+    if (dataForm.apellido &&
       dataForm.correo &&
       dataForm.fechaNacimiento &&
       dataForm.nombre &&
       dataForm.password &&
-      dataForm.telefono){
-        if(esMayorDeEdad(dataForm.fechaNacimiento)){
-          dataForm.creador = {
-            name:DatosPersonales.nombre,
-            id:DatosPersonales?.idUsuario
-          }
-          handleSubmit(dataForm);
-        }else{
-          toast.warning('Necesita ser mayor de edad')
+      dataForm.telefono) {
+      if (esMayorDeEdad(dataForm.fechaNacimiento)) {
+        dataForm.creador = {
+          name: DatosPersonales.nombre,
+          id: DatosPersonales?.idUsuario
         }
-       
-    }else{
+        handleSubmit(dataForm);
+      } else {
+        toast.warning('Necesita ser mayor de edad')
+      }
+
+    } else {
       toast.error('Llena todos los campos')
     }
   }
@@ -67,21 +67,21 @@ const NuevoRepartidor = ({ handleSubmit,setScreenShow, loading, }: NuevoRepartid
   return (
     <div className="nueva-ruta-container">
       <div className=" lista_container contracted">
-         <HeaderSection
-              title={"Nuevo repartidor"}
-              actionBack={()=>navigationBack()}
-          />
+        <HeaderSection
+          title={"Nuevo repartidor"}
+          actionBack={() => navigationBack()}
+        />
         {screenLocal == "data" ? (
           <FormularioDatos
             setDataForm={setDataForm}
             dataForm={dataForm}
             loading={loading}
           />
-        ) :<></>
-      }
+        ) : <></>
+        }
       </div>
       <div className="detalle-ruta-container">
-        <DetallesRepartidor  repartidor={dataForm} />
+        <DetallesRepartidor repartidor={dataForm} />
         <div className="btn_nueva_repartidor">
           <Buttons
             textColor={Colors().iztac}
@@ -89,7 +89,7 @@ const NuevoRepartidor = ({ handleSubmit,setScreenShow, loading, }: NuevoRepartid
             text={'Crear Repartidor'}
             loading={loading}
             type="primary"
-            action={() =>navigationNext()}
+            action={() => navigationNext()}
           />
         </div>
       </div>

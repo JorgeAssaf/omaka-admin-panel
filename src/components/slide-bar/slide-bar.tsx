@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import './slie-bar.css';
 import {
   TextSnippet,
@@ -31,11 +31,11 @@ export const SlideBar = ({ currentSection }: { currentSection: string }) => {
   };
 
   const sections = [
-    { name: "Pedidos", iconSrc: TextSnippet, path:PEDIDOS },
-    { name: "Rutas", iconSrc: FmdGood, path:RUTAS },
-    { name: "Conductores", iconSrc: Person, path:CONDUCTORES },
-    { name: "Clientes", iconSrc: PersonPin, path:CLIENTES },
-    { name: "Reportes", iconSrc: Inventory2, path:REPORTES },
+    { name: "Pedidos", iconSrc: TextSnippet, path: PEDIDOS },
+    { name: "Rutas", iconSrc: FmdGood, path: RUTAS },
+    { name: "Conductores", iconSrc: Person, path: CONDUCTORES },
+    { name: "Clientes", iconSrc: PersonPin, path: CLIENTES },
+    { name: "Reportes", iconSrc: Inventory2, path: REPORTES },
   ];
 
 
@@ -43,22 +43,22 @@ export const SlideBar = ({ currentSection }: { currentSection: string }) => {
     <div
       className={!hovered ? "slide-bar slide-bar-onboarding" : "slide-bar slide-bar-hovered slide-bar-onboarding"}
     >
-      <div className='iconSlide' onClick={()=> setHovered(!hovered)} >
-          <SvgIcon
-            component={hovered ? ChevronLeft : ChevronRight}
-            fontSize="large"
-            htmlColor={Colors().tizatl600}
-          />
+      <div className='iconSlide' onClick={() => setHovered(!hovered)} >
+        <SvgIcon
+          component={hovered ? ChevronLeft : ChevronRight}
+          fontSize="large"
+          htmlColor={Colors().tizatl600}
+        />
       </div>
-      <div  className="icons">
+      <div className="icons">
         {sections.map((section) => (
-          <div onClick={()=>onClickItem(section.path)} key={section.name} className={section.path === currentSection? "icon-container active" : "icon-container"}>
+          <div onClick={() => onClickItem(section.path)} key={section.name} className={section.path === currentSection ? "icon-container active" : "icon-container"}>
             <SvgIcon
               component={section.iconSrc}
               fontSize="large"
               htmlColor={Colors().tizatl600}
             />
-            <p className={!hovered ?"icon-text":"icon-text show"}>{section.name}</p>
+            <p className={!hovered ? "icon-text" : "icon-text show"}>{section.name}</p>
           </div>
         ))}
       </div>

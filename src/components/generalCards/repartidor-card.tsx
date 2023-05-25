@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import styled, { css } from "styled-components";
 import { Phone, Mail } from "@mui/icons-material";
 import { InformationChip } from "../atoms/information-chip";
@@ -24,13 +24,13 @@ const CardRepartidor = ({ data, onClick, cardProps, activeItem }: CardPropsTypes
   const { nombre, apellido, correo, telefono, foto, idUsuario } = DatosPersonales;
   const [isSelect, setIsSelect] = useState(false);
 
-  const statusColor ={
-    free:Colors().chalchihuitl400,
+  const statusColor = {
+    free: Colors().chalchihuitl400,
     expirate: Colors().zacatazcalli300,
     inRate: Colors().texotli200,
     inactive: Colors().xochipaltic400,
   }
-  
+
   useEffect(() => {
     setIsSelect(activeItem === data.DatosPersonales.idUsuario);
   }, [activeItem])
@@ -52,12 +52,12 @@ const CardRepartidor = ({ data, onClick, cardProps, activeItem }: CardPropsTypes
         <div className='title_card_container'>
           <div className='title_card'>
             <Typography
-            color={Colors().akostik200}
-            variant="cardTitle"
-          >{`${nombre} ${apellido}`}</Typography>
+              color={Colors().akostik200}
+              variant="cardTitle"
+            >{`${nombre} ${apellido}`}</Typography>
           </div>
         </div>
-       
+
         <IconText
           icon={Mail}
           iconSize="small"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { CardList } from "../../components/cardList/cards-list";
@@ -40,15 +40,15 @@ export const PanelClientes = () => {
 
   const getPoints = () => {
     if (cliente) {
-      if(cliente.ubicacionPedido?.lat){
+      if (cliente.ubicacionPedido?.lat) {
         console.log(cliente.ubicacionPedido);
-        
-        return [{ubicacionPedido:cliente.ubicacionPedido}];
-      }else{
-      return [];
+
+        return [{ ubicacionPedido: cliente.ubicacionPedido }];
+      } else {
+        return [];
       }
     } else {
-      return  [];
+      return [];
     }
   };
 
@@ -80,11 +80,11 @@ export const PanelClientes = () => {
                     </div>
                   )}
                 </div>
-                {cliente && !cliente.ubicacionPedido?.lat ?(
+                {cliente && !cliente.ubicacionPedido?.lat ? (
                   <div className='overflow full'>
                     <div className='withoutLocation'> Sin ubicacion</div>
                   </div>
-                ):null}
+                ) : null}
                 <MapView points={getPoints()} screenShow={screenShow} />
               </div>
             </div>

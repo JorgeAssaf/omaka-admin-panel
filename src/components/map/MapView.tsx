@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import GoogleMapReact from "google-map-react";
 import mapsStyle from "./mapsStyle.json";
 import { typeMapView, PointType } from "../../types/typesMap";
@@ -31,7 +31,7 @@ const Marker = ({ color, lat, lng }) => (
 function MapView({
   points,
   screenShow,
-  repartidorUbicaciones=[],
+  repartidorUbicaciones = [],
   repartidorFocus
 }: typeMapView) {
   const [puntosArray, setPuntosArray] = useState<PointType[]>([]);
@@ -75,8 +75,8 @@ function MapView({
   }, [screenShow]);
 
   useEffect(() => {
-    console.log("aquio enasd",screenShow);
-    
+    console.log("aquio enasd", screenShow);
+
     if (screenShow == "new") {
       setPuntosArray(newPedido);
       apiIsLoaded(generalMap, generalMaps, newPedido);
@@ -94,9 +94,9 @@ function MapView({
           const ubicacion =
             repartidorFocus && repartidorUbicaciones
               ? {
-                  lat: marker.latitude,
-                  lng: marker.longitude
-                }
+                lat: marker.latitude,
+                lng: marker.longitude
+              }
               : marker?.ubicacionPedido;
           if (ubicacion) bounds.extend(ubicacion);
         });
@@ -141,17 +141,17 @@ function MapView({
           })}
         {repartidorUbicaciones.length > 0
           ? repartidorUbicaciones.map((it) => {
-              return (
-                <DeliveryManMarker
-                  lat={it.latitude}
-                  lng={it.longitude}
-                  color={it.color}
-                  kmh={it.speed}
-                  lastUpdate={it.lastUpdate}
-                  title={it.title}
-                />
-              );
-            })
+            return (
+              <DeliveryManMarker
+                lat={it.latitude}
+                lng={it.longitude}
+                color={it.color}
+                kmh={it.speed}
+                lastUpdate={it.lastUpdate}
+                title={it.title}
+              />
+            );
+          })
           : null}
       </GoogleMapReact>
     </div>

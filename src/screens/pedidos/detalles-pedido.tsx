@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "preact/compat";
 import { InformationChip } from "../../components/atoms/information-chip";
 import LabelInput from "../../components/atoms/label-input";
 import "./styles.css";

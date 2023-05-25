@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import styled, { css } from "styled-components";
 import { Phone, Mail } from "@mui/icons-material";
 import "./styles.css";

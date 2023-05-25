@@ -1,4 +1,5 @@
-import { memo, useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
+import { memo } from "preact/compat";
 import { getLastUpdate } from "../../../utils/dateAndTime";
 import Colors from "../../../utils/colors";
 import { SvgIcon } from "@mui/material";

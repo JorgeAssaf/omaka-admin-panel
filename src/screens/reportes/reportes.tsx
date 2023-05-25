@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { tomarRutas } from "../../api/rateQuerys";
 import ItemReportTable from "../../components/atoms/itemReportTable";
@@ -67,7 +67,7 @@ const Reportes = () => {
     setFilteredRates(historyRateList.slice(offset, ratesForPage));
   };
 
- 
+
 
   return (
     <PanelDeControl currentSection="/panel/reportes">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "preact/compat";
 import { ToastContainer } from "react-toastify";
 import Login from "./login";
 import RegistrationForm from "./register";

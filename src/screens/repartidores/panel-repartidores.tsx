@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { GetRepartidores, newRepartidor } from "../../api/repartidorQuery";
@@ -40,9 +40,9 @@ export const PanelRepartidores = () => {
     getOnboardingData();
   }, []);
 
-  const getOnboardingData = ( ) => {
+  const getOnboardingData = () => {
     //hacer la peticion a las reducer y actualizar cuando lo cierre a la DB
-    if(repartidorList.length > 0){
+    if (repartidorList.length > 0) {
       setInitOnboarding(true);
     }
   }
@@ -61,12 +61,12 @@ export const PanelRepartidores = () => {
       repartidorData,
       DatosPersonales.idUsuario
     );
-  
+
     if (resRate.status == "OK") {
       toast.success("Repartidor creado exitosamente!!");
       getRepartidorList();
       setScreenShow("list");
-    } else {      
+    } else {
       toast.error(resRate.errorMessage);
     }
     setLoading(false);
@@ -74,8 +74,8 @@ export const PanelRepartidores = () => {
 
   useEffect(() => {
     let unsub = null as any;
-    if(repartidor?.DatosPersonales?.idUsuario){
-      unsub = onSnapshot(doc(db, "Repartidores",repartidor.DatosPersonales.idUsuario), (doc) => {
+    if (repartidor?.DatosPersonales?.idUsuario) {
+      unsub = onSnapshot(doc(db, "Repartidores", repartidor.DatosPersonales.idUsuario), (doc) => {
         const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         setRepartidor(doc.data() as RepartidorType)
       });
@@ -83,13 +83,13 @@ export const PanelRepartidores = () => {
     return unsub;
   }, []);
 
-  useEffect(()=>{
-    if(!repartidor.DatosPersonales){
+  useEffect(() => {
+    if (!repartidor.DatosPersonales) {
       setAllLocations(converRepartidorToLocation(repartidorList));
-    }else{
+    } else {
       setAllLocations(converRepartidorToLocation([repartidor]));
     }
-  },[repartidor])
+  }, [repartidor])
 
   return (
     <PanelDeControl currentSection="/panel/repartidores">
@@ -115,23 +115,23 @@ export const PanelRepartidores = () => {
                 <div className="card_detalles_ruta_float">
                   {repartidor?.DatosPersonales?.idUsuario && (
                     <div className="relative">
-                    <div
-                      onClick={() => {
-                        setRepartidor({} as RepartidorType);
-                      }}
-                      className="closeBtn float circle"
-                    >
-                      <SvgIcon component={Close} fontSize="small" />
-                    </div>
+                      <div
+                        onClick={() => {
+                          setRepartidor({} as RepartidorType);
+                        }}
+                        className="closeBtn float circle"
+                      >
+                        <SvgIcon component={Close} fontSize="small" />
+                      </div>
                       <DetallesRepartidor repartidor={repartidor} />
                     </div>
                   )}
                 </div>
-                {allLocations.length <= 0 ?(
+                {allLocations.length <= 0 ? (
                   <div className='overflow full'>
                     <div className='withoutLocation'> Sin ubicacion</div>
                   </div>
-                ):null}
+                ) : null}
                 <MapView
                   points={[]}
                   repartidorFocus
@@ -156,7 +156,7 @@ export const PanelRepartidores = () => {
           toastClassName="toast"
         />
       </>
-    {/* <OnboradingRepartidor isOpen={initOnboarding} onCloseTour={()=>setInitOnboarding(false)}/> */}
+      {/* <OnboradingRepartidor isOpen={initOnboarding} onCloseTour={()=>setInitOnboarding(false)}/> */}
     </PanelDeControl>
   );
 };

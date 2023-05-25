@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 
 export const useDeviceUser = () => {
-    const [isMobile, setIsMobile] = useState(false); 
-    const [isIphone, setIsIphone] = useState(false); 
+    const [isMobile, setIsMobile] = useState(false);
+    const [isIphone, setIsIphone] = useState(false);
     useEffect(() => {
         if ((/Android/i.test(navigator.userAgent))) {
             setIsMobile(true);
@@ -18,4 +18,4 @@ export const useDeviceUser = () => {
         }
     }, [navigator.userAgent]);
     return [isMobile, isIphone];
-  };
+};

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 
 import { IconText } from "../atoms/iconText";
 import "./styles.css";
@@ -26,22 +26,22 @@ const SuggerClientList = ({
   const clickPrueba = () => {
     setIsSelect(!isSelect);
   };
-  const selectClient = (cliente :ClientType) => {
+  const selectClient = (cliente: ClientType) => {
     setActiveClient(cliente)
     setClientDetails(cliente)
   }
   useEffect(() => {
-    if(!direccionText){
-        getOrderToSearch();
+    if (!direccionText) {
+      getOrderToSearch();
     }
   }, [direccionText])
 
   useEffect(() => {
-    if(direccionText){
-        let respFiltered = filtrarClientes();
-        setClientsFiltered(respFiltered);
-    }else{
-        setClientsFiltered([]);
+    if (direccionText) {
+      let respFiltered = filtrarClientes();
+      setClientsFiltered(respFiltered);
+    } else {
+      setClientsFiltered([]);
     }
   }, [direccionText])
 
@@ -51,12 +51,12 @@ const SuggerClientList = ({
       const busquedaMin = removeAccentsMarks(direccionText.toLowerCase());
       const nombreMin = removeAccentsMarks(cliente.nombreCliente.toLowerCase());
       const direccionMin = removeAccentsMarks(cliente.direccionPedido.toLowerCase());
-  
+
       // Verificar si la búsqueda coincide con el nombre o la dirección del cliente.
       return nombreMin.includes(busquedaMin) || direccionMin.includes(busquedaMin);
     });
   }
-  
+
   const getOrderToSearch = async () => {
     let busquedaRes = await getClientByUser(DatosPersonales?.idUsuario);
     setClientsFromDB(busquedaRes ? busquedaRes : []);

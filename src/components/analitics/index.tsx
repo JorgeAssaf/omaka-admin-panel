@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import {
@@ -134,21 +134,21 @@ const AnaliticsContent = () => {
 
   return (
     <div className="analitics-container">
-        <div className='flex-row-start-start'>
-            <RutaAnalitics
-            title="Rutas"
-            ratesFinish={ratesFinish.length}
-            ratesInProgress={ratesInProgress.length}
-            ratesPendings={ratesPendings.length}
-            timeAndDistance={timeAndDistance}
+      <div className='flex-row-start-start'>
+        <RutaAnalitics
+          title="Rutas"
+          ratesFinish={ratesFinish.length}
+          ratesInProgress={ratesInProgress.length}
+          ratesPendings={ratesPendings.length}
+          timeAndDistance={timeAndDistance}
         />
         <OrderAnalitics
-            title="Pedidos"
-            orderFinish={orderFinish.length}
-            orderReport={orderReport.length}
-            orderPendings={orderPendings.length}
+          title="Pedidos"
+          orderFinish={orderFinish.length}
+          orderReport={orderReport.length}
+          orderPendings={orderPendings.length}
         />
-        </div>
+      </div>
 
       <RepartidorAnalitics repartidoresList={repartidoresAnalitics} />
     </div>
