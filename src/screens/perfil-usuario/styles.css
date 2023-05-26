@@ -1,28 +1,31 @@
-
-
 .perfil-container {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    flex-direction: row;
-
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
 }
 
-.perfil-section{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: flex-start;
-    align-items: center;
+.perfil-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .perfil-section.analitics {
- flex:3
+  flex: 3;
 }
 .perfil-section.data {
-    flex:1
-   }
-.tipo-cuenta{
-    text-align: center;
-    margin-top: 20px;
+  flex: 1;
+}
+.paper .suscription {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.tipo-cuenta {
+  text-align: center;
+  margin-top: 20px;
 }
