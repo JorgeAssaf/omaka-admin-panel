@@ -1,13 +1,13 @@
-import { differenceInHours, differenceInMinutes, differenceInSeconds } from "date-fns";
+import { differenceInHours, differenceInMinutes, differenceInSeconds, differenceInDays } from "date-fns";
 
 export const convertDateFormFirebase = (fecha: any) => {
-  if(fecha.seconds){
-    return(new Date(fecha.seconds * 1000 + fecha.nanoseconds / 1000000));
+  if (fecha.seconds) {
+    return (new Date(fecha.seconds * 1000 + fecha.nanoseconds / 1000000));
   }
-  else if(fecha._seconds){
-    return(new Date(fecha._seconds * 1000 + fecha._nanoseconds / 1000000));
-  }else{
-    return(new Date())
+  else if (fecha._seconds) {
+    return (new Date(fecha._seconds * 1000 + fecha._nanoseconds / 1000000));
+  } else {
+    return (new Date())
   }
 }
 
@@ -38,43 +38,58 @@ export const getDateAndHour = (dateCreation: any) => {
   return `${day}/${month}/${year} ${hours}:${minutes}`;
 };
 
-export const getTimeDifference = (fechaInicio : any, fechaEntrega: any) =>  {
-  if(fechaInicio && fechaEntrega){
-      const convertedInicio = convertDateFormFirebase(fechaInicio);
-      const convertedEntrega = convertDateFormFirebase(fechaEntrega);
-      if(differenceInHours(convertedEntrega,convertedInicio) < 1 ){
-          return(differenceInMinutes(convertedEntrega,convertedInicio) + ' min(s)');
-      }else{
-       return(differenceInHours(convertedEntrega,convertedInicio)+ ' hora(s)');
+
+
+export const getTimeDifference = (fechaInicio: any, fechaEntrega: any) => {
+  if (fechaInicio && fechaEntrega) {
+    const convertedInicio = convertDateFormFirebase(fechaInicio);
+    const convertedEntrega = convertDateFormFirebase(fechaEntrega);
+
+    const differenceInDaysValue = differenceInDays(convertedEntrega, convertedInicio);
+
+    if (differenceInDaysValue < 1) {
+      const differenceInHoursValue = differenceInHours(convertedEntrega, convertedInicio);
+      if (differenceInHoursValue < 1) {
+        const differenceInMinutesValue = differenceInMinutes(convertedEntrega, convertedInicio);
+        return differenceInMinutesValue + ' min(s)';
+      } else {
+        return differenceInHoursValue + ' hora(s)';
       }
-  }else{
-      return('N/A')
+    } else {
+      return differenceInDaysValue + ' día(s)';
+    }
+  } else {
+    return new Date()
   }
+};
 
-}
+export const getLastUpdate = (fechaInicio: any) => {
+  if (fechaInicio) {
+    const convertedInicio = convertDateFormFirebase(fechaInicio);
+    const convertedCurrent = new Date();
 
-export const getLastUpdate = (fechaInicio : any) =>  {
-  if(fechaInicio ){
-      const convertedInicio = convertDateFormFirebase(fechaInicio);
-      const convertedCurrent = new Date();
-      if(differenceInHours(convertedCurrent,convertedInicio) < 1 ){
-          if(differenceInMinutes(convertedCurrent,convertedInicio) < 1){
-            return(differenceInSeconds(convertedCurrent,convertedInicio) + ' seg(s)');
+    const differenceInDaysValue = differenceInDays(convertedCurrent, convertedInicio);
 
-          }else{
-          return(differenceInMinutes(convertedCurrent,convertedInicio) + ' min(s)');
-          }
-      }else{
-       return(differenceInHours(convertedCurrent,convertedInicio)+ ' hora(s)');
+    if (differenceInDaysValue < 1) {
+      const differenceInHoursValue = differenceInHours(convertedCurrent, convertedInicio);
+      if (differenceInHoursValue < 1) {
+        const differenceInMinutesValue = differenceInMinutes(convertedCurrent, convertedInicio);
+        return differenceInMinutesValue + ' min(s)';
+      } else {
+        return differenceInHoursValue + ' hora(s)';
       }
-  }else{
-      return('N/A')
+    } else {
+      return differenceInDaysValue + ' día(s)';
+    }
+  } else {
+    return new Date()
   }
-}
+};
 
 
 
-export function esMayorDeEdad(fechaNacimiento : any) {
+
+export function esMayorDeEdad(fechaNacimiento: any) {
   const hoy = new Date();
   const nacimiento = new Date(fechaNacimiento);
   let edad = hoy.getFullYear() - nacimiento.getFullYear();
@@ -88,17 +103,17 @@ export function esMayorDeEdad(fechaNacimiento : any) {
 }
 
 //metodo regresa si el usuario esta en periodo de prueba
-export const isFreePeriod = (fechaCreacion : any, trialEndDate: any) =>  {
-  if(fechaCreacion && trialEndDate){
-      const convertedInicio = convertDateFormFirebase(fechaCreacion);
-      const convertedEntrega = convertDateFormFirebase(trialEndDate);
-      if(differenceInHours(convertedEntrega,convertedInicio) <= 0){
-          return(false);
-      }else{
-       return(true);
-      }
-  }else{
-      return(false)
+export const isFreePeriod = (fechaCreacion: any, trialEndDate: any) => {
+  if (fechaCreacion && trialEndDate) {
+    const convertedInicio = convertDateFormFirebase(fechaCreacion);
+    const convertedEntrega = convertDateFormFirebase(trialEndDate);
+    if (differenceInHours(convertedEntrega, convertedInicio) <= 0) {
+      return (false);
+    } else {
+      return (true);
+    }
+  } else {
+    return (false)
   }
 
 }
