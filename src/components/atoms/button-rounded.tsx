@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { typeRoundedButton } from "../../types/typesButtons";
 import Colors from "../../utils/colors";

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "preact/hooks";
 import { Buttons } from "../../components/atoms/buttons";
 import Colors from "../../utils/colors";
 import { Close } from "@mui/icons-material";
@@ -36,7 +36,7 @@ export const ModalPerfil = ({ onClose }: ModalPerfilProps) => {
   );
   const [disableInput, setDisabledInput] = useState(true);
   const [textButton, settextButton] = useState("Editar Perfil");
-  
+
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleOverlayClick = (e: any) => {

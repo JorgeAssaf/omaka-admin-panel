@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "preact/hooks";
 const StripePricingTable = () => {
   useEffect(() => {
     const script = document.createElement("script");

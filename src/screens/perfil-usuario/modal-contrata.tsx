@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "preact/hooks";
 import { Buttons } from "../../components/atoms/buttons";
 import Colors from "../../utils/colors";
 import { DescripcionPlan } from "./descripcion-plan";
@@ -47,7 +47,7 @@ export const ModalContrata = ({ onClose, nivel }: ModalContrataInterface) => {
         </button>
         <div className="modal-content">
           <div className="modal-contrata">
-          <StripePricingTable />
+            <StripePricingTable />
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef } from "preact/hooks";
 import {
   Close
 } from "@mui/icons-material";
@@ -40,9 +40,9 @@ const ModalSimple = (props: ModalTypes) => {
           </div>
           <div>
             <div className="item_detalles_pedidos full modal">
-            <Typography variant="cardInfo">
-              {subtitle}
-            </Typography>
+              <Typography variant="cardInfo">
+                {subtitle}
+              </Typography>
             </div>
           </div>
         </div>
