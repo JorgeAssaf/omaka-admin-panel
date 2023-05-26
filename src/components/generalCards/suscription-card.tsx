@@ -8,6 +8,8 @@ import { DescripcionPlan } from "../../screens/perfil-usuario/descripcion-plan";
 import { Buttons } from "../atoms/buttons";
 import Colors from "../../utils/colors";
 
+import omakaNegocios from "../../assets/omakaNegocios.avif";
+
 interface datosCardProps {
   dataProfile: UserType["DatosPersonales"];
   Nivel: string;
@@ -18,7 +20,7 @@ const SuscriptionCard = ({ dataProfile, Nivel, onCallback }: datosCardProps) =>
   dataProfile ? (
     <div className="paper suscription">
       <div className="paper-header">
-        <img src="src/assets/omakaNegocios.avif" className="pin-image" alt='omakaNegocios' />
+        <img src={omakaNegocios} className="pin-image" alt='omakaNegocios' />
         <Typography variant="cardTitle">{`Omaka ${Nivel.toLocaleUpperCase()}`}</Typography>
       </div>
       {isFreePeriod(dataProfile.fechaCreacion, dataProfile.trialEndDate) ? (
