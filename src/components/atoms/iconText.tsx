@@ -1,6 +1,5 @@
 import { Receipt } from "@mui/icons-material";
 import { SvgIcon } from "@mui/material";
-import React from "react";
 import styled from "styled-components";
 import Colors from "../../utils/colors";
 import { stringCutting } from "../../utils/stringModifier";

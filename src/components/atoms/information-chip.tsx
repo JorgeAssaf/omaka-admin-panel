@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Colors from "../../utils/colors";
 
@@ -10,7 +9,7 @@ type InformationChipInterface = {
 
 
 
-export const InformationChip = ({text, color = Colors().tizatl600, textColor = Colors().iztac}: InformationChipInterface) => {
+export const InformationChip = ({ text, color = Colors().tizatl600, textColor = Colors().iztac }: InformationChipInterface) => {
   return (
     <Content
       color={color}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "preact/hooks";
 import { Buttons } from "../atoms/buttons";
 import Colors from "../../utils/colors";
 import Avatar from "../atoms/avatar/avatarUser";
@@ -29,7 +29,7 @@ export const UserBar = () => {
     <div className="topBarContainer">
       <div className="leftSide">
         <div className="avatar_topBar_container">
-          {DatosPersonales? (
+          {DatosPersonales ? (
             <Avatar
               fullName={DatosPersonales.nombre}
               uuid={DatosPersonales.idUsuario}

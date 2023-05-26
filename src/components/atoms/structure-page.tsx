@@ -1,4 +1,3 @@
-import React from "react";
 import styled, { css } from "styled-components";
 
 type GeneralStructureInterface = {
@@ -21,8 +20,8 @@ export const GeneralStructure = ({
 };
 
 type ContentProps = {
-    children: any;
-    isMobile: boolean;
+  children: any;
+  isMobile: boolean;
 }
 
 const Content = styled.div<ContentProps>`

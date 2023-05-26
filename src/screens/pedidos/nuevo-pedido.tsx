@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import { useState, useEffect } from "preact/hooks";
 import { toast } from "react-toastify";
 import { Buttons } from "../../components/atoms/buttons";
 import CheckBox from "../../components/atoms/checkBox/checkbox";
@@ -18,7 +18,7 @@ type NuevoPedidoProps = {
   isEditPedido: boolean;
 };
 
-const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails,isEditPedido,datosPedido }: NuevoPedidoProps) => {
+const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails, isEditPedido, datosPedido }: NuevoPedidoProps) => {
   const [nombreCliente, setNombreCliente] = useState('');
   const [direccionPedido, setDireccionPedido] = useState('');
   const [ubicacionPedido, setUbicacionPedido] = useState({
@@ -27,52 +27,52 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails,is
   } as OrderTypeForm["ubicacionPedido"]);
   const [telefonoPedido, setTelefonoPedido] = useState('');
   const [notaDePedido, setNotaDePedido] = useState('');
-  const [orderSaved,setOrderSaved] = useState(false);
+  const [orderSaved, setOrderSaved] = useState(false);
   const newBound = useSelector((state: RootState) => state.pedidos.newBound as any);
   const dispatch = useDispatch();
   const [ban, setBan] = useState(true)
 
   useEffect(() => {
-    if(ban){
+    if (ban) {
       initialize();
     }
   }, [])
 
-  useEffect(()=>{
-    if(isEditPedido){
+  useEffect(() => {
+    if (isEditPedido) {
       setNombreCliente(datosPedido.nombreCliente);
       setDireccionPedido(datosPedido.direccionPedido);
       setUbicacionPedido(datosPedido.ubicacionPedido);
       setTelefonoPedido(datosPedido.telefonoPedido);
       setNotaDePedido(datosPedido.notaDePedido);
       setOrderSaved(datosPedido.orderSaved);
-      dispatch({ type: 'setNewPedido', payload: [{ubicacionPedido:datosPedido.ubicacionPedido}] });
+      dispatch({ type: 'setNewPedido', payload: [{ ubicacionPedido: datosPedido.ubicacionPedido }] });
 
     }
-  },[isEditPedido])
+  }, [isEditPedido])
 
-  useEffect(()=>{
-    if(clientDetails?.idCliente){
+  useEffect(() => {
+    if (clientDetails?.idCliente) {
       setNombreCliente(clientDetails.nombreCliente);
       setDireccionPedido(clientDetails.direccionPedido);
       setUbicacionPedido(clientDetails.ubicacionPedido);
       setTelefonoPedido(clientDetails.telefonoPedido);
-      dispatch({ type: 'setNewPedido', payload: [{ubicacionPedido:clientDetails.ubicacionPedido}] });
+      dispatch({ type: 'setNewPedido', payload: [{ ubicacionPedido: clientDetails.ubicacionPedido }] });
 
     }
-  },[clientDetails])
-  
+  }, [clientDetails])
+
   useEffect(() => {
-    if(ban){
+    if (ban) {
       //initialize();
       setBan(false);
     }
-    else{
+    else {
       Geocode.fromLatLng(newBound.ubicacionPedido.lat, newBound.ubicacionPedido.lng).then(
         (response) => {
           const address = response.results[0].formatted_address;
           setDireccionPedido(address);
-          setUbicacionPedido({lat:newBound.ubicacionPedido.lat,lng:newBound.ubicacionPedido.lng});
+          setUbicacionPedido({ lat: newBound.ubicacionPedido.lat, lng: newBound.ubicacionPedido.lng });
           setDireccionText(address);
         },
         (error) => {
@@ -82,17 +82,17 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails,is
     }
   }, [newBound])
 
-  const initialize =()=>{
+  const initialize = () => {
     Geocode.setApiKey(import.meta.env.VITE_KEY_MAPS);
     Geocode.setLanguage("es");
     Geocode.setRegion("mx");
-    }
-  
+  }
+
   const { ref } = usePlacesWidget({
     apiKey: import.meta.env.VITE_KEY_MAPS,
     onPlaceSelected: (place) => {
-      let newPlace=[{ubicacionPedido:{lat:place.geometry.location.lat(),lng:place.geometry.location.lng()}}];
-      setUbicacionPedido({lat:place.geometry.location.lat(),lng:place.geometry.location.lng()});
+      let newPlace = [{ ubicacionPedido: { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() } }];
+      setUbicacionPedido({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() });
       setDireccionText(place.formatted_address);
       setDireccionPedido(place.formatted_address);
       dispatch({ type: 'setNewPedido', payload: newPlace });
@@ -105,8 +105,8 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails,is
   });
 
 
-  const callBackPedido = () => {    
-    if(nombreCliente && direccionPedido && ubicacionPedido.lat && ubicacionPedido.lng && telefonoPedido && notaDePedido){
+  const callBackPedido = () => {
+    if (nombreCliente && direccionPedido && ubicacionPedido.lat && ubicacionPedido.lng && telefonoPedido && notaDePedido) {
       handleSubmit({
         nombreCliente,
         direccionPedido,
@@ -114,8 +114,8 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails,is
         telefonoPedido,
         notaDePedido,
         orderSaved
-      },isEditPedido);
-    }else{
+      }, isEditPedido);
+    } else {
       toast.error('Llena todos los campos :D')
     }
 
@@ -123,13 +123,13 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails,is
 
   return (
     <div className="nuevo-pedido-form">
-       <div className="item-input">
+      <div className="item-input">
         <label>Direccion:</label>
         <input
           type="text"
           value={direccionPedido}
           ref={ref}
-          onChange={(event) =>{
+          onChange={(event) => {
             setDireccionText((event.target as HTMLInputElement).value);
             setDireccionPedido((event.target as HTMLInputElement).value)
           }}
@@ -180,7 +180,7 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails,is
           required
         />
       </div>
-       <div className="item-check">
+      <div className="item-check">
         <label>Guardar cliente?</label>
         <CheckBox isActive={orderSaved} setIsActive={setOrderSaved} size={30} />
       </div>

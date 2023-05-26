@@ -1,6 +1,6 @@
+import { useState, useEffect, useRef } from "preact/hooks";
 import { ArrowDropDown, Close, MoveDown } from "@mui/icons-material";
 import { Alert, SvgIcon } from "@mui/material";
-import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { orderOrdersPerDistance } from "../../api/ordersQuerys";
@@ -27,9 +27,9 @@ import { getUser } from "../../api/userQuerys";
 import { getAuth, signOut } from "firebase/auth";
 import { converRepartidorToLocation } from "../../utils/locations";
 
-export function PanelRutas(){
+export function PanelRutas() {
   const [screenShow, setScreenShow] = useState("list");
-  const [loading, setLoading] = useState(false);  
+  const [loading, setLoading] = useState(false);
   const [rateSelected, setRateSelected] = useState({} as RateType);
   const [poinstRates, setPoinstRates] = useState([] as PointType[]);
   const [orderSelected, setOrderSelected] = useState({} as OrderType);
@@ -47,19 +47,19 @@ export function PanelRutas(){
     setLoading(false);
   };
 
-  useEffect(() => {   
-      getRateList();
-      checkFreeTrial();
-      getRepartidorList();
-  },[]);
+  useEffect(() => {
+    getRateList();
+    checkFreeTrial();
+    getRepartidorList();
+  }, []);
 
-  useEffect(()=> {
-    if(orderList.length == 0 &&orderWithRate.length === 0 ){
+  useEffect(() => {
+    if (orderList.length == 0 && orderWithRate.length === 0) {
       getPedidos();
     }
-  },[])
+  }, [])
 
- 
+
   const getRepartidorList = async () => {
     dispatch(setListaRepartidores(DatosPersonales?.idUsuario));
   };
@@ -68,28 +68,28 @@ export function PanelRutas(){
     dispatch(getListaPedidos(DatosPersonales?.idUsuario));
   }
 
-  useEffect(()=>{
-    getOrdersOrdenate();  
-  },[rateSelected])
+  useEffect(() => {
+    getOrdersOrdenate();
+  }, [rateSelected])
 
-  const getOrdersOrdenate = async()=>{
+  const getOrdersOrdenate = async () => {
     try {
-      if(rateSelected.idRuta){
-        const pedidosArray=getOderForID(rateSelected.Pedidos, orderWithRate);
-        const rest= await orderOrdersPerDistance(pedidosArray,pedidosArray[0].ubicacionPedido)
+      if (rateSelected.idRuta) {
+        const pedidosArray = getOderForID(rateSelected.Pedidos, orderWithRate);
+        const rest = await orderOrdersPerDistance(pedidosArray, pedidosArray[0].ubicacionPedido)
         const points = getPointsOrder(rest);
         setPoinstRates(points);
       }
-    }catch(err){
+    } catch (err) {
       console.error(err)
     }
   }
 
-  const checkFreeTrial = async() => {
+  const checkFreeTrial = async () => {
     const userData = await getUser(getAuth().currentUser?.uid);
-    if(userData){
-      if(userData.DatosPersonales.status == 0){
-        if(!isFreePeriod(userData.DatosPersonales.fechaCreacion,userData.DatosPersonales.trialEndDate)){
+    if (userData) {
+      if (userData.DatosPersonales.status == 0) {
+        if (!isFreePeriod(userData.DatosPersonales.fechaCreacion, userData.DatosPersonales.trialEndDate)) {
           toast.error('Tu periodo de prueba ah vencido');
           setTimeout(() => {
             signOut(getAuth());
@@ -101,8 +101,8 @@ export function PanelRutas(){
 
   useEffect(() => {
     let unsub = null as any;
-    if(rateSelected.idRuta){
-      unsub = onSnapshot(doc(db, "Repartidores",rateSelected.repartidor.id), (doc) => {
+    if (rateSelected.idRuta) {
+      unsub = onSnapshot(doc(db, "Repartidores", rateSelected.repartidor.id), (doc) => {
         const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         setRepartidor(doc.data())
       });
@@ -141,68 +141,68 @@ export function PanelRutas(){
 
 
   const addNewRateBtn = () => {
-   if(orderList.length == 0 &&orderWithRate.length === 0 ){
-    toast.warning("Necesitas crear primero un pedido");
-   }else if(repartidorList.length == 0) {
-    toast.warning("Necesitas crear por lo menos un repartidor");
-   }
-   else{
-    setScreenShow("new")
-   }
+    if (orderList.length == 0 && orderWithRate.length === 0) {
+      toast.warning("Necesitas crear primero un pedido");
+    } else if (repartidorList.length == 0) {
+      toast.warning("Necesitas crear por lo menos un repartidor");
+    }
+    else {
+      setScreenShow("new")
+    }
   }
 
   return (
     <PanelDeControl currentSection='/panel/rutas'>
-    <>
-      {screenShow == "list" ? (
-        <div className="rutas_container">
-          <div className="rutas_view_container">
-            <div className="lista_container">
-              <div className="header_container">
-                <HeaderSection
-                  title={"Rutas"}
-                  actionBtnAdd={() => addNewRateBtn()}
-                  typeOrderSet={() => null}
+      <>
+        {screenShow == "list" ? (
+          <div className="rutas_container">
+            <div className="rutas_view_container">
+              <div className="lista_container">
+                <div className="header_container">
+                  <HeaderSection
+                    title={"Rutas"}
+                    actionBtnAdd={() => addNewRateBtn()}
+                    typeOrderSet={() => null}
+                  />
+                </div>
+                <CardList
+                  loading={loading}
+                  onClickItem={(item) => onSelectRate(item)}
+                  activeItem={rateSelected.idRuta}
+                  cardProps={{ fullWidth: true }}
+                  tipo="rutas"
+                  data={[...activeRateList]}
                 />
               </div>
-              <CardList
-                loading={loading}
-                onClickItem={(item) => onSelectRate(item)}
-                activeItem={rateSelected.idRuta}
-                cardProps={{ fullWidth: true }}
-                tipo="rutas"
-                data={[...activeRateList]}
-              />
-            </div>
-            <div className="mapa_container">
-              <div className="card_detalles_ruta_float">
-                {rateSelected.idRuta && (
-                  <div className="relative">
-                    <div
-                      onClick={() => {
-                        setRateSelected({} as RateType);
-                        setOrderSelected({} as OrderType);
-                      }}
-                      className="closeBtn float circle"
-                    >
-                      <SvgIcon component={Close} fontSize="small" />
+              <div className="mapa_container">
+                <div className="card_detalles_ruta_float">
+                  {rateSelected.idRuta && (
+                    <div className="relative">
+                      <div
+                        onClick={() => {
+                          setRateSelected({} as RateType);
+                          setOrderSelected({} as OrderType);
+                        }}
+                        className="closeBtn float circle"
+                      >
+                        <SvgIcon component={Close} fontSize="small" />
+                      </div>
+                      <DetallesRutaCard {...rateSelected} />
                     </div>
-                    <DetallesRutaCard {...rateSelected} />
-                  </div>
-                )}
-                 {orderSelected.idPedido && (
-                  <div className="relative">
-                    <div
-                      onClick={() => setOrderSelected({} as OrderType)}
-                      className="closeBtn float circle"
-                    >
-                      <SvgIcon component={Close} fontSize="small" />
+                  )}
+                  {orderSelected.idPedido && (
+                    <div className="relative">
+                      <div
+                        onClick={() => setOrderSelected({} as OrderType)}
+                        className="closeBtn float circle"
+                      >
+                        <SvgIcon component={Close} fontSize="small" />
+                      </div>
+                      <ModalDetallesPedido order={orderSelected} onClose={() => setOrderSelected({} as OrderType)} />
                     </div>
-                    <ModalDetallesPedido order={orderSelected} onClose={()=>setOrderSelected({} as OrderType)} />
-                  </div>
-                )}
-              </div>
-              <div className="order_list_float_right">
+                  )}
+                </div>
+                <div className="order_list_float_right">
                   <CardList
                     onClickItem={(item) => focusOrderMap(item)}
                     tipo="pedidos"
@@ -210,28 +210,28 @@ export function PanelRutas(){
                   />
                 </div>
                 <div className='scroll-icon float down'>
-                    <SvgIcon component={ArrowDropDown} fontSize="large" />
+                  <SvgIcon component={ArrowDropDown} fontSize="large" />
                 </div>
-                <MapViewRoutes points={poinstRates} repartidorUbicaciones={converRepartidorToLocation([repartidor])}/>
+                <MapViewRoutes points={poinstRates} repartidorUbicaciones={converRepartidorToLocation([repartidor])} />
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div className="rutas_container">
-          <NuevaRuta
-            setScreenShow={setScreenShow}
-            fetching={loading}
-            handleSubmit={newRateClient}
-          />
-        </div>
-      )}
-      <ToastContainer
-        limit={1}
-        position="bottom-center"
-        autoClose={3000}
-        toastClassName="toast"
-      />
-    </>
+        ) : (
+          <div className="rutas_container">
+            <NuevaRuta
+              setScreenShow={setScreenShow}
+              fetching={loading}
+              handleSubmit={newRateClient}
+            />
+          </div>
+        )}
+        <ToastContainer
+          limit={1}
+          position="bottom-center"
+          autoClose={3000}
+          toastClassName="toast"
+        />
+      </>
     </PanelDeControl>
   );
 };
