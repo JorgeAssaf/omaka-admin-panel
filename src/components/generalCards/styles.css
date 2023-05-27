@@ -1,88 +1,86 @@
-.progressContainer{
-    margin: 0px 8px;
+.progressContainer {
+  margin: 0px 8px;
 }
 
-.avatar_card{
-    margin-right: 10px;
+.avatar_card {
+  margin-right: 10px;
 }
 
 .title_card_container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
-.card_chip_container{
-    margin-left: 10px;
+.card_chip_container {
+  margin-left: 10px;
 }
 .title_card {
-    margin-right: 10px;
-    display: flex;
+  margin-right: 10px;
+  display: flex;
 }
 
 /******** Card pedidos ********/
 
 .cardContainer.row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    flex:1;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  width: 100%;
 }
 
-.btnCircle{
-    display: flex;
-    flex:1;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    width: 3vw;
-    padding-left: 5px;
-    height: 3vw;
-    border-radius: 100%;
-    box-shadow: 0px 2px 2px 1px #c1c1c1;
-    margin-left: 10px;
-    cursor: pointer;
+.btnCircle {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  width: 3vw;
+  padding-left: 5px;
+  height: 3vw;
+  border-radius: 100%;
+  box-shadow: 0px 2px 2px 1px #c1c1c1;
+  margin-left: 10px;
+  cursor: pointer;
 }
-
-
 
 /******** Card profile ********/
 
-.paper{
-    border-radius: 15px;
-    padding: 1rem;
-    margin: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: #c1c1c1 2px 3px 13px 0px;
+.paper {
+  border-radius: 15px;
+  padding: 1rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: #c1c1c1 2px 3px 13px 0px;
 }
-.paper.datos{
-    background-color: rgb(49, 49, 49);
-    padding: 1rem 2rem;
+.paper.datos {
+  background-color: rgb(49, 49, 49);
+  padding: 1rem 2rem;
 }
-.paper.suscription{
-    background-color: #FBF7EF;
-    padding: 1rem 2rem;
+.paper.suscription {
+  background-color: #fbf7ef;
+  padding: 1rem 2rem;
 }
-.paper.analitics{
-    background-color: #FFFFFF;
-    align-items: flex-start;
+.paper.analitics {
+  background-color: #ffffff;
+  align-items: flex-start;
 }
-.paper.analitics-repartidor{
-    background-color: #FFFFFF;
-    align-items: center;
+.paper.analitics-repartidor {
+  background-color: #ffffff;
+  align-items: center;
 }
-.item-datos{
-    margin-top: 10px;
+.item-datos {
+  margin-top: 10px;
 }
-.paper-header{
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.paper-header {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

@@ -67,12 +67,12 @@
   transition: opacity 0.9s ease-in-out;
 }
 .iconSlide {
+  color: #292929;
   width: 30px;
   height: 30px;
   border-radius: 50%;
   position: absolute;
   background-color: #ffffff;
-  color: #292929;
   z-index: 2;
   display: flex;
   justify-content: center;

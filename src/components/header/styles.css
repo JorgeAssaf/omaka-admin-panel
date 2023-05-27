@@ -1,21 +1,43 @@
-.headerSectionContainer{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+.headerSectionContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 .title {
-    font-weight: bold;
+  font-weight: bold;
 }
-.btnBack{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    margin-right: 16px;
-    cursor: pointer;
+.btnBack {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 16px;
+  cursor: pointer;
 }
-.headerSectionContainer .containerHeaderFirst{display: block;width: 100%;}
-.headerSectionContainer .containerHeaderFirst .superior{display: flex; flex-direction: row;margin: 0.5rem;justify-content: flex-start;align-items: center;width: 100%;}
-.headerSectionContainer .containerHeaderFirst .inferior{display: flex;flex-direction: row;width: 100%;margin: 0.5rem 0px;justify-content:flex-start;align-items: center;flex-wrap: wrap;}
+.headerSectionContainer .containerHeaderFirst {
+  display: block;
+  width: 100%;
+}
+.headerSectionContainer .containerHeaderFirst .superior {
+  display: flex;
+  flex-direction: row;
+  margin: 0.5rem;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+.headerSectionContainer .containerHeaderFirst .inferior {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 0.5rem 0px;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.onboarding-header-filter {
+  font-size: large;
+}
