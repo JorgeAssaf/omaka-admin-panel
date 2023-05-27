@@ -3,6 +3,8 @@
   width: 100%;
   flex-direction: column;
   flex: 1;
+  color: #292929;
+  background-color: #fff;
   height: 100%;
   position: relative;
 }
@@ -48,7 +50,7 @@
   flex: 2;
   font-size: 1rem;
   font-weight: bold;
-  font-family: "Nunito";
+  font-family: 'Nunito';
 }
 
 .table-child-header.small {
