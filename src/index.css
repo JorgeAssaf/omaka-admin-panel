@@ -29,6 +29,7 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
+  color-scheme: only light;
 }
 
 h1 {
@@ -70,6 +71,10 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+.lista_container {
+  background: #fff;
+  color: #292929;
+}
 
 .flex-row-space-around {
   display: flex;
@@ -101,7 +106,6 @@ button:focus-visible {
   width: 100%;
 }
 
-
 .flex-row-center {
   display: flex;
   flex-direction: row;
@@ -110,12 +114,12 @@ button:focus-visible {
   width: 100%;
 }
 
-.relative{
-  position: relative
+.relative {
+  position: relative;
 }
 
 .closeBtn.float.circle {
-  background-color: #FBF7EF;
+  background-color: #fbf7ef;
   width: 30px;
   height: 30px;
   display: flex;
@@ -129,7 +133,7 @@ button:focus-visible {
   cursor: pointer;
 }
 
-.full-container.center{
+.full-container.center {
   width: 100%;
   height: 100%;
   flex: 1;
@@ -138,11 +142,11 @@ button:focus-visible {
   align-items: center;
 }
 
-.full-container.center.absolute{
+.full-container.center.absolute {
   position: absolute;
 }
 
-.overflow.full{
+.overflow.full {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -152,4 +156,3 @@ button:focus-visible {
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.5);
 }
-

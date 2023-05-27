@@ -37,7 +37,6 @@
 .icon-container.active {
   color: #f2e6cf;
   background-color: #292929;
-
 }
 
 .slide-bar-hovered .icon-container {
@@ -72,7 +71,8 @@
   height: 30px;
   border-radius: 50%;
   position: absolute;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
+  color: #292929;
   z-index: 2;
   display: flex;
   justify-content: center;
