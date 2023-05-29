@@ -10,6 +10,7 @@ import { DetallesRepartidor } from "../repartidores/detallesRepartidor";
 import FormularioDatos from "./formulario-datos";
 import './styles.css';
 import { esMayorDeEdad } from "../../utils/dateAndTime";
+import { validarNumeroTelefono } from "../../utils/pedidos";
 
 type NuevoRepartidorProps = {
   handleSubmit: (repartidor: RepartidorTypeForm) => void;
@@ -33,11 +34,16 @@ const NuevoRepartidor = ({ handleSubmit, setScreenShow, loading, }: NuevoReparti
       dataForm.password &&
       dataForm.telefono) {
       if (esMayorDeEdad(dataForm.fechaNacimiento)) {
-        dataForm.creador = {
-          name: DatosPersonales.nombre,
-          id: DatosPersonales?.idUsuario
+        if(validarNumeroTelefono(dataForm.telefono.trim())){
+          dataForm.creador = {
+            name: DatosPersonales.nombre,
+            id: DatosPersonales?.idUsuario
+          }
+          handleSubmit(dataForm);
+        }else{
+          toast.warning(`${dataForm.telefono}, no es un numero de telefono valido.`)
         }
-        handleSubmit(dataForm);
+    
       } else {
         toast.warning('Necesita ser mayor de edad')
       }

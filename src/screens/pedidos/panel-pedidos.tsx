@@ -93,6 +93,7 @@ export const PanelPedidos = () => {
 
   const newOrderClient = async (orderData: OrderTypeForm) => {
     setLoading(true);
+
     const resOrder = await newOrder(
       orderData,
       DatosPersonales?.idUsuario,
@@ -100,6 +101,7 @@ export const PanelPedidos = () => {
     );
 
     setLoading(false);
+    getOrderList();
     setScreenShow("list");
     if (resOrder.status == "OK") {
       toast.success("Pedido creado exitosamente!!");
@@ -121,6 +123,7 @@ export const PanelPedidos = () => {
     );
 
     setLoading(false);
+    getOrderList();
     setScreenShow("list");
     if (resOrder.status == "OK") {
       toast.success("Pedido editado exitosamente!!");

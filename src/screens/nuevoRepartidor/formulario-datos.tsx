@@ -50,7 +50,8 @@ const FormularioDatos = ({
         <div className="item-input">
           <label>Telefono</label>
           <input
-            type="phone"
+            type="tel"
+            pattern="[0-9]{3} [0-9]{3} [0-9]{4}"
             value={dataForm.telefono}
             onChange={(event) =>
               setDataForm({...dataForm,telefono:(event.target as HTMLInputElement).value})

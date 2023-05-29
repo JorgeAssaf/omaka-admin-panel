@@ -126,13 +126,13 @@ export const ModalPerfil = ({ onClose }: ModalPerfilProps) => {
               placeholder="Dirección de empresa"
             />
           </div>
-          <Buttons
+          {/* <Buttons
             action={() => editarCampo()}
             text={textButton}
             type="primary"
             color={Colors().akostik200}
             textColor={Colors().tizatl600}
-          />
+          /> */}
         </div>
       </div>
     </div>

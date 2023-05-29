@@ -83,4 +83,10 @@ export const getOrdersOfRepartidor = (allRates:RateType[],allOrders:OrderType[],
 }
 
 
+export function validarNumeroTelefono(telefono : string) {
+    const regexTelefono = /^\+?52\d+$/;
+    return regexTelefono.test(telefono);
+  }
+  
+
 

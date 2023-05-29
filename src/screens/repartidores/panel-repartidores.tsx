@@ -72,6 +72,10 @@ export const PanelRepartidores = () => {
     setLoading(false);
   };
 
+
+  
+
+
   useEffect(() => {
     let unsub = null as any;
     if (repartidor?.DatosPersonales?.idUsuario) {
