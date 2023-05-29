@@ -96,21 +96,18 @@ export const CardList = ({
             />
           </div>
           {data.filter((item) =>
+            item.DatosPersonales.nombre.toLowerCase() | item.DatosPersonales.apellido.toLowerCase().includes(searchRepartidor.toLowerCase().trim()),
 
-            item.DatosPersonales.nombre.toLowerCase() || item.DatosPersonales.apellido.toLowerCase()
-              .includes(searchRepartidor.toLowerCase().trim()),
-          )
-
-            .map((item) => {
-              return (
-                <CardRepartidor
-                  activeItem={activeItem}
-                  cardProps={cardProps}
-                  onClick={(item) => onClickItem && onClickItem(item)}
-                  data={item}
-                />
-              )
-            })}
+          ).map((item) => {
+            return (
+              <CardRepartidor
+                activeItem={activeItem}
+                cardProps={cardProps}
+                onClick={(item) => onClickItem && onClickItem(item)}
+                data={item}
+              />
+            )
+          })}
         </div>
       )
       break
