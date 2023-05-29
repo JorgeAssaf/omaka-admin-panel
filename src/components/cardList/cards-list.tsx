@@ -52,7 +52,6 @@ export const CardList = ({
       )
       break
     case 'rutas':
-
       return (
         <div className='listContainer'>
           <div className='searchContainer'>
@@ -67,7 +66,9 @@ export const CardList = ({
 
           {data
             .filter((item) =>
-              item.nombreRuta.toLowerCase().includes(searchRuta.toLowerCase().trim()),
+              item.nombreRuta
+                .toLowerCase()
+                .includes(searchRuta.toLowerCase().trim()),
             )
             .map((item) => {
               return (
@@ -83,7 +84,6 @@ export const CardList = ({
       )
       break
     case 'repartidor':
-      console.log(data);
       return (
         <div className='listContainer onboarding-item-repartidor'>
           <div className='searchContainer'>
@@ -95,19 +95,24 @@ export const CardList = ({
               onChange={(e) => setSearchRepartidor(e.currentTarget.value)}
             />
           </div>
-          {data.filter((item) =>
-            item.DatosPersonales.nombre.toLowerCase() | item.DatosPersonales.apellido.toLowerCase().includes(searchRepartidor.toLowerCase().trim()),
-
-          ).map((item) => {
-            return (
-              <CardRepartidor
-                activeItem={activeItem}
-                cardProps={cardProps}
-                onClick={(item) => onClickItem && onClickItem(item)}
-                data={item}
-              />
+          {data
+            .filter(
+              (item) =>
+                item.DatosPersonales.nombre
+                  .toLowerCase()
+                  .includes(searchRepartidor.toLowerCase().trim()) |
+                item.DatosPersonales.apellido.toLowerCase(),
             )
-          })}
+            .map((item) => {
+              return (
+                <CardRepartidor
+                  activeItem={activeItem}
+                  cardProps={cardProps}
+                  onClick={(item) => onClickItem && onClickItem(item)}
+                  data={item}
+                />
+              )
+            })}
         </div>
       )
       break
