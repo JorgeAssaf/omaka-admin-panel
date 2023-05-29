@@ -8,6 +8,7 @@ import { usePlacesWidget } from "react-google-autocomplete";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/reducers/mainReducer";
 import Geocode from "react-geocode";
+import { validarNumeroTelefono } from "../../utils/pedidos";
 
 type NuevoPedidoProps = {
   handleSubmit: (pedido: OrderTypeForm, isEditPedido: boolean) => void;
@@ -21,10 +22,7 @@ type NuevoPedidoProps = {
 const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails, isEditPedido, datosPedido }: NuevoPedidoProps) => {
   const [nombreCliente, setNombreCliente] = useState('');
   const [direccionPedido, setDireccionPedido] = useState('');
-  const [ubicacionPedido, setUbicacionPedido] = useState({
-    lat: 20.661844,
-    lng: -103.704351
-  } as OrderTypeForm["ubicacionPedido"]);
+  const [ubicacionPedido, setUbicacionPedido] = useState({} as OrderTypeForm["ubicacionPedido"]);
   const [telefonoPedido, setTelefonoPedido] = useState('');
   const [notaDePedido, setNotaDePedido] = useState('');
   const [orderSaved, setOrderSaved] = useState(false);
@@ -106,15 +104,26 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails, i
 
 
   const callBackPedido = () => {
-    if (nombreCliente && direccionPedido && ubicacionPedido.lat && ubicacionPedido.lng && telefonoPedido && notaDePedido) {
-      handleSubmit({
-        nombreCliente,
-        direccionPedido,
-        ubicacionPedido,
-        telefonoPedido,
-        notaDePedido,
-        orderSaved
-      }, isEditPedido);
+    if (nombreCliente && direccionPedido && telefonoPedido && notaDePedido) {
+      if(ubicacionPedido.lat && ubicacionPedido.lng){
+        if(validarNumeroTelefono(telefonoPedido.trim())){
+          handleSubmit({
+            nombreCliente,
+            direccionPedido,
+            ubicacionPedido,
+            telefonoPedido,
+            notaDePedido,
+            orderSaved
+          }, isEditPedido);
+        }else{
+          toast.warning(`${telefonoPedido}, no es un numero de telefono valido.`)
+
+        }
+      }else{
+      toast.error('Selecciona una direccion del autocompletador o selecciona un punto en el mapa')
+
+      }
+
     } else {
       toast.error('Llena todos los campos :D')
     }
@@ -150,7 +159,7 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails, i
       <div className="item-input">
         <label>Telefono:</label>
         <input
-          type="text"
+          type="tel"
           value={telefonoPedido}
           onChange={(event) =>
             setTelefonoPedido((event.target as HTMLInputElement).value)
@@ -158,17 +167,7 @@ const NuevoPedido = ({ handleSubmit, loading, setDireccionText, clientDetails, i
           required
         />
       </div>
-      <div className="item-input">
-        <label>Entregar para el :</label>
-        <input
-          type="text"
-          value={telefonoPedido}
-          onChange={(event) =>
-            setTelefonoPedido((event.target as HTMLInputElement).value)
-          }
-          required
-        />
-      </div>
+
       <div className="item-input">
         <label>Notas:</label>
         <textarea

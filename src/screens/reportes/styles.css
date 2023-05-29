@@ -46,8 +46,13 @@
   align-items: center;
 }
 
+.input-container{
+  padding: 10px 30px;
+}
+
 .table-child-header {
   flex: 2;
+  margin: 0px;
   font-size: 1rem;
   font-weight: bold;
   font-family: 'Nunito';
